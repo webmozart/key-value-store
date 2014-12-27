@@ -11,9 +11,8 @@
 
 namespace Webmozart\KeyValueStore\Tests\Impl;
 
-use Predis\Client;
-use Predis\Connection\ConnectionException;
-use Webmozart\KeyValueStore\Impl\RedisStore;
+use Memcache;
+use Webmozart\KeyValueStore\Impl\MemcacheStore;
 use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
 use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
 
@@ -21,7 +20,7 @@ use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RedisStoreTest extends AbstractKeyValueStoreTest
+class MemcacheStoreTest extends AbstractKeyValueStoreTest
 {
     use PurgeableTestTrait;
 
@@ -31,15 +30,15 @@ class RedisStoreTest extends AbstractKeyValueStoreTest
     {
         parent::setUpBeforeClass();
 
-        $client = new Client();
-
-        try {
-            $client->connect();
-            $client->disconnect();
-            self::$supported = true;
-        } catch (ConnectionException $e) {
+        if (!class_exists('\Memcache')) {
             self::$supported = false;
+
+            return;
         }
+
+        $client = new Memcache();
+
+        self::$supported = $client->connect('127.0.0.1');
     }
 
     protected function setUp()
@@ -53,6 +52,6 @@ class RedisStoreTest extends AbstractKeyValueStoreTest
 
     protected function createStore()
     {
-        return new RedisStore();
+        return new MemcacheStore();
     }
 }
