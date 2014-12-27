@@ -27,6 +27,7 @@ interface KeyValueStore
      *
      * @throws InvalidKeyException If the key is invalid.
      * @throws SerializationFailedException If the value cannot be serialized.
+     * @throws StorageException If the storage of the key failed.
      */
     public function set($key, $value);
 
@@ -40,6 +41,7 @@ interface KeyValueStore
      *               not set.
      *
      * @throws InvalidKeyException If the key is invalid.
+     * @throws StorageException If the retrieval of the key failed.
      */
     public function get($key, $default = null);
 
@@ -53,6 +55,7 @@ interface KeyValueStore
      * @return bool Whether a key was removed.
      *
      * @throws InvalidKeyException If the key is invalid.
+     * @throws StorageException If the removal of the key failed.
      */
     public function remove($key);
 
@@ -64,11 +67,14 @@ interface KeyValueStore
      * @return bool Whether the store contains the key.
      *
      * @throws InvalidKeyException If the key is invalid.
+     * @throws StorageException If the query of the key failed.
      */
     public function has($key);
 
     /**
      * Removes all keys from the store.
+     *
+     * @throws StorageException If the removal failed.
      */
     public function clear();
 }

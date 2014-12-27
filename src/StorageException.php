@@ -14,11 +14,11 @@ namespace Webmozart\KeyValueStore;
 use RuntimeException;
 
 /**
- * Thrown when a key-value store cannot be initialized.
+ * Thrown when the storage or retrieval of a key failed.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class InitializationException extends RuntimeException
+class StorageException extends RuntimeException
 {
 }

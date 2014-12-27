@@ -13,7 +13,7 @@ namespace Webmozart\KeyValueStore\Impl;
 
 use Exception;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\InitializationException;
+use Webmozart\KeyValueStore\StorageException;
 use Webmozart\KeyValueStore\SerializationFailedException;
 use Webmozart\KeyValueStore\KeyValueStore;
 
@@ -161,7 +161,7 @@ class SharedMemoryStore implements KeyValueStore
         }
 
         if (!($resource = shm_attach(ftok($this->path, 'a'), $this->size, $this->permissions))) {
-            throw new InitializationException('Could not create the shared memory segment.');
+            throw new StorageException('Could not create the shared memory segment.');
         }
 
         $this->resource = $resource;
