@@ -1,0 +1,33 @@
+{
+    "name": "webmozart/key-value-store",
+    "description": "A key-value store with support for different backends.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bernhard Schussek",
+            "email": "bschussek@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "php": ">=5.4",
+        "predis/predis": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webmozart\\KeyValueStore\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webmozart\\KeyValueStore\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
