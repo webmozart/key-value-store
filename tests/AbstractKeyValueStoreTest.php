@@ -39,7 +39,9 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-        $this->store->clear();
+        if ($this->store) {
+            $this->store->clear();
+        }
     }
 
     public function provideValidKeys()
