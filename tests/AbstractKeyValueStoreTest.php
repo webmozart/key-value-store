@@ -108,7 +108,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider provideValidKeys
+     * @dataProvider provideValidValues
      */
     public function testSetSupportsSerializableValues($value)
     {
@@ -119,6 +119,8 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         } else {
             $this->assertEquals($value, $this->store->get('key'));
         }
+
+        $this->assertTrue($this->store->has('key'));
     }
 
     public function provideInvalidValues()
@@ -144,6 +146,11 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     public function testGetFailsIfInvalidKey($key)
     {
         $this->store->get($key);
+    }
+
+    public function testGetReturnsDefaultIfKeyNotFound()
+    {
+        $this->assertSame('bar', $this->store->get('foo', 'bar'));
     }
 
     /**

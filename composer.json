@@ -13,7 +13,9 @@
     },
     "require-dev": {
         "php": ">=5.4",
-        "predis/predis": "~1.0"
+        "symfony/filesystem": "~2.5",
+        "predis/predis": "~1.0",
+        "fire015/flintstone": "~1.8"
     },
     "autoload": {
         "psr-4": {
