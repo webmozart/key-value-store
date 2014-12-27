@@ -11,6 +11,7 @@
 
 namespace Webmozart\KeyValueStore;
 
+use Exception;
 use RuntimeException;
 
 /**
@@ -21,4 +22,15 @@ use RuntimeException;
  */
 class InvalidValueException extends RuntimeException
 {
+    /**
+     * Creates a new exception for the given exception.
+     *
+     * @param Exception $e The exception that occurred.
+     *
+     * @return static The new exception.
+     */
+    public static function forException(Exception $e)
+    {
+        return new static('Could not serialize value: '.$e->getMessage(), $e->getCode(), $e);
+    }
 }

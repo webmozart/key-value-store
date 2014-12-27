@@ -89,10 +89,7 @@ class SharedMemoryStore implements KeyValueStore, Purgeable
         try {
             shm_put_var($this->resource, $this->keyToInt($key), $value);
         } catch (Exception $e) {
-            throw new InvalidValueException(sprintf(
-                'Failed to serialize the value: %s',
-                $e->getMessage()
-            ), $e->getCode(), $e);
+            throw InvalidValueException::forException($e);
         }
     }
 

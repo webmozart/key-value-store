@@ -27,4 +27,13 @@ class ArrayStoreTest extends AbstractKeyValueStoreTest
     {
         return new ArrayStore();
     }
+
+    /**
+     * @dataProvider provideInvalidValues
+     */
+    public function testSetSupportsFailsIfValueNotSerializable($value)
+    {
+        // ArrayStore never serializes its values
+        $this->assertTrue(true);
+    }
 }
