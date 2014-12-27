@@ -3,7 +3,7 @@ Webmozart Key-Value-Store
 
 [![Build Status](https://travis-ci.org/webmozart/key-value-store.svg?branch=master)](https://travis-ci.org/webmozart/key-value-store)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/webmozart/key-value-store/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/webmozart/key-value-store/?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4160f60e-541b-4090-a850-3005e84d6a44/mini.png)](https://insight.sensiolabs.com/projects/4160f60e-541b-4090-a850-3005e84d6a44)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/61586798-236a-462a-8429-d8311c1a2500/mini.png)](https://insight.sensiolabs.com/projects/61586798-236a-462a-8429-d8311c1a2500)
 [![Latest Stable Version](https://poser.pugx.org/webmozart/key-value-store/v/stable.svg)](https://packagist.org/packages/webmozart/key-value-store)
 [![Total Downloads](https://poser.pugx.org/webmozart/key-value-store/downloads.svg)](https://packagist.org/packages/webmozart/key-value-store)
 [![Dependency Status](https://www.versioneye.com/php/webmozart:key-value-store/1.0.0/badge.svg)](https://www.versioneye.com/php/webmozart:key-value-store/1.0.0)
