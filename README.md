@@ -36,7 +36,7 @@ Installation
 Use [Composer] to install the package:
 
 ```
-composer require webmozart/key-value-store@dev
+$ composer require webmozart/key-value-store@dev
 ```
 
 Contribute
