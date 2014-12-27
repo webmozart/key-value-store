@@ -14,7 +14,6 @@ namespace Webmozart\KeyValueStore\Tests\Impl;
 use Memcache;
 use Webmozart\KeyValueStore\Impl\MemcacheStore;
 use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
-use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
 
 /**
  * @since  1.0
@@ -22,8 +21,6 @@ use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
  */
 class MemcacheStoreTest extends AbstractKeyValueStoreTest
 {
-    use PurgeableTestTrait;
-
     private static $supported;
 
     public static function setUpBeforeClass()

@@ -65,4 +65,9 @@ interface KeyValueStore
      * @throws InvalidKeyException If the key is invalid.
      */
     public function has($key);
+
+    /**
+     * Removes all keys from the store.
+     */
+    public function clear();
 }

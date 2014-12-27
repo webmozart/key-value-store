@@ -12,7 +12,6 @@
 namespace Webmozart\KeyValueStore\Impl;
 
 use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\Purgeable;
 
 /**
  * A key-value store that does nothing.
@@ -51,5 +50,11 @@ class NullStore implements KeyValueStore
     public function has($key)
     {
         return false;
+    }
+    /**
+     * {@inheritdoc}
+     */
+    public function clear()
+    {
     }
 }

@@ -14,7 +14,6 @@ namespace Webmozart\KeyValueStore\Tests\Impl;
 use Basho\Riak\Riak;
 use Webmozart\KeyValueStore\Impl\RiakStore;
 use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
-use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
 
 /**
  * @since  1.0
@@ -22,8 +21,6 @@ use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
  */
 class RiakStoreTest extends AbstractKeyValueStoreTest
 {
-    use PurgeableTestTrait;
-
     private static $supported;
 
     public static function setUpBeforeClass()

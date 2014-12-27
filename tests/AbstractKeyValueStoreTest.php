@@ -13,7 +13,7 @@ namespace Webmozart\KeyValueStore\Tests;
 
 use PHPUnit_Framework_TestCase;
 use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\Purgeable;
+use Webmozart\KeyValueStore\Clearable;
 use Webmozart\KeyValueStore\Tests\Fixtures\NotSerializable;
 
 /**
@@ -39,14 +39,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-        if ($this->store instanceof Purgeable) {
-            $this->store->purge();
-        }
-    }
-
-    protected function getStore()
-    {
-        return $this->store;
+        $this->store->clear();
     }
 
     public function provideValidKeys()
@@ -193,5 +186,37 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     public function testRemoveFailsIfInvalidKey($key)
     {
         $this->store->remove($key);
+    }
+
+    public function testClear()
+    {
+        $this->store->set('a', 1234);
+        $this->store->set('b', 5678);
+        $this->store->set('c', 9123);
+
+        $this->store->clear();
+
+        $this->assertFalse($this->store->has('a'));
+        $this->assertFalse($this->store->has('b'));
+        $this->assertFalse($this->store->has('c'));
+    }
+
+    public function testClearEmpty()
+    {
+        $this->store->clear();
+    }
+
+    public function testClearAndSet()
+    {
+        $this->store->set('a', 1234);
+
+        $this->store->clear();
+
+        $this->assertFalse($this->store->has('a'));
+
+        $this->store->set('a', 1234);
+
+        $this->assertTrue($this->store->has('a'));
+        $this->assertSame(1234, $this->store->get('a'));
     }
 }

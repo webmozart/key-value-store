@@ -16,7 +16,6 @@ use Webmozart\KeyValueStore\Assert\Assertion;
 use Webmozart\KeyValueStore\InitializationException;
 use Webmozart\KeyValueStore\InvalidValueException;
 use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\Purgeable;
 
 /**
  * A key-value store backed by a shared memory.
@@ -24,7 +23,7 @@ use Webmozart\KeyValueStore\Purgeable;
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class SharedMemoryStore implements KeyValueStore, Purgeable
+class SharedMemoryStore implements KeyValueStore
 {
     /**
      * @var string
@@ -142,7 +141,7 @@ class SharedMemoryStore implements KeyValueStore, Purgeable
     /**
      * {@inheritdoc}
      */
-    public function purge()
+    public function clear()
     {
         if (!$this->resource) {
             $this->connect();

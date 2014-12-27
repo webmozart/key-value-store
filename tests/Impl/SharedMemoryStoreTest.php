@@ -13,7 +13,6 @@ namespace Webmozart\KeyValueStore\Tests\Impl;
 
 use Webmozart\KeyValueStore\Impl\SharedMemoryStore;
 use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
-use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
 
 /**
  * @since  1.0
@@ -21,8 +20,6 @@ use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
  */
 class SharedMemoryStoreTest extends AbstractKeyValueStoreTest
 {
-    use PurgeableTestTrait;
-
     private $tempFile;
 
     protected function setUp()

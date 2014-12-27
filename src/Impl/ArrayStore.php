@@ -13,7 +13,6 @@ namespace Webmozart\KeyValueStore\Impl;
 
 use Webmozart\KeyValueStore\Assert\Assertion;
 use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\Purgeable;
 
 /**
  * A key-value store backed by a PHP array.
@@ -23,7 +22,7 @@ use Webmozart\KeyValueStore\Purgeable;
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class ArrayStore implements KeyValueStore, Purgeable
+class ArrayStore implements KeyValueStore
 {
     /**
      * @var array
@@ -87,7 +86,7 @@ class ArrayStore implements KeyValueStore, Purgeable
     /**
      * {@inheritdoc}
      */
-    public function purge()
+    public function clear()
     {
         $this->array = array();
     }

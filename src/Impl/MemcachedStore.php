@@ -18,7 +18,6 @@ use RuntimeException;
 use Webmozart\KeyValueStore\Assert\Assertion;
 use Webmozart\KeyValueStore\InvalidValueException;
 use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\Purgeable;
 
 /**
  * A key-value store backed by a Memcached instance.
@@ -26,7 +25,7 @@ use Webmozart\KeyValueStore\Purgeable;
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class MemcachedStore implements KeyValueStore, Purgeable
+class MemcachedStore implements KeyValueStore
 {
     /**
      * @var Memcache
@@ -108,7 +107,7 @@ class MemcachedStore implements KeyValueStore, Purgeable
     /**
      * {@inheritdoc}
      */
-    public function purge()
+    public function clear()
     {
         $this->client->flush();
     }

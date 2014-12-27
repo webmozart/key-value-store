@@ -15,7 +15,6 @@ use Flintstone\FlintstoneDB;
 use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\KeyValueStore\Impl\FlintstoneStore;
 use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
-use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
 
 /**
  * @since  1.0
@@ -23,8 +22,6 @@ use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
  */
 class FlintstoneStoreTest extends AbstractKeyValueStoreTest
 {
-    use PurgeableTestTrait;
-
     private $tempDir;
 
     protected function setUp()

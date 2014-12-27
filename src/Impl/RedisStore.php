@@ -17,7 +17,6 @@ use Predis\ClientInterface;
 use Webmozart\KeyValueStore\Assert\Assertion;
 use Webmozart\KeyValueStore\InvalidValueException;
 use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\Purgeable;
 
 /**
  * A key-value store backed by a Redis instance.
@@ -25,7 +24,7 @@ use Webmozart\KeyValueStore\Purgeable;
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RedisStore implements KeyValueStore, Purgeable
+class RedisStore implements KeyValueStore
 {
     /**
      * @var ClientInterface
@@ -96,7 +95,7 @@ class RedisStore implements KeyValueStore, Purgeable
     /**
      * {@inheritdoc}
      */
-    public function purge()
+    public function clear()
     {
         $this->client->flushdb();
     }

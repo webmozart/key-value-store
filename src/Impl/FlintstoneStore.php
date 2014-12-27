@@ -16,7 +16,6 @@ use Flintstone\FlintstoneDB;
 use Webmozart\KeyValueStore\Assert\Assertion;
 use Webmozart\KeyValueStore\InvalidValueException;
 use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\Purgeable;
 
 /**
  * A key-value store backed by a simple file.
@@ -26,7 +25,7 @@ use Webmozart\KeyValueStore\Purgeable;
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class FlintstoneStore implements KeyValueStore, Purgeable
+class FlintstoneStore implements KeyValueStore
 {
     /**
      * @var FlintstoneDB
@@ -96,7 +95,7 @@ class FlintstoneStore implements KeyValueStore, Purgeable
     /**
      * {@inheritdoc}
      */
-    public function purge()
+    public function clear()
     {
         $this->db->flush();
     }
