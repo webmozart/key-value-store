@@ -11,8 +11,8 @@
 
 namespace Webmozart\KeyValueStore\Tests\Impl;
 
-use Memcache;
-use Webmozart\KeyValueStore\Impl\MemcacheStore;
+use Memcached;
+use Webmozart\KeyValueStore\Impl\MemcachedStore;
 use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
 use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
 
@@ -20,7 +20,7 @@ use Webmozart\KeyValueStore\Tests\PurgeableTestTrait;
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class MemcacheStoreTest extends AbstractKeyValueStoreTest
+class MemcachedStoreTest extends AbstractKeyValueStoreTest
 {
     use PurgeableTestTrait;
 
@@ -30,21 +30,19 @@ class MemcacheStoreTest extends AbstractKeyValueStoreTest
     {
         parent::setUpBeforeClass();
 
-        if (!class_exists('\Memcache')) {
+        if (!class_exists('\Memcached')) {
             self::$supported = false;
 
             return;
         }
 
-        $client = new Memcache();
-
-        self::$supported = $client->connect('127.0.0.1');
+        self::$supported = true;
     }
 
     protected function setUp()
     {
         if (!self::$supported) {
-            $this->markTestSkipped('Memcache is not supported.');
+            $this->markTestSkipped('Memcached is not supported.');
         }
 
         parent::setUp();
@@ -52,6 +50,6 @@ class MemcacheStoreTest extends AbstractKeyValueStoreTest
 
     protected function createStore()
     {
-        return new MemcacheStore();
+        return new MemcachedStore();
     }
 }
