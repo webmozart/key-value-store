@@ -11,7 +11,6 @@
 
 namespace Webmozart\KeyValueStore\Impl;
 
-use Webmozart\KeyValueStore\Assert\Assertion;
 use Webmozart\KeyValueStore\KeyValueStore;
 use Webmozart\KeyValueStore\Purgeable;
 
