@@ -20,7 +20,7 @@ use Webmozart\KeyValueStore\Purgeable;
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class NullStore implements KeyValueStore, Purgeable
+class NullStore implements KeyValueStore
 {
     /**
      * {@inheritdoc}
@@ -51,12 +51,5 @@ class NullStore implements KeyValueStore, Purgeable
     public function has($key)
     {
         return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function purge()
-    {
     }
 }
