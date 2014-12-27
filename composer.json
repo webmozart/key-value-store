@@ -15,7 +15,8 @@
         "php": ">=5.4",
         "symfony/filesystem": "~2.5",
         "predis/predis": "~1.0",
-        "fire015/flintstone": "~1.8"
+        "fire015/flintstone": "~1.8",
+        "basho/riak": "~1.4"
     },
     "autoload": {
         "psr-4": {
