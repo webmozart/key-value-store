@@ -19,6 +19,10 @@ use Webmozart\KeyValueStore\KeyValueStore;
 use Webmozart\KeyValueStore\Purgeable;
 
 /**
+ * A key-value store backed by a simple file.
+ *
+ * The {@link FlintstoneDB} class is used to read from and write to the file.
+ *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
@@ -29,6 +33,11 @@ class FlintstoneStore implements KeyValueStore, Purgeable
      */
     private $db;
 
+    /**
+     * Creates a new store using the given database backend.
+     *
+     * @param FlintstoneDB $db The database to read from and write to.
+     */
     public function __construct(FlintstoneDB $db)
     {
         $this->db = $db;
