@@ -13,9 +13,9 @@ namespace Webmozart\KeyValueStore\Impl;
 
 use Exception;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\StorageException;
-use Webmozart\KeyValueStore\SerializationFailedException;
 use Webmozart\KeyValueStore\KeyValueStore;
+use Webmozart\KeyValueStore\SerializationFailedException;
+use Webmozart\KeyValueStore\StorageException;
 
 /**
  * A key-value store backed by a shared memory.

@@ -12,8 +12,8 @@
 namespace Webmozart\KeyValueStore\Tests;
 
 use PHPUnit_Framework_TestCase;
-use Webmozart\KeyValueStore\KeyValueStore;
 use Webmozart\KeyValueStore\Clearable;
+use Webmozart\KeyValueStore\KeyValueStore;
 use Webmozart\KeyValueStore\Tests\Fixtures\NotSerializable;
 
 /**

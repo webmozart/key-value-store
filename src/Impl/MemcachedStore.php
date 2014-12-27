@@ -16,8 +16,8 @@ use Memcache;
 use Memcached;
 use RuntimeException;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\SerializationFailedException;
 use Webmozart\KeyValueStore\KeyValueStore;
+use Webmozart\KeyValueStore\SerializationFailedException;
 
 /**
  * A key-value store backed by a Memcached instance.

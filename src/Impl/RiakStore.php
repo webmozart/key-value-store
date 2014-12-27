@@ -14,8 +14,8 @@ namespace Webmozart\KeyValueStore\Impl;
 use Basho\Riak\Riak;
 use Exception;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\SerializationFailedException;
 use Webmozart\KeyValueStore\KeyValueStore;
+use Webmozart\KeyValueStore\SerializationFailedException;
 
 /**
  * A key-value store backed by a Riak client.
