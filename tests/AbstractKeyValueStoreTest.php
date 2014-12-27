@@ -125,7 +125,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideInvalidValues
-     * @expectedException \Webmozart\KeyValueStore\InvalidValueException
+     * @expectedException \Webmozart\KeyValueStore\SerializationFailedException
      */
     public function testSetSupportsFailsIfValueNotSerializable($value)
     {

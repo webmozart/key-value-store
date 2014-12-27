@@ -14,7 +14,7 @@ namespace Webmozart\KeyValueStore\Impl;
 use Exception;
 use Memcache;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\InvalidValueException;
+use Webmozart\KeyValueStore\SerializationFailedException;
 use Webmozart\KeyValueStore\KeyValueStore;
 
 /**
@@ -58,7 +58,7 @@ class MemcacheStore implements KeyValueStore
         try {
             $serialized = serialize($value);
         } catch (Exception $e) {
-            throw InvalidValueException::forException($e);
+            throw SerializationFailedException::forException($e);
         }
 
         $this->client->set($key, $serialized);

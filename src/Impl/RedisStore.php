@@ -15,7 +15,7 @@ use Exception;
 use Predis\Client;
 use Predis\ClientInterface;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\InvalidValueException;
+use Webmozart\KeyValueStore\SerializationFailedException;
 use Webmozart\KeyValueStore\KeyValueStore;
 
 /**
@@ -54,7 +54,7 @@ class RedisStore implements KeyValueStore
         try {
             $serialized = serialize($value);
         } catch (Exception $e) {
-            throw InvalidValueException::forException($e);
+            throw SerializationFailedException::forException($e);
         }
 
         $this->client->set($key, $serialized);

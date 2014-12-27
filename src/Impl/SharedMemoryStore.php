@@ -14,7 +14,7 @@ namespace Webmozart\KeyValueStore\Impl;
 use Exception;
 use Webmozart\KeyValueStore\Assert\Assertion;
 use Webmozart\KeyValueStore\InitializationException;
-use Webmozart\KeyValueStore\InvalidValueException;
+use Webmozart\KeyValueStore\SerializationFailedException;
 use Webmozart\KeyValueStore\KeyValueStore;
 
 /**
@@ -88,7 +88,7 @@ class SharedMemoryStore implements KeyValueStore
         try {
             shm_put_var($this->resource, $this->keyToInt($key), $value);
         } catch (Exception $e) {
-            throw InvalidValueException::forException($e);
+            throw SerializationFailedException::forException($e);
         }
     }
 

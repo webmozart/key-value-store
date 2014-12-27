@@ -14,7 +14,7 @@ namespace Webmozart\KeyValueStore\Impl;
 use Basho\Riak\Riak;
 use Exception;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\InvalidValueException;
+use Webmozart\KeyValueStore\SerializationFailedException;
 use Webmozart\KeyValueStore\KeyValueStore;
 
 /**
@@ -60,7 +60,7 @@ class RiakStore implements KeyValueStore
         try {
             $serialized = serialize($value);
         } catch (Exception $e) {
-            throw InvalidValueException::forException($e);
+            throw SerializationFailedException::forException($e);
         }
 
         $this->client->bucket($this->bucketName)->newObject($key, $serialized)->store();

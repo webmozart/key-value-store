@@ -26,6 +26,7 @@ interface KeyValueStore
      * @param mixed      $value The value to set for the key.
      *
      * @throws InvalidKeyException If the key is invalid.
+     * @throws SerializationFailedException If the value cannot be serialized.
      */
     public function set($key, $value);
 
