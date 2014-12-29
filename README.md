@@ -65,12 +65,12 @@ All contents of this package are licensed under the [MIT license].
 [Git repository]: https://github.com/webmozart/key-value-store
 [@webmozart]: https://twitter.com/webmozart
 [MIT license]: LICENSE
-[`KeyValueStore`]: src/KeyValueStore.php
-[`ArrayStore`]: src/Impl/ArrayStore.php
-[`FlintstoneStore`]: src/Impl/FlintstoneStore.php
-[`MemcacheStore`]: src/Impl/MemcacheStore.php
-[`MemcachedStore`]: src/Impl/MemcachedStore.php
-[`NullStore`]: src/Impl/NullStore.php
-[`RedisStore`]: src/Impl/RedisStore.php
-[`RiakStore`]: src/Impl/RiakStore.php
-[`SharedMemoryStore`]: src/Impl/SharedMemoryStore.php
+[`KeyValueStore`]: src/Api/KeyValueStore.php
+[`ArrayStore`]: src/ArrayStore.php
+[`FlintstoneStore`]: src/FlintstoneStore.php
+[`MemcacheStore`]: src/MemcacheStore.php
+[`MemcachedStore`]: src/MemcachedStore.php
+[`NullStore`]: src/NullStore.php
+[`RedisStore`]: src/RedisStore.php
+[`RiakStore`]: src/RiakStore.php
+[`SharedMemoryStore`]: src/SharedMemoryStore.php
