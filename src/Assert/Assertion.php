@@ -11,7 +11,7 @@
 
 namespace Webmozart\KeyValueStore\Assert;
 
-use Webmozart\KeyValueStore\InvalidKeyException;
+use Webmozart\KeyValueStore\Api\InvalidKeyException;
 
 /**
  * @since  1.0

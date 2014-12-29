@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Impl;
+namespace Webmozart\KeyValueStore;
 
 use Exception;
 use Flintstone\FlintstoneDB;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\SerializationFailedException;
 
 /**
  * A key-value store backed by a simple file.

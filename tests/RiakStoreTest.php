@@ -9,11 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests\Impl;
+namespace Webmozart\KeyValueStore\Tests;
 
 use Basho\Riak\Riak;
-use Webmozart\KeyValueStore\Impl\RiakStore;
-use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
+use Webmozart\KeyValueStore\RiakStore;
 
 /**
  * @since  1.0

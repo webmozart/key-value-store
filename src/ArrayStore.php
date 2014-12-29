@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Impl;
+namespace Webmozart\KeyValueStore;
 
+use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\KeyValueStore;
 
 /**
  * A key-value store backed by a PHP array.

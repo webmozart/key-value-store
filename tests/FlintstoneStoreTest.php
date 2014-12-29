@@ -9,12 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests\Impl;
+namespace Webmozart\KeyValueStore\Tests;
 
 use Flintstone\FlintstoneDB;
 use Symfony\Component\Filesystem\Filesystem;
-use Webmozart\KeyValueStore\Impl\FlintstoneStore;
-use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
+use Webmozart\KeyValueStore\FlintstoneStore;
 
 /**
  * @since  1.0

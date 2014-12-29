@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests\Impl;
+namespace Webmozart\KeyValueStore\Tests;
 
 use PHPUnit_Framework_TestCase;
-use Webmozart\KeyValueStore\Impl\NullStore;
+use Webmozart\KeyValueStore\NullStore;
 
 /**
  * @since  1.0

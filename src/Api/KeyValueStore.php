@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore;
+namespace Webmozart\KeyValueStore\Api;
 
 /**
  * A key-value store.

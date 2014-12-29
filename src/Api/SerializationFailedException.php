@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore;
+namespace Webmozart\KeyValueStore\Api;
 
 use Exception;
 use RuntimeException;

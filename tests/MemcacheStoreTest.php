@@ -9,17 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests\Impl;
+namespace Webmozart\KeyValueStore\Tests;
 
-use Memcached;
-use Webmozart\KeyValueStore\Impl\MemcachedStore;
-use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
+use Memcache;
+use Webmozart\KeyValueStore\MemcacheStore;
 
 /**
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class MemcachedStoreTest extends AbstractKeyValueStoreTest
+class MemcacheStoreTest extends AbstractKeyValueStoreTest
 {
     private static $supported;
 
@@ -27,19 +26,21 @@ class MemcachedStoreTest extends AbstractKeyValueStoreTest
     {
         parent::setUpBeforeClass();
 
-        if (!class_exists('\Memcached')) {
+        if (!class_exists('\Memcache')) {
             self::$supported = false;
 
             return;
         }
 
-        self::$supported = true;
+        $client = new Memcache();
+
+        self::$supported = $client->connect('127.0.0.1');
     }
 
     protected function setUp()
     {
         if (!self::$supported) {
-            $this->markTestSkipped('Memcached is not supported.');
+            $this->markTestSkipped('Memcache is not supported.');
         }
 
         parent::setUp();
@@ -47,6 +48,6 @@ class MemcachedStoreTest extends AbstractKeyValueStoreTest
 
     protected function createStore()
     {
-        return new MemcachedStore();
+        return new MemcacheStore();
     }
 }

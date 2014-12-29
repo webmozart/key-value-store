@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests\Impl;
+namespace Webmozart\KeyValueStore\Tests;
 
-use Webmozart\KeyValueStore\Impl\SharedMemoryStore;
-use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
+use Webmozart\KeyValueStore\SharedMemoryStore;
 
 /**
  * @since  1.0

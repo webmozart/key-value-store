@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore;
+namespace Webmozart\KeyValueStore\Api;
 
 use RuntimeException;
 
 /**
- * Thrown when a key is invalid.
+ * Thrown when the storage or retrieval of a key failed.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class InvalidKeyException extends RuntimeException
+class StorageException extends RuntimeException
 {
 }

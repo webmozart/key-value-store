@@ -1,47 +1,51 @@
 <?php
 
 /*
- * This file is part of the Symfony package.
+ * This file is part of the webmozart/key-value-store package.
  *
- * (c) Fabien Potencier <fabien@symfony.com>
+ * (c) Bernhard Schussek <bschussek@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Impl;
+namespace Webmozart\KeyValueStore;
 
 use Exception;
-use Predis\Client;
-use Predis\ClientInterface;
+use Memcache;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\SerializationFailedException;
 
 /**
- * A key-value store backed by a Redis instance.
+ * A key-value store backed by a Memcache instance.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RedisStore implements KeyValueStore
+class MemcacheStore implements KeyValueStore
 {
     /**
-     * @var ClientInterface
+     * @var Memcache
      */
     private $client;
 
     /**
-     * Creates a store backed by a Redis client.
+     * Creates the store using the given Memcache instance.
      *
-     * If no client is passed, a new one is created using the default server
-     * "127.0.0.1" and the default port 6379.
+     * If no instance is passed, a new instance is created connecting to
+     * "127.0.0.1" and the default port.
      *
-     * @param ClientInterface $client The client used to connect to Redis.
+     * @param Memcache $client The Memcache client.
      */
-    public function __construct(ClientInterface $client = null)
+    public function __construct(Memcache $client = null)
     {
-        $this->client = $client ?: new Client();
+        if (null === $client) {
+            $client = new Memcache();
+            $client->connect('127.0.0.1');
+        }
+
+        $this->client = $client;
     }
 
     /**
@@ -67,9 +71,11 @@ class RedisStore implements KeyValueStore
     {
         Assertion::key($key);
 
-        return $this->client->exists($key)
-            ? unserialize($this->client->get($key))
-            : $default;
+        if (false === ($serialized = $this->client->get($key))) {
+            return $default;
+        }
+
+        return unserialize($serialized);
     }
 
     /**
@@ -79,7 +85,7 @@ class RedisStore implements KeyValueStore
     {
         Assertion::key($key);
 
-        return (bool) $this->client->del($key);
+        return $this->client->delete($key);
     }
 
     /**
@@ -89,7 +95,7 @@ class RedisStore implements KeyValueStore
     {
         Assertion::key($key);
 
-        return $this->client->exists($key);
+        return false !== $this->client->get($key);
     }
 
     /**
@@ -97,6 +103,6 @@ class RedisStore implements KeyValueStore
      */
     public function clear()
     {
-        $this->client->flushdb();
+        $this->client->flush();
     }
 }

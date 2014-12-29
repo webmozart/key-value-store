@@ -1,51 +1,47 @@
 <?php
 
 /*
- * This file is part of the webmozart/key-value-store package.
+ * This file is part of the Symfony package.
  *
- * (c) Bernhard Schussek <bschussek@gmail.com>
+ * (c) Fabien Potencier <fabien@symfony.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Impl;
+namespace Webmozart\KeyValueStore;
 
 use Exception;
-use Memcache;
+use Predis\Client;
+use Predis\ClientInterface;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\SerializationFailedException;
 
 /**
- * A key-value store backed by a Memcache instance.
+ * A key-value store backed by a Redis instance.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class MemcacheStore implements KeyValueStore
+class RedisStore implements KeyValueStore
 {
     /**
-     * @var Memcache
+     * @var ClientInterface
      */
     private $client;
 
     /**
-     * Creates the store using the given Memcache instance.
+     * Creates a store backed by a Redis client.
      *
-     * If no instance is passed, a new instance is created connecting to
-     * "127.0.0.1" and the default port.
+     * If no client is passed, a new one is created using the default server
+     * "127.0.0.1" and the default port 6379.
      *
-     * @param Memcache $client The Memcache client.
+     * @param ClientInterface $client The client used to connect to Redis.
      */
-    public function __construct(Memcache $client = null)
+    public function __construct(ClientInterface $client = null)
     {
-        if (null === $client) {
-            $client = new Memcache();
-            $client->connect('127.0.0.1');
-        }
-
-        $this->client = $client;
+        $this->client = $client ?: new Client();
     }
 
     /**
@@ -71,11 +67,9 @@ class MemcacheStore implements KeyValueStore
     {
         Assertion::key($key);
 
-        if (false === ($serialized = $this->client->get($key))) {
-            return $default;
-        }
-
-        return unserialize($serialized);
+        return $this->client->exists($key)
+            ? unserialize($this->client->get($key))
+            : $default;
     }
 
     /**
@@ -85,7 +79,7 @@ class MemcacheStore implements KeyValueStore
     {
         Assertion::key($key);
 
-        return $this->client->delete($key);
+        return (bool) $this->client->del($key);
     }
 
     /**
@@ -95,7 +89,7 @@ class MemcacheStore implements KeyValueStore
     {
         Assertion::key($key);
 
-        return false !== $this->client->get($key);
+        return $this->client->exists($key);
     }
 
     /**
@@ -103,6 +97,6 @@ class MemcacheStore implements KeyValueStore
      */
     public function clear()
     {
-        $this->client->flush();
+        $this->client->flushdb();
     }
 }

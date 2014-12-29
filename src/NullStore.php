@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Impl;
+namespace Webmozart\KeyValueStore;
 
-use Webmozart\KeyValueStore\KeyValueStore;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
 
 /**
  * A key-value store that does nothing.

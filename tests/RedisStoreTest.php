@@ -9,12 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests\Impl;
+namespace Webmozart\KeyValueStore\Tests;
 
 use Predis\Client;
 use Predis\Connection\ConnectionException;
-use Webmozart\KeyValueStore\Impl\RedisStore;
-use Webmozart\KeyValueStore\Tests\AbstractKeyValueStoreTest;
+use Webmozart\KeyValueStore\RedisStore;
 
 /**
  * @since  1.0

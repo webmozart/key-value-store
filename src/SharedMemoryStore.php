@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Impl;
+namespace Webmozart\KeyValueStore;
 
 use Exception;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\SerializationFailedException;
+use Webmozart\KeyValueStore\Api\StorageException;
 use Webmozart\KeyValueStore\Assert\Assertion;
-use Webmozart\KeyValueStore\KeyValueStore;
-use Webmozart\KeyValueStore\SerializationFailedException;
-use Webmozart\KeyValueStore\StorageException;
 
 /**
  * A key-value store backed by a shared memory.

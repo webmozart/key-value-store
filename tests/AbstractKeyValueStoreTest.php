@@ -12,8 +12,7 @@
 namespace Webmozart\KeyValueStore\Tests;
 
 use PHPUnit_Framework_TestCase;
-use Webmozart\KeyValueStore\Clearable;
-use Webmozart\KeyValueStore\KeyValueStore;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Tests\Fixtures\NotSerializable;
 
 /**
@@ -77,7 +76,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideInvalidKeys
-     * @expectedException \Webmozart\KeyValueStore\InvalidKeyException
+     * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
      */
     public function testSetFailsIfInvalidKey($key)
     {
@@ -127,7 +126,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideInvalidValues
-     * @expectedException \Webmozart\KeyValueStore\SerializationFailedException
+     * @expectedException \Webmozart\KeyValueStore\Api\SerializationFailedException
      */
     public function testSetSupportsFailsIfValueNotSerializable($value)
     {
@@ -136,7 +135,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideInvalidKeys
-     * @expectedException \Webmozart\KeyValueStore\InvalidKeyException
+     * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
      */
     public function testGetFailsIfInvalidKey($key)
     {
@@ -160,7 +159,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideInvalidKeys
-     * @expectedException \Webmozart\KeyValueStore\InvalidKeyException
+     * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
      */
     public function testHasFailsIfInvalidKey($key)
     {
@@ -183,7 +182,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideInvalidKeys
-     * @expectedException \Webmozart\KeyValueStore\InvalidKeyException
+     * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
      */
     public function testRemoveFailsIfInvalidKey($key)
     {
