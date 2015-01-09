@@ -22,6 +22,8 @@ use Webmozart\KeyValueStore\Tests\Fixtures\PrivateProperties;
  */
 abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 {
+    const BINARY_INPUT = "\xff\xf0";
+
     /**
      * @var KeyValueStore
      */
@@ -105,6 +107,8 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
             array(PHP_INT_MAX),
             // large float
             array((float) PHP_INT_MAX),
+            // binary
+            array(self::BINARY_INPUT),
         );
     }
 

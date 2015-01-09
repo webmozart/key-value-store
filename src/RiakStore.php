@@ -63,7 +63,7 @@ class RiakStore implements KeyValueStore
             throw SerializationFailedException::forException($e);
         }
 
-        $this->client->bucket($this->bucketName)->newObject($key, $serialized)->store();
+        $this->client->bucket($this->bucketName)->newBinary($key, $serialized)->store();
     }
 
     /**
@@ -73,7 +73,7 @@ class RiakStore implements KeyValueStore
     {
         Assert::key($key);
 
-        $object = $this->client->bucket($this->bucketName)->get($key);
+        $object = $this->client->bucket($this->bucketName)->getBinary($key);
 
         if (!$object->exists()) {
             return $default;

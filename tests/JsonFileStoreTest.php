@@ -55,6 +55,9 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
     {
         if (is_float($value) && $value > JsonFileStore::MAX_FLOAT) {
             $this->setExpectedException('\DomainException');
+        } elseif ($value === self::BINARY_INPUT) {
+            // JSON cannot handle binary data
+            $this->setExpectedException('\Webmozart\KeyValueStore\Api\StorageException', 'JSON_ERROR_UTF8');
         }
 
         parent::testSetSupportsSerializableValues($value);

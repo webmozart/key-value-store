@@ -16,6 +16,7 @@ use Exception;
 use stdClass;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
+use Webmozart\KeyValueStore\Api\StorageException;
 use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
@@ -166,11 +167,73 @@ class JsonFileStore implements KeyValueStore
             ? trim(file_get_contents($this->path))
             : null;
 
-        return $contents ? json_decode($contents) : new stdClass();
+        if (!$contents) {
+            return new stdClass();
+        }
+
+        $decoded = json_decode($contents);
+
+        if (JSON_ERROR_NONE !== ($error = json_last_error())) {
+            throw new StorageException(sprintf(
+                'Could not decode JSON data: %s',
+                self::getErrorMessage($error)
+            ));
+        }
+
+        return $decoded;
     }
 
     private function save($data)
     {
-        return file_put_contents($this->path, json_encode($data));
+        $encoded = json_encode($data);
+
+        if (JSON_ERROR_NONE !== ($error = json_last_error())) {
+            throw new StorageException(sprintf(
+                'Could not encode data as JSON: %s',
+                self::getErrorMessage($error)
+            ));
+        }
+
+        file_put_contents($this->path, $encoded);
+    }
+
+    /**
+     * Returns the error message of a JSON error code.
+     *
+     * Needed for PHP < 5.5, where `json_last_error_msg()` is not available.
+     *
+     * @param int $error The error code.
+     *
+     * @return string The error message.
+     */
+    private function getErrorMessage($error)
+    {
+        switch ($error) {
+            case JSON_ERROR_NONE:
+                return 'JSON_ERROR_NONE';
+            case JSON_ERROR_DEPTH:
+                return 'JSON_ERROR_DEPTH';
+            case JSON_ERROR_STATE_MISMATCH:
+                return 'JSON_ERROR_STATE_MISMATCH';
+            case JSON_ERROR_CTRL_CHAR:
+                return 'JSON_ERROR_CTRL_CHAR';
+            case JSON_ERROR_SYNTAX:
+                return 'JSON_ERROR_SYNTAX';
+            case JSON_ERROR_UTF8:
+                return 'JSON_ERROR_UTF8';
+        }
+
+        if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
+            switch ($error) {
+                case JSON_ERROR_RECURSION:
+                    return 'JSON_ERROR_RECURSION';
+                case JSON_ERROR_INF_OR_NAN:
+                    return 'JSON_ERROR_INF_OR_NAN';
+                case JSON_ERROR_UNSUPPORTED_TYPE:
+                    return 'JSON_ERROR_UNSUPPORTED_TYPE';
+            }
+        }
+
+        return 'JSON_ERROR_UNKNOWN';
     }
 }
