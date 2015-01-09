@@ -102,6 +102,9 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
             // private properties are enclosed by NUL-bytes when serialized,
             // hence the store implementation needs to be binary-safe
             array(new PrivateProperties('foobar')),
+            array(PHP_INT_MAX),
+            // large float
+            array((float) PHP_INT_MAX),
         );
     }
 

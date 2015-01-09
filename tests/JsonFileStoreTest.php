@@ -39,4 +39,24 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
     {
         return new JsonFileStore($this->tempFile, false);
     }
+
+    public function provideValidValues()
+    {
+        $values = parent::provideValidValues();
+        $values[] = array(JsonFileStore::MAX_FLOAT);
+
+        return $values;
+    }
+
+    /**
+     * @dataProvider provideValidValues
+     */
+    public function testSetSupportsSerializableValues($value)
+    {
+        if (is_float($value) && $value > JsonFileStore::MAX_FLOAT) {
+            $this->setExpectedException('\DomainException');
+        }
+
+        parent::testSetSupportsSerializableValues($value);
+    }
 }

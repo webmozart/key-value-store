@@ -11,6 +11,7 @@
 
 namespace Webmozart\KeyValueStore;
 
+use DomainException;
 use Exception;
 use stdClass;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
@@ -25,6 +26,11 @@ use Webmozart\KeyValueStore\Assert\Assert;
  */
 class JsonFileStore implements KeyValueStore
 {
+    /**
+     * This seems to be the biggest float supported by json_encode()/json_decode()
+     */
+    const MAX_FLOAT = 1.0E+14;
+
     private $path;
 
     private $cacheStore;
@@ -48,6 +54,10 @@ class JsonFileStore implements KeyValueStore
     public function set($key, $value)
     {
         Assert::key($key);
+
+        if (is_float($value) && $value > self::MAX_FLOAT) {
+            throw new DomainException('The JSON file store cannot handle floats larger than 1.0E+14.');
+        }
 
         if ($this->cacheStore) {
             $this->cacheStore->set($key, $value);

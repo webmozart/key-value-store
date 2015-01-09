@@ -17,7 +17,7 @@ use Webmozart\KeyValueStore\JsonFileStore;
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class JsonFileStoreCachedTest extends AbstractKeyValueStoreTest
+class JsonFileStoreCachedTest extends JsonFileStoreTest
 {
     private $tempFile;
 
