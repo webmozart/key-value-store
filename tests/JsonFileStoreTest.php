@@ -11,6 +11,7 @@
 
 namespace Webmozart\KeyValueStore\Tests;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\KeyValueStore\JsonFileStore;
 
 /**
@@ -19,11 +20,11 @@ use Webmozart\KeyValueStore\JsonFileStore;
  */
 class JsonFileStoreTest extends AbstractKeyValueStoreTest
 {
-    private $tempFile;
+    private $tempDir;
 
     protected function setUp()
     {
-        $this->tempFile = tempnam(sys_get_temp_dir(), 'JsonFileStoreTest');
+        while (false === @mkdir($this->tempDir = sys_get_temp_dir().'/webmozart-JsonFileStoreTest'.rand(10000, 99999), 0777, true)) {}
 
         parent::setUp();
     }
@@ -32,12 +33,13 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
     {
         parent::tearDown();
 
-        unlink($this->tempFile);
+        $filesystem = new Filesystem();
+        $filesystem->remove($this->tempDir);
     }
 
     protected function createStore()
     {
-        return new JsonFileStore($this->tempFile, false);
+        return new JsonFileStore($this->tempDir.'/data.json', false);
     }
 
     public function provideValidValues()
@@ -46,6 +48,14 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
         $values[] = array(JsonFileStore::MAX_FLOAT);
 
         return $values;
+    }
+
+    public function testCreateMissingDirectoriesOnDemand()
+    {
+        $store = new JsonFileStore($this->tempDir.'/new/data.json', false);
+        $store->set('foo', 'bar');
+
+        $this->assertFileExists($this->tempDir.'/new/data.json');
     }
 
     /**

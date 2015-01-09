@@ -185,6 +185,10 @@ class JsonFileStore implements KeyValueStore
 
     private function save($data)
     {
+        if (!file_exists($dir = dirname($this->path))) {
+            mkdir($dir, 0777, true);
+        }
+
         $encoded = json_encode($data);
 
         if (JSON_ERROR_NONE !== ($error = json_last_error())) {
