@@ -14,6 +14,7 @@ namespace Webmozart\KeyValueStore\Tests;
 use PHPUnit_Framework_TestCase;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Tests\Fixtures\NotSerializable;
+use Webmozart\KeyValueStore\Tests\Fixtures\PrivateProperties;
 
 /**
  * @since  1.0
@@ -98,6 +99,9 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
             array(null),
             array(array(1, 2, 3, 4)),
             array((object) array('foo' => 'bar', 'baz' => 'bam')),
+            // private properties are enclosed by NUL-bytes when serialized,
+            // hence the store implementation needs to be binary-safe
+            array(new PrivateProperties('foobar')),
         );
     }
 
