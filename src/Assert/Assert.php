@@ -11,6 +11,7 @@
 
 namespace Webmozart\KeyValueStore\Assert;
 
+use InvalidArgumentException;
 use Webmozart\KeyValueStore\Api\InvalidKeyException;
 
 /**
@@ -27,6 +28,36 @@ class Assert
             throw new InvalidKeyException(sprintf(
                 'Expected a key of type integer or string. Got: %s',
                 is_object($key) ? get_class($key) : gettype($key)
+            ));
+        }
+    }
+
+    public static function string($value, $message)
+    {
+        if (!is_string($value)) {
+            throw new InvalidArgumentException(sprintf(
+                $message,
+                is_object($value) ? get_class($value) : gettype($value)
+            ));
+        }
+    }
+
+    public static function notEmpty($value, $message)
+    {
+        if (empty($value)) {
+            throw new InvalidArgumentException(sprintf(
+                $message,
+                is_object($value) ? get_class($value) : gettype($value)
+            ));
+        }
+    }
+
+    public static function boolean($value, $message)
+    {
+        if (!is_bool($value)) {
+            throw new InvalidArgumentException(sprintf(
+                $message,
+                is_object($value) ? get_class($value) : gettype($value)
             ));
         }
     }
