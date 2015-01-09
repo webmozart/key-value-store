@@ -15,7 +15,7 @@ use Exception;
 use Flintstone\FlintstoneDB;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
-use Webmozart\KeyValueStore\Assert\Assertion;
+use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
  * A key-value store backed by a simple file.
@@ -47,7 +47,7 @@ class FlintstoneStore implements KeyValueStore
      */
     public function set($key, $value)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         try {
             $serialized = serialize($value);
@@ -63,7 +63,7 @@ class FlintstoneStore implements KeyValueStore
      */
     public function get($key, $default = null)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         if (false === ($serialized = $this->db->get((string) $key))) {
             return $default;
@@ -77,7 +77,7 @@ class FlintstoneStore implements KeyValueStore
      */
     public function remove($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         return $this->db->delete((string) $key);
     }
@@ -87,7 +87,7 @@ class FlintstoneStore implements KeyValueStore
      */
     public function has($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         return false !== $this->db->get((string) $key);
     }

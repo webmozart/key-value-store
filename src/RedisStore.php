@@ -16,7 +16,7 @@ use Predis\Client;
 use Predis\ClientInterface;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
-use Webmozart\KeyValueStore\Assert\Assertion;
+use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
  * A key-value store backed by a Redis instance.
@@ -49,7 +49,7 @@ class RedisStore implements KeyValueStore
      */
     public function set($key, $value)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         try {
             $serialized = serialize($value);
@@ -65,7 +65,7 @@ class RedisStore implements KeyValueStore
      */
     public function get($key, $default = null)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         return $this->client->exists($key)
             ? unserialize($this->client->get($key))
@@ -77,7 +77,7 @@ class RedisStore implements KeyValueStore
      */
     public function remove($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         return (bool) $this->client->del($key);
     }
@@ -87,7 +87,7 @@ class RedisStore implements KeyValueStore
      */
     public function has($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         return $this->client->exists($key);
     }

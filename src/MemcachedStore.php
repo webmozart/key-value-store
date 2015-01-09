@@ -17,7 +17,7 @@ use Memcached;
 use RuntimeException;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
-use Webmozart\KeyValueStore\Assert\Assertion;
+use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
  * A key-value store backed by a Memcached instance.
@@ -55,7 +55,7 @@ class MemcachedStore implements KeyValueStore
      */
     public function set($key, $value)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         try {
             $serialized = serialize($value);
@@ -71,7 +71,7 @@ class MemcachedStore implements KeyValueStore
      */
     public function get($key, $default = null)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         if (false === ($serialized = $this->client->get($key))) {
             if (Memcached::RES_NOTFOUND === $this->client->getResultCode()) {
@@ -89,7 +89,7 @@ class MemcachedStore implements KeyValueStore
      */
     public function remove($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         return $this->client->delete($key);
     }
@@ -99,7 +99,7 @@ class MemcachedStore implements KeyValueStore
      */
     public function has($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         return false !== $this->client->get($key);
     }

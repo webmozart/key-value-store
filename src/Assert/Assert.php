@@ -14,10 +14,12 @@ namespace Webmozart\KeyValueStore\Assert;
 use Webmozart\KeyValueStore\Api\InvalidKeyException;
 
 /**
+ * Contains domain-specific assertions.
+ *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class Assertion
+class Assert
 {
     public static function key($key)
     {

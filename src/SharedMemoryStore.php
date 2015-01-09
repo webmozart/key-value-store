@@ -15,7 +15,7 @@ use Exception;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Api\StorageException;
-use Webmozart\KeyValueStore\Assert\Assertion;
+use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
  * A key-value store backed by a shared memory.
@@ -79,7 +79,7 @@ class SharedMemoryStore implements KeyValueStore
      */
     public function set($key, $value)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         if (!$this->resource) {
             $this->connect();
@@ -97,7 +97,7 @@ class SharedMemoryStore implements KeyValueStore
      */
     public function get($key, $default = null)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         if (!$this->resource) {
             $this->connect();
@@ -115,7 +115,7 @@ class SharedMemoryStore implements KeyValueStore
      */
     public function remove($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         if (!$this->resource) {
             $this->connect();
@@ -129,7 +129,7 @@ class SharedMemoryStore implements KeyValueStore
      */
     public function has($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         if (!$this->resource) {
             $this->connect();

@@ -12,7 +12,7 @@
 namespace Webmozart\KeyValueStore;
 
 use Webmozart\KeyValueStore\Api\KeyValueStore;
-use Webmozart\KeyValueStore\Assert\Assertion;
+use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
  * A key-value store backed by a PHP array.
@@ -44,7 +44,7 @@ class ArrayStore implements KeyValueStore
      */
     public function set($key, $value)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         $this->array[$key] = $value;
     }
@@ -54,7 +54,7 @@ class ArrayStore implements KeyValueStore
      */
     public function get($key, $default = null)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         return array_key_exists($key, $this->array) ? $this->array[$key] : $default;
     }
@@ -64,7 +64,7 @@ class ArrayStore implements KeyValueStore
      */
     public function remove($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         $removed = array_key_exists($key, $this->array);
 
@@ -78,7 +78,7 @@ class ArrayStore implements KeyValueStore
      */
     public function has($key)
     {
-        Assertion::key($key);
+        Assert::key($key);
 
         return array_key_exists($key, $this->array);
     }
