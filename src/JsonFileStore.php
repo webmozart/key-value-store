@@ -66,7 +66,7 @@ class JsonFileStore implements KeyValueStore
 
         $data = $this->load();
 
-        if (is_object($value) || is_string($value)) {
+        if (is_object($value) || is_string($value) || is_array($value)) {
             try {
                 $value = serialize($value);
             } catch (Exception $e) {

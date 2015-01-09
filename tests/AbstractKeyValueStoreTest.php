@@ -100,6 +100,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
             array(false),
             array(null),
             array(array(1, 2, 3, 4)),
+            array(array('foo' => 'bar', 'baz' => 'bam')),
             array((object) array('foo' => 'bar', 'baz' => 'bam')),
             // private properties are enclosed by NUL-bytes when serialized,
             // hence the store implementation needs to be binary-safe
