@@ -13,13 +13,13 @@ namespace Webmozart\KeyValueStore\Tests;
 
 use Predis\Client;
 use Predis\Connection\ConnectionException;
-use Webmozart\KeyValueStore\RedisStore;
+use Webmozart\KeyValueStore\PredisStore;
 
 /**
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RedisStoreTest extends AbstractKeyValueStoreTest
+class PredisStoreTest extends AbstractKeyValueStoreTest
 {
     private static $supported;
 
@@ -49,6 +49,6 @@ class RedisStoreTest extends AbstractKeyValueStoreTest
 
     protected function createStore()
     {
-        return new RedisStore();
+        return new PredisStore();
     }
 }

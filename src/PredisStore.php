@@ -19,12 +19,12 @@ use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
- * A key-value store backed by a Redis instance.
+ * A key-value store that uses Predis to connect to a Redis instance.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RedisStore implements KeyValueStore
+class PredisStore implements KeyValueStore
 {
     /**
      * @var ClientInterface
@@ -32,7 +32,7 @@ class RedisStore implements KeyValueStore
     private $client;
 
     /**
-     * Creates a store backed by a Redis client.
+     * Creates a store backed by a Predis client.
      *
      * If no client is passed, a new one is created using the default server
      * "127.0.0.1" and the default port 6379.
