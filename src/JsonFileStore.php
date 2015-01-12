@@ -11,12 +11,13 @@
 
 namespace Webmozart\KeyValueStore;
 
-use DomainException;
 use Exception;
 use stdClass;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\ReadException;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
-use Webmozart\KeyValueStore\Api\StorageException;
+use Webmozart\KeyValueStore\Api\WriteException;
+use Webmozart\KeyValueStore\Api\UnsupportedValueException;
 use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
@@ -57,7 +58,11 @@ class JsonFileStore implements KeyValueStore
         Assert::key($key);
 
         if (is_float($value) && $value > self::MAX_FLOAT) {
-            throw new DomainException('The JSON file store cannot handle floats larger than 1.0E+14.');
+            throw new UnsupportedValueException('The JSON file store cannot handle floats larger than 1.0E+14.');
+        }
+
+        if (is_resource($value)) {
+            throw SerializationFailedException::forValue($value);
         }
 
         if ($this->cacheStore) {
@@ -70,7 +75,7 @@ class JsonFileStore implements KeyValueStore
             try {
                 $value = serialize($value);
             } catch (Exception $e) {
-                throw SerializationFailedException::forException($e);
+                throw SerializationFailedException::forValue($value, $e->getCode(), $e);
             }
         }
 
@@ -174,7 +179,7 @@ class JsonFileStore implements KeyValueStore
         $decoded = json_decode($contents);
 
         if (JSON_ERROR_NONE !== ($error = json_last_error())) {
-            throw new StorageException(sprintf(
+            throw new ReadException(sprintf(
                 'Could not decode JSON data: %s',
                 self::getErrorMessage($error)
             ));
@@ -192,7 +197,11 @@ class JsonFileStore implements KeyValueStore
         $encoded = json_encode($data);
 
         if (JSON_ERROR_NONE !== ($error = json_last_error())) {
-            throw new StorageException(sprintf(
+            if (JSON_ERROR_UTF8 === $error) {
+                throw UnsupportedValueException::forType('binary', $this);
+            }
+
+            throw new WriteException(sprintf(
                 'Could not encode data as JSON: %s',
                 self::getErrorMessage($error)
             ));

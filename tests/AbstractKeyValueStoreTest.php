@@ -86,7 +86,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set($key, 1234);
     }
 
-    public function provideValidValues()
+    public function provideScalarValues()
     {
         return array(
             array(0),
@@ -99,39 +99,89 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
             array(true),
             array(false),
             array(null),
+            array(PHP_INT_MAX),
+            // large float
+            array((float) PHP_INT_MAX),
+        );
+    }
+
+    public function provideArrayValues()
+    {
+        return array(
             array(array(1, 2, 3, 4)),
             array(array('foo' => 'bar', 'baz' => 'bam')),
+        );
+    }
+
+    public function provideObjectValues()
+    {
+        return array(
             array((object) array('foo' => 'bar', 'baz' => 'bam')),
             // private properties are enclosed by NUL-bytes when serialized,
             // hence the store implementation needs to be binary-safe
             array(new PrivateProperties('foobar')),
-            array(PHP_INT_MAX),
-            // large float
-            array((float) PHP_INT_MAX),
-            // binary
+        );
+    }
+
+    public function provideBinaryValues()
+    {
+        return array(
             array(self::BINARY_INPUT),
+            array(array('foo' => self::BINARY_INPUT)),
+            array(new PrivateProperties(self::BINARY_INPUT)),
         );
     }
 
     /**
-     * @dataProvider provideValidValues
+     * @dataProvider provideScalarValues
      */
-    public function testSetSupportsSerializableValues($value)
+    public function testSetSupportsScalarValues($value)
     {
         $this->store->set('key', $value);
 
-        if (is_scalar($value) || is_array($value)) {
-            $this->assertSame($value, $this->store->get('key'));
-        } else {
-            $this->assertEquals($value, $this->store->get('key'));
-        }
+        $this->assertSame($value, $this->store->get('key'));
+        $this->assertTrue($this->store->has('key'));
+    }
 
+    /**
+     * @dataProvider provideArrayValues
+     */
+    public function testSetSupportsArrayValues($value)
+    {
+        $this->store->set('key', $value);
+
+        $this->assertSame($value, $this->store->get('key'));
+        $this->assertTrue($this->store->has('key'));
+    }
+
+    /**
+     * @dataProvider provideObjectValues
+     */
+    public function testSetSupportsObjectValues($value)
+    {
+        $this->store->set('key', $value);
+
+        $this->assertEquals($value, $this->store->get('key'));
+        $this->assertTrue($this->store->has('key'));
+    }
+
+    /**
+     * @dataProvider provideBinaryValues
+     */
+    public function testSetSupportsBinaryValues($value)
+    {
+        $this->store->set('key', $value);
+
+        $this->assertEquals($value, $this->store->get('key'));
         $this->assertTrue($this->store->has('key'));
     }
 
     public function provideInvalidValues()
     {
+        $resource = fopen(__FILE__, 'r');
+
         return array(
+            array($resource),
             array(new NotSerializable()),
         );
     }

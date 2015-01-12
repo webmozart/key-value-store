@@ -14,11 +14,11 @@ namespace Webmozart\KeyValueStore\Api;
 use RuntimeException;
 
 /**
- * Thrown when the storage or retrieval of a key failed.
+ * Thrown when a value store cannot be written.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class StorageException extends RuntimeException
+class WriteException extends RuntimeException
 {
 }

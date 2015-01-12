@@ -14,7 +14,7 @@ namespace Webmozart\KeyValueStore;
 use Exception;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
-use Webmozart\KeyValueStore\Api\StorageException;
+use Webmozart\KeyValueStore\Api\WriteException;
 use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
@@ -85,10 +85,14 @@ class SharedMemoryStore implements KeyValueStore
             $this->connect();
         }
 
+        if (is_resource($value)) {
+            throw SerializationFailedException::forValue($value);
+        }
+
         try {
             shm_put_var($this->resource, $this->keyToInt($key), $value);
         } catch (Exception $e) {
-            throw SerializationFailedException::forException($e);
+            throw SerializationFailedException::forValue($value, $e->getCode(), $e);
         }
     }
 
@@ -161,7 +165,7 @@ class SharedMemoryStore implements KeyValueStore
         }
 
         if (!($resource = shm_attach(ftok($this->path, 'a'), $this->size, $this->permissions))) {
-            throw new StorageException('Could not create the shared memory segment.');
+            throw new WriteException('Could not create the shared memory segment.');
         }
 
         $this->resource = $resource;

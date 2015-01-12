@@ -51,10 +51,14 @@ class PredisStore implements KeyValueStore
     {
         Assert::key($key);
 
+        if (is_resource($value)) {
+            throw SerializationFailedException::forValue($value);
+        }
+
         try {
             $serialized = serialize($value);
         } catch (Exception $e) {
-            throw SerializationFailedException::forException($e);
+            throw SerializationFailedException::forValue($value, $e->getCode(), $e);
         }
 
         $this->client->set($key, $serialized);

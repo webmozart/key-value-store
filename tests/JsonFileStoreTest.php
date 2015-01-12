@@ -42,9 +42,9 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
         return new JsonFileStore($this->tempDir.'/data.json', false);
     }
 
-    public function provideValidValues()
+    public function provideScalarValues()
     {
-        $values = parent::provideValidValues();
+        $values = parent::provideScalarValues();
         $values[] = array(JsonFileStore::MAX_FLOAT);
 
         return $values;
@@ -59,17 +59,25 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
     }
 
     /**
-     * @dataProvider provideValidValues
+     * @dataProvider provideScalarValues
      */
-    public function testSetSupportsSerializableValues($value)
+    public function testSetSupportsScalarValues($value)
     {
         if (is_float($value) && $value > JsonFileStore::MAX_FLOAT) {
-            $this->setExpectedException('\DomainException');
-        } elseif ($value === self::BINARY_INPUT) {
-            // JSON cannot handle binary data
-            $this->setExpectedException('\Webmozart\KeyValueStore\Api\StorageException', 'JSON_ERROR_UTF8');
+            $this->setExpectedException('\Webmozart\KeyValueStore\Api\UnsupportedValueException');
         }
 
-        parent::testSetSupportsSerializableValues($value);
+        parent::testSetSupportsScalarValues($value);
+    }
+
+    /**
+     * @dataProvider provideBinaryValues
+     */
+    public function testSetSupportsBinaryValues($value)
+    {
+        // JSON cannot handle binary data
+        $this->setExpectedException('\Webmozart\KeyValueStore\Api\UnsupportedValueException');
+
+        parent::testSetSupportsBinaryValues($value);
     }
 }

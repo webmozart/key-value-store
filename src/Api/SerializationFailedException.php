@@ -15,7 +15,7 @@ use Exception;
 use RuntimeException;
 
 /**
- * Thrown when a value is invalid.
+ * Thrown when a value cannot be serialized.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
@@ -23,14 +23,33 @@ use RuntimeException;
 class SerializationFailedException extends RuntimeException
 {
     /**
-     * Creates a new exception for the given exception.
+     * Creates a new exception for the given value.
      *
-     * @param Exception $e The exception that occurred.
+     * @param mixed     $value The value that could not be serialized.
+     * @param int       $code  The exception code.
+     * @param Exception $cause The exception that caused this exception.
      *
      * @return static The new exception.
      */
-    public static function forException(Exception $e)
+    public static function forValue($value, $code = 0, Exception $cause = null)
     {
-        return new static('Could not serialize value: '.$e->getMessage(), $e->getCode(), $e);
+        return self::forType(is_object($value) ? get_class($value) : gettype($value), $code, $cause);
+    }
+
+    /**
+     * Creates a new exception for the given value type.
+     *
+     * @param string    $type  The type that could not be serialized.
+     * @param int       $code  The exception code.
+     * @param Exception $cause The exception that caused this exception.
+     *
+     * @return static The new exception.
+     */
+    public static function forType($type, $code = 0, Exception $cause = null)
+    {
+        return new static(sprintf(
+            'Could not serialize value of type %s.',
+            $type
+        ), $code, $cause);
     }
 }
