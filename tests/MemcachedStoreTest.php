@@ -32,6 +32,17 @@ class MemcachedStoreTest extends AbstractKeyValueStoreTest
             return;
         }
 
+        // try to connect
+        $memcached = new Memcached();
+        $memcached->addServer('127.0.0.1', 11211);
+        $memcached->get('foobar');
+
+        if (Memcached::RES_NOTFOUND !== $memcached->getResultCode()) {
+            self::$supported = false;
+
+            return;
+        }
+
         self::$supported = true;
     }
 
