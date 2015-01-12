@@ -56,7 +56,7 @@ class ArrayStore implements KeyValueStore
     {
         Assert::key($key);
 
-        return array_key_exists($key, $this->array) ? $this->array[$key] : $default;
+        return isset($this->array[$key]) ? $this->array[$key] : $default;
     }
 
     /**
@@ -66,7 +66,7 @@ class ArrayStore implements KeyValueStore
     {
         Assert::key($key);
 
-        $removed = array_key_exists($key, $this->array);
+        $removed = isset($this->array[$key]);
 
         unset($this->array[$key]);
 
@@ -80,7 +80,7 @@ class ArrayStore implements KeyValueStore
     {
         Assert::key($key);
 
-        return array_key_exists($key, $this->array);
+        return isset($this->array[$key]);
     }
 
     /**
