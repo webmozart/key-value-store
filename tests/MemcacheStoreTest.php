@@ -34,7 +34,7 @@ class MemcacheStoreTest extends AbstractKeyValueStoreTest
 
         $client = new Memcache();
 
-        self::$supported = $client->connect('127.0.0.1');
+        self::$supported = @$client->connect('127.0.0.1');
     }
 
     protected function setUp()
