@@ -10,13 +10,13 @@ Webmozart Key-Value-Store
 
 Latest release: none
 
-A key-value store with support for different backends.
+A key-value store API with implementations for different backends.
 
 All contained key-value stores implement the interface [`KeyValueStore`]. The
 following stores are currently supported:
 
 * [`ArrayStore`]
-* [`FlintstoneStore`]
+* [`JsonFileStore`]
 * [`MemcacheStore`]
 * [`MemcachedStore`]
 * [`NullStore`]
@@ -67,7 +67,7 @@ All contents of this package are licensed under the [MIT license].
 [MIT license]: LICENSE
 [`KeyValueStore`]: src/Api/KeyValueStore.php
 [`ArrayStore`]: src/ArrayStore.php
-[`FlintstoneStore`]: src/FlintstoneStore.php
+[`JsonFileStore`]: src/JsonFileStore.php
 [`MemcacheStore`]: src/MemcacheStore.php
 [`MemcachedStore`]: src/MemcachedStore.php
 [`NullStore`]: src/NullStore.php
