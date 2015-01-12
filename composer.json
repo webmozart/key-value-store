@@ -1,6 +1,6 @@
 {
     "name": "webmozart/key-value-store",
-    "description": "A key-value store with support for different backends.",
+    "description": "A key-value store API with implementations for different backends.",
     "license": "MIT",
     "authors": [
         {
