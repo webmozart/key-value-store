@@ -20,6 +20,7 @@ following stores are currently supported:
 * [`MemcacheStore`]
 * [`MemcachedStore`]
 * [`NullStore`]
+* [`PhpRedisStore`]
 * [`PredisStore`]
 * [`RiakStore`]
 * [`SharedMemoryStore`]
@@ -93,6 +94,7 @@ All contents of this package are licensed under the [MIT license].
 [`MemcacheStore`]: src/MemcacheStore.php
 [`MemcachedStore`]: src/MemcachedStore.php
 [`NullStore`]: src/NullStore.php
+[`PhpRedisStore`]: src/PhpRedisStore.php
 [`PredisStore`]: src/PredisStore.php
 [`RiakStore`]: src/RiakStore.php
 [`SharedMemoryStore`]: src/SharedMemoryStore.php

@@ -11,43 +11,43 @@
 
 namespace Webmozart\KeyValueStore;
 
-use Basho\Riak\Riak;
 use Exception;
+use Redis;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
- * A key-value store backed by a Riak client.
+ * A key-value store that uses the PhpRedis extension to connect to a Redis instance.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
+ * @author Philipp Wahala <philipp.wahala@gmail.com>
+ * @link https://github.com/phpredis/phpredis
  */
-class RiakStore implements KeyValueStore
+class PhpRedisStore implements KeyValueStore
 {
     /**
-     * @var string
-     */
-    private $bucketName;
-
-    /**
-     * @var Riak
+     * @var Redis
      */
     private $client;
 
     /**
-     * Creates a store backed by a Riak client.
+     * Creates a store backed by a PhpRedis client.
      *
      * If no client is passed, a new one is created using the default server
-     * "127.0.0.1" and the default port 8098.
+     * "127.0.0.1" and the default port 6379.
      *
-     * @param string $bucketName The name of the Riak bucket to use.
-     * @param Riak   $client     The client used to connect to Riak.
+     * @param Redis $client The client used to connect to Redis.
      */
-    public function __construct($bucketName, Riak $client = null)
+    public function __construct(Redis $client = null)
     {
-        $this->bucketName = $bucketName;
-        $this->client = $client ?: new Riak();
+        if (null === $client) {
+            $client = new Redis();
+            $client->connect('127.0.0.1', 6379);
+        }
+
+        $this->client = $client;
     }
 
     /**
@@ -67,7 +67,7 @@ class RiakStore implements KeyValueStore
             throw SerializationFailedException::forValue($value, $e->getCode(), $e);
         }
 
-        $this->client->bucket($this->bucketName)->newBinary($key, $serialized)->store();
+        $this->client->set($key, $serialized);
     }
 
     /**
@@ -77,13 +77,9 @@ class RiakStore implements KeyValueStore
     {
         Assert::key($key);
 
-        $object = $this->client->bucket($this->bucketName)->getBinary($key);
-
-        if (!$object->exists()) {
-            return $default;
-        }
-
-        return unserialize($object->getData());
+        return $this->client->exists($key)
+            ? unserialize($this->client->get($key))
+            : $default;
     }
 
     /**
@@ -93,15 +89,7 @@ class RiakStore implements KeyValueStore
     {
         Assert::key($key);
 
-        $object = $this->client->bucket($this->bucketName)->get($key);
-
-        if (!$object->exists()) {
-            return false;
-        }
-
-        $object->delete();
-
-        return true;
+        return (bool) $this->client->del($key);
     }
 
     /**
@@ -111,7 +99,7 @@ class RiakStore implements KeyValueStore
     {
         Assert::key($key);
 
-        return $this->client->bucket($this->bucketName)->get($key)->exists();
+        return $this->client->exists($key);
     }
 
     /**
@@ -119,10 +107,6 @@ class RiakStore implements KeyValueStore
      */
     public function clear()
     {
-        $bucket = $this->client->bucket($this->bucketName);
-
-        foreach ($bucket->getKeys() as $key) {
-            $bucket->get($key)->delete();
-        }
+        $this->client->flushdb();
     }
 }
