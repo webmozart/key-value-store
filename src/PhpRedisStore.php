@@ -18,11 +18,12 @@ use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Assert\Assert;
 
 /**
- * A key-value store that uses PhpRedis to connect to a Redis instance.
+ * A key-value store that uses the PhpRedis extension to connect to a Redis instance.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @author Philipp Wahala <philipp.wahala@gmail.com>
+ * @link https://github.com/phpredis/phpredis
  */
 class PhpRedisStore implements KeyValueStore
 {
