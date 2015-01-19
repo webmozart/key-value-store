@@ -38,10 +38,13 @@ may disappear for various reasons:
 * Keys may be lost after shutdowns.
 * ...
 
-In another word, caches are *volatile*.
+In another word, caches are *volatile*. This is not a problem, since the cached
+data is usually stored safely somewhere else.
 
 Key-value stores, on the other hand, are *persistent*. When you write a key to a
-key-value store today, you expect it to exist tomorrow.
+key-value store, you expect it to be there until you delete it. It would be a
+disaster if data would silently disappear from a key-value store (or any other
+kind of database).
 
 Hence the two libraries fulfill two very different purposes, even if their
 interfaces and implementations are often similar.
