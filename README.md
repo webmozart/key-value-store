@@ -24,6 +24,27 @@ following stores are currently supported:
 * [`RiakStore`]
 * [`SharedMemoryStore`]
 
+FAQ
+---
+
+**Why not use [Doctrine Cache]?**
+
+Caching is **not** key-value storage. When you use a cache, you accept that keys
+may disappear for various reasons:
+
+* Keys may expire.
+* Keys may be overwritten when the cache is full.
+* Keys may be lost after shutdowns.
+* ...
+
+In another word, caches are *volatile*.
+
+Key-value stores, on the other hand, are *persistent*. When you write a key to a
+key-value store today, you expect it to exist tomorrow.
+
+Hence the two libraries fulfill two very different purposes, even if their
+interfaces and implementations are often similar.
+
 Authors
 -------
 
@@ -65,6 +86,7 @@ All contents of this package are licensed under the [MIT license].
 [Git repository]: https://github.com/webmozart/key-value-store
 [@webmozart]: https://twitter.com/webmozart
 [MIT license]: LICENSE
+[Doctrine Cache]: https://github.com/doctrine/cache
 [`KeyValueStore`]: src/Api/KeyValueStore.php
 [`ArrayStore`]: src/ArrayStore.php
 [`JsonFileStore`]: src/JsonFileStore.php
