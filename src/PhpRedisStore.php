@@ -41,7 +41,12 @@ class PhpRedisStore implements KeyValueStore
      */
     public function __construct(Redis $client = null)
     {
-        $this->client = $client ?: new Client();
+        if (null === $client) {
+            $client = new Redis();
+            $client->connect('127.0.0.1', 6379);
+        }
+
+        $this->client = $client;
     }
 
     /**

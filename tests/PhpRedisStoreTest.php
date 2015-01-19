@@ -12,7 +12,7 @@
 namespace Webmozart\KeyValueStore\Tests;
 
 use Redis;
-use Webmozart\KeyValueStore\PredisStore;
+use Webmozart\KeyValueStore\PhpRedisStore;
 
 /**
  * @since  1.0
@@ -35,15 +35,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
 
         $redis = new Redis();
 
-        if (!$redis->connect('127.0.0.1', 6379)) {
-            self::$supported = false;
-
-            return;
-        }
-
-        self::$supported = true;
-
-        return;
+        self::$supported = @$redis->connect('127.0.0.1', 6379);
     }
 
     protected function setUp()
@@ -57,6 +49,6 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
 
     protected function createStore()
     {
-        return new PredisStore();
+        return new PhpRedisStore();
     }
 }
