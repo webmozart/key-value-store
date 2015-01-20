@@ -37,7 +37,8 @@ may disappear for various reasons:
 * ...
 
 In another word, caches are *volatile*. This is not a problem, since the cached
-data is usually stored safely somewhere else.
+data is usually stored safely somewhere else. The point of a cache is to provide
+high-performance access to frequently needed data.
 
 Key-value stores, on the other hand, are *persistent*. When you write a key to a
 key-value store, you expect it to be there until you delete it. It would be a
