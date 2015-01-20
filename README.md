@@ -16,14 +16,12 @@ All contained key-value stores implement the interface [`KeyValueStore`]. The
 following stores are currently supported:
 
 * [`ArrayStore`]
+* [`CachedStore`]
 * [`JsonFileStore`]
-* [`MemcacheStore`]
-* [`MemcachedStore`]
 * [`NullStore`]
 * [`PhpRedisStore`]
 * [`PredisStore`]
 * [`RiakStore`]
-* [`SharedMemoryStore`]
 
 FAQ
 ---
@@ -48,6 +46,9 @@ kind of database).
 
 Hence the two libraries fulfill two very different purposes, even if their
 interfaces and implementations are often similar.
+
+The [`CachedStore`] actually uses a Doctrine Cache object to cache the data of
+a persistent [`KeyValueStore`].
 
 Authors
 -------
@@ -93,11 +94,9 @@ All contents of this package are licensed under the [MIT license].
 [Doctrine Cache]: https://github.com/doctrine/cache
 [`KeyValueStore`]: src/Api/KeyValueStore.php
 [`ArrayStore`]: src/ArrayStore.php
+[`CachedStore`]: src/CachedStore.php
 [`JsonFileStore`]: src/JsonFileStore.php
-[`MemcacheStore`]: src/MemcacheStore.php
-[`MemcachedStore`]: src/MemcachedStore.php
 [`NullStore`]: src/NullStore.php
 [`PhpRedisStore`]: src/PhpRedisStore.php
 [`PredisStore`]: src/PredisStore.php
 [`RiakStore`]: src/RiakStore.php
-[`SharedMemoryStore`]: src/SharedMemoryStore.php
