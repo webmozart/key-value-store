@@ -35,19 +35,12 @@ class JsonFileStore implements KeyValueStore
 
     private $path;
 
-    private $cacheStore;
-
-    public function __construct($path, $cache = true)
+    public function __construct($path)
     {
         Assert::string($path, 'The path must be a string. Got: %s');
         Assert::notEmpty($path, 'The path must not be empty.');
-        Assert::boolean($cache, 'The cache argument must be a boolean. Got: %s');
 
         $this->path = $path;
-
-        if ($cache) {
-            $this->cacheStore = new ArrayStore();
-        }
     }
 
     /**
@@ -63,10 +56,6 @@ class JsonFileStore implements KeyValueStore
 
         if (is_resource($value)) {
             throw SerializationFailedException::forValue($value);
-        }
-
-        if ($this->cacheStore) {
-            $this->cacheStore->set($key, $value);
         }
 
         $data = $this->load();
@@ -91,10 +80,6 @@ class JsonFileStore implements KeyValueStore
     {
         Assert::key($key);
 
-        if ($this->cacheStore && $this->cacheStore->has($key)) {
-            return $this->cacheStore->get($key);
-        }
-
         $data = $this->load();
 
         if (!property_exists($data, $key)) {
@@ -107,10 +92,6 @@ class JsonFileStore implements KeyValueStore
             $value = unserialize($value);
         }
 
-        if ($this->cacheStore) {
-            $this->cacheStore->set($key, $value);
-        }
-
         return $value;
     }
 
@@ -120,10 +101,6 @@ class JsonFileStore implements KeyValueStore
     public function remove($key)
     {
         Assert::key($key);
-
-        if ($this->cacheStore) {
-            $this->cacheStore->remove($key);
-        }
 
         $data = $this->load();
 
@@ -145,10 +122,6 @@ class JsonFileStore implements KeyValueStore
     {
         Assert::key($key);
 
-        if ($this->cacheStore && $this->cacheStore->has($key)) {
-            return true;
-        }
-
         $data = $this->load();
 
         return property_exists($data, $key);
@@ -160,10 +133,6 @@ class JsonFileStore implements KeyValueStore
     public function clear()
     {
         $this->save(new stdClass());
-
-        if ($this->cacheStore) {
-            $this->cacheStore->clear();
-        }
     }
 
     private function load()
