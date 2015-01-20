@@ -14,8 +14,11 @@ namespace Webmozart\KeyValueStore;
 use Basho\Riak\Riak;
 use Exception;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\ReadException;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
+use Webmozart\KeyValueStore\Api\WriteException;
 use Webmozart\KeyValueStore\Assert\Assert;
+use Webmozart\KeyValueStore\Util\Serializer;
 
 /**
  * A key-value store backed by a Riak client.
@@ -57,17 +60,13 @@ class RiakStore implements KeyValueStore
     {
         Assert::key($key);
 
-        if (is_resource($value)) {
-            throw SerializationFailedException::forValue($value);
-        }
+        $serialized = Serializer::serialize($value);
 
         try {
-            $serialized = serialize($value);
+            $this->client->bucket($this->bucketName)->newBinary($key, $serialized)->store();
         } catch (Exception $e) {
-            throw SerializationFailedException::forValue($value, $e->getCode(), $e);
+            throw WriteException::forException($e);
         }
-
-        $this->client->bucket($this->bucketName)->newBinary($key, $serialized)->store();
     }
 
     /**
@@ -77,13 +76,17 @@ class RiakStore implements KeyValueStore
     {
         Assert::key($key);
 
-        $object = $this->client->bucket($this->bucketName)->getBinary($key);
+        try {
+            $object = $this->client->bucket($this->bucketName)->getBinary($key);
 
-        if (!$object->exists()) {
-            return $default;
+            if (!$object->exists()) {
+                return $default;
+            }
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
         }
 
-        return unserialize($object->getData());
+        return Serializer::unserialize($object->getData());
     }
 
     /**
@@ -93,13 +96,17 @@ class RiakStore implements KeyValueStore
     {
         Assert::key($key);
 
-        $object = $this->client->bucket($this->bucketName)->get($key);
+        try {
+            $object = $this->client->bucket($this->bucketName)->get($key);
 
-        if (!$object->exists()) {
-            return false;
+            if (!$object->exists()) {
+                return false;
+            }
+
+            $object->delete();
+        } catch (Exception $e) {
+            throw WriteException::forException($e);
         }
-
-        $object->delete();
 
         return true;
     }
@@ -111,7 +118,11 @@ class RiakStore implements KeyValueStore
     {
         Assert::key($key);
 
-        return $this->client->bucket($this->bucketName)->get($key)->exists();
+        try {
+            return $this->client->bucket($this->bucketName)->get($key)->exists();
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
     }
 
     /**
@@ -119,10 +130,14 @@ class RiakStore implements KeyValueStore
      */
     public function clear()
     {
-        $bucket = $this->client->bucket($this->bucketName);
+        try {
+            $bucket = $this->client->bucket($this->bucketName);
 
-        foreach ($bucket->getKeys() as $key) {
-            $bucket->get($key)->delete();
+            foreach ($bucket->getKeys() as $key) {
+                $bucket->get($key)->delete();
+            }
+        } catch (Exception $e) {
+            throw WriteException::forException($e);
         }
     }
 }

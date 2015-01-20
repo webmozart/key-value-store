@@ -46,6 +46,36 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\WriteException
+     */
+    abstract public function testSetThrowsWriteExceptionIfWriteFails();
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\WriteException
+     */
+    abstract public function testRemoveThrowsWriteExceptionIfWriteFails();
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\WriteException
+     */
+    abstract public function testClearThrowsWriteExceptionIfWriteFails();
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     */
+    abstract public function testGetThrowsReadExceptionIfReadFails();
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    abstract public function testGetThrowsExceptionIfNotUnserializable();
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     */
+    abstract public function testHasThrowsReadExceptionIfReadFails();
+
     public function provideValidKeys()
     {
         return array(
@@ -190,7 +220,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
      * @dataProvider provideInvalidValues
      * @expectedException \Webmozart\KeyValueStore\Api\SerializationFailedException
      */
-    public function testSetSupportsFailsIfValueNotSerializable($value)
+    public function testSetThrowsExceptionIfValueNotSerializable($value)
     {
         $this->store->set('key', $value);
     }

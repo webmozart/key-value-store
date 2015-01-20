@@ -39,7 +39,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
 
     protected function createStore()
     {
-        return new JsonFileStore($this->tempDir.'/data.json', false);
+        return new JsonFileStore($this->tempDir.'/data.json');
     }
 
     public function provideScalarValues()
@@ -52,7 +52,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
 
     public function testCreateMissingDirectoriesOnDemand()
     {
-        $store = new JsonFileStore($this->tempDir.'/new/data.json', false);
+        $store = new JsonFileStore($this->tempDir.'/new/data.json');
         $store->set('foo', 'bar');
 
         $this->assertFileExists($this->tempDir.'/new/data.json');
@@ -79,5 +79,92 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
         $this->setExpectedException('\Webmozart\KeyValueStore\Api\UnsupportedValueException');
 
         parent::testSetSupportsBinaryValues($value);
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\WriteException
+     * @expectedExceptionMessage Permission denied
+     */
+    public function testSetThrowsWriteExceptionIfWriteFails()
+    {
+        touch($readOnlyFile = $this->tempDir.'/read-only.json');
+        $store = new JsonFileStore($readOnlyFile);
+
+        chmod($readOnlyFile, 0400);
+        $store->set('foo', 'bar');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\WriteException
+     * @expectedExceptionMessage Permission denied
+     */
+    public function testRemoveThrowsWriteExceptionIfWriteFails()
+    {
+        touch($readOnlyFile = $this->tempDir.'/read-only.json');
+        $store = new JsonFileStore($readOnlyFile);
+        $store->set('foo', 'bar');
+
+        chmod($readOnlyFile, 0400);
+        $store->remove('foo');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\WriteException
+     * @expectedExceptionMessage Permission denied
+     */
+    public function testClearThrowsWriteExceptionIfWriteFails()
+    {
+        touch($readOnlyFile = $this->tempDir.'/read-only.json');
+        $store = new JsonFileStore($readOnlyFile);
+
+        chmod($readOnlyFile, 0400);
+        $store->clear();
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage Permission denied
+     */
+    public function testGetThrowsReadExceptionIfReadFails()
+    {
+        touch($notReadable = $this->tempDir.'/not-readable.json');
+        $store = new JsonFileStore($notReadable);
+
+        chmod($notReadable, 0000);
+        $store->get('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage JSON_ERROR_SYNTAX
+     */
+    public function testGetThrowsReadExceptionIfInvalidJsonSyntax()
+    {
+        file_put_contents($invalid = $this->tempDir.'/data.json', '{"foo":');
+        $store = new JsonFileStore($invalid);
+        $store->get('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    public function testGetThrowsExceptionIfNotUnserializable()
+    {
+        file_put_contents($path = $this->tempDir.'/data.json', '{"key":"foobar"}');
+        $store = new JsonFileStore($path);
+        $store->get('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage Permission denied
+     */
+    public function testHasThrowsReadExceptionIfReadFails()
+    {
+        touch($notReadable = $this->tempDir.'/not-readable.json');
+        $store = new JsonFileStore($notReadable);
+
+        chmod($notReadable, 0000);
+        $store->has('key');
     }
 }

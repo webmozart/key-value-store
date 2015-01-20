@@ -10,6 +10,8 @@ Changelog
    * `MemcacheStore` (not persistent)
    * `MemcachedStore` (not persistent)
    * `SharedMemoryStore` (not persistent)
+ * added `Serializer` utility
+ * `KeyValueStore::get()` now throws an exception if the value cannot be unserialized
 
 * 1.0.0-beta (2015-01-12)
 

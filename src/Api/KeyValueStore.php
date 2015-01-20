@@ -112,6 +112,8 @@ interface KeyValueStore
      *
      * @throws ReadException If the store cannot be read.
      * @throws InvalidKeyException If the key is not a string or integer.
+     * @throws UnserializationFailedException If the stored value cannot be
+     *                                        unserialized.
      */
     public function get($key, $default = null);
 

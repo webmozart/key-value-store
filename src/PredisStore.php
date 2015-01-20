@@ -15,8 +15,10 @@ use Exception;
 use Predis\Client;
 use Predis\ClientInterface;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
-use Webmozart\KeyValueStore\Api\SerializationFailedException;
+use Webmozart\KeyValueStore\Api\ReadException;
+use Webmozart\KeyValueStore\Api\WriteException;
 use Webmozart\KeyValueStore\Assert\Assert;
+use Webmozart\KeyValueStore\Util\Serializer;
 
 /**
  * A key-value store that uses Predis to connect to a Redis instance.
@@ -51,17 +53,13 @@ class PredisStore implements KeyValueStore
     {
         Assert::key($key);
 
-        if (is_resource($value)) {
-            throw SerializationFailedException::forValue($value);
-        }
+        $serialized = Serializer::serialize($value);
 
         try {
-            $serialized = serialize($value);
+            $this->client->set($key, $serialized);
         } catch (Exception $e) {
-            throw SerializationFailedException::forValue($value, $e->getCode(), $e);
+            throw WriteException::forException($e);
         }
-
-        $this->client->set($key, $serialized);
     }
 
     /**
@@ -71,9 +69,17 @@ class PredisStore implements KeyValueStore
     {
         Assert::key($key);
 
-        return $this->client->exists($key)
-            ? unserialize($this->client->get($key))
-            : $default;
+        try {
+            if (!$this->client->exists($key)) {
+                return $default;
+            }
+
+            $serialized = $this->client->get($key);
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
+
+        return Serializer::unserialize($serialized);
     }
 
     /**
@@ -83,7 +89,11 @@ class PredisStore implements KeyValueStore
     {
         Assert::key($key);
 
-        return (bool) $this->client->del($key);
+        try {
+            return (bool) $this->client->del($key);
+        } catch (Exception $e) {
+            throw WriteException::forException($e);
+        }
     }
 
     /**
@@ -93,7 +103,11 @@ class PredisStore implements KeyValueStore
     {
         Assert::key($key);
 
-        return $this->client->exists($key);
+        try {
+            return $this->client->exists($key);
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
     }
 
     /**
@@ -101,6 +115,10 @@ class PredisStore implements KeyValueStore
      */
     public function clear()
     {
-        $this->client->flushdb();
+        try {
+            $this->client->flushdb();
+        } catch (Exception $e) {
+            throw WriteException::forException($e);
+        }
     }
 }

@@ -19,6 +19,7 @@ use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Api\WriteException;
 use Webmozart\KeyValueStore\Api\UnsupportedValueException;
 use Webmozart\KeyValueStore\Assert\Assert;
+use Webmozart\KeyValueStore\Util\Serializer;
 
 /**
  * A key-value store backed by a JSON file.
@@ -54,20 +55,11 @@ class JsonFileStore implements KeyValueStore
             throw new UnsupportedValueException('The JSON file store cannot handle floats larger than 1.0E+14.');
         }
 
-        if (is_resource($value)) {
-            throw SerializationFailedException::forValue($value);
+        if (!is_scalar($value) || is_string($value)) {
+            $value = Serializer::serialize($value);
         }
 
         $data = $this->load();
-
-        if (is_object($value) || is_string($value) || is_array($value)) {
-            try {
-                $value = serialize($value);
-            } catch (Exception $e) {
-                throw SerializationFailedException::forValue($value, $e->getCode(), $e);
-            }
-        }
-
         $data->$key = $value;
 
         $this->save($data);
@@ -89,7 +81,7 @@ class JsonFileStore implements KeyValueStore
         $value = $data->$key;
 
         if (is_string($value)) {
-            $value = unserialize($value);
+            $value = Serializer::unserialize($value);
         }
 
         return $value;
@@ -138,7 +130,7 @@ class JsonFileStore implements KeyValueStore
     private function load()
     {
         $contents = file_exists($this->path)
-            ? trim(file_get_contents($this->path))
+            ? trim($this->readFile($this->path))
             : null;
 
         if (!$contents) {
@@ -176,7 +168,7 @@ class JsonFileStore implements KeyValueStore
             ));
         }
 
-        file_put_contents($this->path, $encoded);
+        $this->writeFile($this->path, $encoded);
     }
 
     /**
@@ -217,5 +209,65 @@ class JsonFileStore implements KeyValueStore
         }
 
         return 'JSON_ERROR_UNKNOWN';
+    }
+
+    private function writeFile($path, $data)
+    {
+        $errorMessage = null;
+        $errorCode = 0;
+
+        set_error_handler(function ($errno, $errstr) use (&$errorMessage, &$errorCode) {
+            $errorMessage = $errstr;
+            $errorCode = $errno;
+        });
+
+        file_put_contents($path, $data);
+
+        restore_error_handler();
+
+        if (null !== $errorMessage) {
+            if (false !== $pos = strpos($errorMessage, '): ')) {
+                // cut "file_put_contents(%path%):" to make message more readable
+                $errorMessage = substr($errorMessage, $pos + 3);
+            }
+
+            throw new WriteException(sprintf(
+                'Could not write %s: %s (%s)',
+                $path,
+                $errorMessage,
+                $errorCode
+            ), $errorCode);
+        }
+    }
+
+    private function readFile($path)
+    {
+        $errorMessage = null;
+        $errorCode = 0;
+
+        set_error_handler(function ($errno, $errstr) use (&$errorMessage, &$errorCode) {
+            $errorMessage = $errstr;
+            $errorCode = $errno;
+        });
+
+        $data = file_get_contents($path);
+
+        restore_error_handler();
+
+        if (null !== $errorMessage) {
+            if (false !== $pos = strpos($errorMessage, '): ')) {
+                // cut "file_get_contents(%path%):" to make message more readable
+                $errorMessage = substr($errorMessage, $pos + 3);
+            }
+
+            throw new ReadException(sprintf(
+                'Could not read %s: %s (%s)',
+                $path,
+                $errorMessage,
+                $errorCode
+            ), $errorCode);
+        }
+
+        return $data;
     }
 }

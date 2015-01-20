@@ -13,6 +13,7 @@ namespace Webmozart\KeyValueStore\Tests;
 
 use Redis;
 use Webmozart\KeyValueStore\PhpRedisStore;
+use Webmozart\KeyValueStore\Tests\Fixtures\TestException;
 
 /**
  * @since  1.0
@@ -50,5 +51,150 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
     protected function createStore()
     {
         return new PhpRedisStore();
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\WriteException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testSetThrowsWriteExceptionIfWriteFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('set')
+            ->willThrowException($exception);
+
+        $store = new PhpRedisStore($redis);
+        $store->set('key', 'value');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\WriteException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testRemoveThrowsWriteExceptionIfWriteFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('del')
+            ->willThrowException($exception);
+
+        $store = new PhpRedisStore($redis);
+        $store->remove('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\WriteException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testClearThrowsWriteExceptionIfWriteFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('flushdb')
+            ->willThrowException($exception);
+
+        $store = new PhpRedisStore($redis);
+        $store->clear();
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testGetThrowsReadExceptionIfReadFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('exists')
+            ->willReturn(true);
+
+        $redis->expects($this->once())
+            ->method('get')
+            ->willThrowException($exception);
+
+        $store = new PhpRedisStore($redis);
+        $store->get('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testGetThrowsReadExceptionIfExistsFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('exists')
+            ->willThrowException($exception);
+
+        $store = new PhpRedisStore($redis);
+        $store->get('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    public function testGetThrowsExceptionIfNotUnserializable()
+    {
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('exists')
+            ->willReturn(true);
+
+        $redis->expects($this->once())
+            ->method('get')
+            ->willReturn('foobar');
+
+        $store = new PhpRedisStore($redis);
+        $store->get('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testHasThrowsReadExceptionIfReadFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('exists')
+            ->willThrowException($exception);
+
+        $store = new PhpRedisStore($redis);
+        $store->has('key');
     }
 }

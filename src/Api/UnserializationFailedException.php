@@ -15,17 +15,17 @@ use Exception;
 use RuntimeException;
 
 /**
- * Thrown when a value cannot be serialized.
+ * Thrown when a value cannot be unserialized.
  *
  * @since  1.0
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class SerializationFailedException extends RuntimeException
+class UnserializationFailedException extends RuntimeException
 {
     /**
      * Creates a new exception for the given value.
      *
-     * @param mixed     $value  The value that could not be serialized.
+     * @param mixed     $value  The value that could not be unserialized.
      * @param string    $reason The reason why the value could not be
      *                          unserialized.
      * @param int       $code   The exception code.
@@ -41,7 +41,7 @@ class SerializationFailedException extends RuntimeException
     /**
      * Creates a new exception for the given value type.
      *
-     * @param string    $type   The type that could not be serialized.
+     * @param string    $type   The type that could not be unserialized.
      * @param string    $reason The reason why the value could not be
      *                          unserialized.
      * @param int       $code   The exception code.
@@ -52,7 +52,7 @@ class SerializationFailedException extends RuntimeException
     public static function forType($type, $reason = '', $code = 0, Exception $cause = null)
     {
         return new static(sprintf(
-            'Could not serialize value of type %s%s',
+            'Could not unserialize value of type %s%s',
             $type,
             $reason ? ': '.$reason : '.'
         ), $code, $cause);

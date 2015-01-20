@@ -27,9 +27,45 @@ class ArrayStoreTest extends AbstractKeyValueStoreTest
     /**
      * @dataProvider provideInvalidValues
      */
-    public function testSetSupportsFailsIfValueNotSerializable($value)
+    public function testSetThrowsExceptionIfValueNotSerializable($value)
     {
         // ArrayStore never serializes its values
+        $this->assertTrue(true);
+    }
+
+    public function testSetThrowsWriteExceptionIfWriteFails()
+    {
+        // ArrayStore never writes a storage
+        $this->assertTrue(true);
+    }
+
+    public function testRemoveThrowsWriteExceptionIfWriteFails()
+    {
+        // ArrayStore never writes a storage
+        $this->assertTrue(true);
+    }
+
+    public function testClearThrowsWriteExceptionIfWriteFails()
+    {
+        // ArrayStore never writes a storage
+        $this->assertTrue(true);
+    }
+
+    public function testGetThrowsReadExceptionIfReadFails()
+    {
+        // ArrayStore never reads a storage
+        $this->assertTrue(true);
+    }
+
+    public function testGetThrowsExceptionIfNotUnserializable()
+    {
+        // ArrayStore never serializes its values
+        $this->assertTrue(true);
+    }
+
+    public function testHasThrowsReadExceptionIfReadFails()
+    {
+        // ArrayStore never reads a storage
         $this->assertTrue(true);
     }
 }
