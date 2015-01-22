@@ -12,6 +12,8 @@ Latest release: [1.0.0-beta2](https://packagist.org/packages/webmozart/key-value
 
 A key-value store API with implementations for different backends.
 
+[API Documentation]
+
 All contained key-value stores implement the interface [`KeyValueStore`]. The
 following stores are currently supported:
 
@@ -93,11 +95,12 @@ All contents of this package are licensed under the [MIT license].
 [@webmozart]: https://twitter.com/webmozart
 [MIT license]: LICENSE
 [Doctrine Cache]: https://github.com/doctrine/cache
-[`KeyValueStore`]: src/Api/KeyValueStore.php
-[`ArrayStore`]: src/ArrayStore.php
-[`CachedStore`]: src/CachedStore.php
-[`JsonFileStore`]: src/JsonFileStore.php
-[`NullStore`]: src/NullStore.php
-[`PhpRedisStore`]: src/PhpRedisStore.php
-[`PredisStore`]: src/PredisStore.php
-[`RiakStore`]: src/RiakStore.php
+[API Documentation]: https://webmozart.github.io/key-value-store/api
+[`KeyValueStore`]: https://webmozart.github.io/key-value-store/api
+[`ArrayStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.ArrayStore.html
+[`CachedStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.CachedStore.html
+[`JsonFileStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.JsonFileStore.html
+[`NullStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.NullStore.html
+[`PhpRedisStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.PhpRedisStore.html
+[`PredisStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.PredisStore.html
+[`RiakStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.RiakStore.html
