@@ -1,0 +1,18 @@
+{
+    "license": "MIT",
+    "description": "The Webmozart Key-Value Store API documentation",
+    "homepage": "https://webmozart.github.io/key-value-store/api",
+    "authors": [
+        {
+            "name": "Bernhard Schussek",
+            "email": "bschussek@gmail.com"
+        }
+    ],
+    "require": {
+        "webmozart/key-value-store": "~1.0@dev",
+        "apigen/apigen": "~4.1@dev"
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
