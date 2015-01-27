@@ -96,7 +96,7 @@ All contents of this package are licensed under the [MIT license].
 [MIT license]: LICENSE
 [Doctrine Cache]: https://github.com/doctrine/cache
 [API Documentation]: https://webmozart.github.io/key-value-store/api
-[`KeyValueStore`]: https://webmozart.github.io/key-value-store/api
+[`KeyValueStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.KeyValueStore.html
 [`ArrayStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.ArrayStore.html
 [`CachedStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.CachedStore.html
 [`JsonFileStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.JsonFileStore.html
