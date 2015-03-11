@@ -11,14 +11,13 @@
 
 namespace Webmozart\KeyValueStore;
 
-use Exception;
 use stdClass;
+use Webmozart\Assert\Assert;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\ReadException;
-use Webmozart\KeyValueStore\Api\SerializationFailedException;
-use Webmozart\KeyValueStore\Api\WriteException;
 use Webmozart\KeyValueStore\Api\UnsupportedValueException;
-use Webmozart\KeyValueStore\Assert\Assert;
+use Webmozart\KeyValueStore\Api\WriteException;
+use Webmozart\KeyValueStore\Util\KeyUtil;
 use Webmozart\KeyValueStore\Util\Serializer;
 
 /**
@@ -49,7 +48,7 @@ class JsonFileStore implements KeyValueStore
      */
     public function set($key, $value)
     {
-        Assert::key($key);
+        KeyUtil::validate($key);
 
         if (is_float($value) && $value > self::MAX_FLOAT) {
             throw new UnsupportedValueException('The JSON file store cannot handle floats larger than 1.0E+14.');
@@ -70,7 +69,7 @@ class JsonFileStore implements KeyValueStore
      */
     public function get($key, $default = null)
     {
-        Assert::key($key);
+        KeyUtil::validate($key);
 
         $data = $this->load();
 
@@ -92,7 +91,7 @@ class JsonFileStore implements KeyValueStore
      */
     public function remove($key)
     {
-        Assert::key($key);
+        KeyUtil::validate($key);
 
         $data = $this->load();
 
@@ -112,7 +111,7 @@ class JsonFileStore implements KeyValueStore
      */
     public function has($key)
     {
-        Assert::key($key);
+        KeyUtil::validate($key);
 
         $data = $this->load();
 

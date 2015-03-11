@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "webmozart/assert": "~1.0@dev"
     },
     "require-dev": {
         "symfony/filesystem": "~2.5",

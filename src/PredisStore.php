@@ -18,6 +18,7 @@ use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\ReadException;
 use Webmozart\KeyValueStore\Api\WriteException;
 use Webmozart\KeyValueStore\Assert\Assert;
+use Webmozart\KeyValueStore\Util\KeyUtil;
 use Webmozart\KeyValueStore\Util\Serializer;
 
 /**
@@ -51,7 +52,7 @@ class PredisStore implements KeyValueStore
      */
     public function set($key, $value)
     {
-        Assert::key($key);
+        KeyUtil::validate($key);
 
         $serialized = Serializer::serialize($value);
 
@@ -67,7 +68,7 @@ class PredisStore implements KeyValueStore
      */
     public function get($key, $default = null)
     {
-        Assert::key($key);
+        KeyUtil::validate($key);
 
         try {
             if (!$this->client->exists($key)) {
@@ -87,7 +88,7 @@ class PredisStore implements KeyValueStore
      */
     public function remove($key)
     {
-        Assert::key($key);
+        KeyUtil::validate($key);
 
         try {
             return (bool) $this->client->del($key);
@@ -101,7 +102,7 @@ class PredisStore implements KeyValueStore
      */
     public function has($key)
     {
-        Assert::key($key);
+        KeyUtil::validate($key);
 
         try {
             return $this->client->exists($key);

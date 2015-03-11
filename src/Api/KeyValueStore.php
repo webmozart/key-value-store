@@ -14,7 +14,7 @@ namespace Webmozart\KeyValueStore\Api;
 /**
  * A key-value store.
  *
- * Key-value stores support storing values for integer or string keys chosen
+ * KeyUtil-value stores support storing values for integer or string keys chosen
  * by the user. Any serializable value can be stored, although an implementation
  * of this interface may further restrict the range of accepted values. See the
  * documentation of the implementation for more information.
