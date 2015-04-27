@@ -59,7 +59,7 @@ class JsonFileStore implements KeyValueStore
         }
 
         $data = $this->load();
-        $data->$key = $value;
+        $data[$key] = $value;
 
         $this->save($data);
     }
@@ -73,11 +73,11 @@ class JsonFileStore implements KeyValueStore
 
         $data = $this->load();
 
-        if (!property_exists($data, $key)) {
+        if (!array_key_exists($key, $data)) {
             return $default;
         }
 
-        $value = $data->$key;
+        $value = $data[$key];
 
         if (is_string($value)) {
             $value = Serializer::unserialize($value);
@@ -95,11 +95,11 @@ class JsonFileStore implements KeyValueStore
 
         $data = $this->load();
 
-        if (!property_exists($data, $key)) {
+        if (!array_key_exists($key, $data)) {
             return false;
         }
 
-        unset($data->$key);
+        unset($data[$key]);
 
         $this->save($data);
 
@@ -115,7 +115,7 @@ class JsonFileStore implements KeyValueStore
 
         $data = $this->load();
 
-        return property_exists($data, $key);
+        return array_key_exists($key, $data);
     }
 
     /**
@@ -133,10 +133,10 @@ class JsonFileStore implements KeyValueStore
             : null;
 
         if (!$contents) {
-            return new stdClass();
+            return array();
         }
 
-        $decoded = json_decode($contents);
+        $decoded = json_decode($contents, true);
 
         if (JSON_ERROR_NONE !== ($error = json_last_error())) {
             throw new ReadException(sprintf(
