@@ -48,7 +48,7 @@ class NullStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function has($key)
+    public function exists($key)
     {
         return false;
     }

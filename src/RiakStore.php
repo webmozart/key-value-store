@@ -116,7 +116,7 @@ class RiakStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function has($key)
+    public function exists($key)
     {
         KeyUtil::validate($key);
 

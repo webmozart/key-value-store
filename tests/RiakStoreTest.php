@@ -309,7 +309,7 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      * @expectedExceptionMessage I failed!
      */
-    public function testHasThrowsReadExceptionIfReadFails()
+    public function testExistsThrowsReadExceptionIfReadFails()
     {
         $exception = new TestException('I failed!');
 
@@ -322,14 +322,14 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new RiakStore('test-bucket', $client);
-        $store->has('key');
+        $store->exists('key');
     }
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      * @expectedExceptionMessage I failed!
      */
-    public function testHasThrowsReadExceptionIfExistsFails()
+    public function testExistsThrowsReadExceptionIfExistsFails()
     {
         $exception = new TestException('I failed!');
 
@@ -356,7 +356,7 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new RiakStore('test-bucket', $client);
-        $store->has('key');
+        $store->exists('key');
     }
 
     /**

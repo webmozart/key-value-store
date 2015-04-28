@@ -123,14 +123,14 @@ interface KeyValueStore
     public function remove($key);
 
     /**
-     * Returns whether the store contains a key.
+     * Returns whether a key exists.
      *
      * If the backend of the store cannot be read, a {@link ReadException}
      * is thrown. You should always handle this exception in your code:
      *
      * ```php
      * try {
-     *     if ($store->has($key)) {
+     *     if ($store->exists($key)) {
      *         // ...
      *     }
      * } catch (ReadException $e) {
@@ -144,12 +144,12 @@ interface KeyValueStore
      *
      * @param int|string $key The key to test.
      *
-     * @return bool Whether the store contains the key.
+     * @return bool Whether the key exists in the store.
      *
      * @throws ReadException If the store cannot be read.
      * @throws InvalidKeyException If the key is not a string or integer.
      */
-    public function has($key);
+    public function exists($key);
 
     /**
      * Removes all keys from the store.

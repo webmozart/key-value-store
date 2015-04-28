@@ -182,7 +182,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      * @expectedExceptionMessage I failed!
      */
-    public function testHasThrowsReadExceptionIfReadFails()
+    public function testExistsThrowsReadExceptionIfReadFails()
     {
         $exception = new TestException('I failed!');
 
@@ -195,7 +195,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new PhpRedisStore($redis);
-        $store->has('key');
+        $store->exists('key');
     }
 
     /**

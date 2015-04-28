@@ -78,7 +78,7 @@ class CachedStore implements KeyValueStore
             return $this->cache->fetch($key);
         }
 
-        if (!$this->store->has($key)) {
+        if (!$this->store->exists($key)) {
             return $default;
         }
 
@@ -101,13 +101,13 @@ class CachedStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function has($key)
+    public function exists($key)
     {
         if ($this->cache->contains($key)) {
             return true;
         }
 
-        return $this->store->has($key);
+        return $this->store->exists($key);
     }
 
     /**

@@ -6,6 +6,7 @@ Changelog
  * added `KeyValueStore::keys()`
  * made `KeyValueStore::get()` throw an exception when a key is not found to
    prevent superfluous calls to `has()`
+ * renamed `KeyValueStore::has()` to `exists()`
 
 * 1.0.0-beta3 (2015-04-13)
 

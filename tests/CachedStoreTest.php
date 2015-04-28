@@ -110,7 +110,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(true);
 
         $this->innerStore->expects($this->never())
-            ->method('has');
+            ->method('exists');
 
         $this->innerStore->expects($this->never())
             ->method('get');
@@ -131,7 +131,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->at(0))
-            ->method('has')
+            ->method('exists')
             ->with('key')
             ->willReturn(true);
 
@@ -157,7 +157,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->at(0))
-            ->method('has')
+            ->method('exists')
             ->with('key')
             ->willReturn(true);
 
@@ -181,7 +181,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->once())
-            ->method('has')
+            ->method('exists')
             ->with('key')
             ->willReturn(false);
 
@@ -194,7 +194,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
         $this->assertSame('default', $this->store->get('key', 'default'));
     }
 
-    public function testHasQueriesCache()
+    public function testExistsQueriesCache()
     {
         $this->cache->expects($this->once())
             ->method('contains')
@@ -202,15 +202,15 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(true);
 
         $this->innerStore->expects($this->never())
-            ->method('has');
+            ->method('exists');
 
-        $this->assertTrue($this->store->has('key'));
+        $this->assertTrue($this->store->exists('key'));
     }
 
     /**
      * @dataProvider provideTrueFalse
      */
-    public function testHasQueriesStoreIfNotCached($result)
+    public function testExistsQueriesStoreIfNotCached($result)
     {
         $this->cache->expects($this->once())
             ->method('contains')
@@ -218,11 +218,11 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->once())
-            ->method('has')
+            ->method('exists')
             ->with('key')
             ->willReturn($result);
 
-        $this->assertSame($result, $this->store->has('key'));
+        $this->assertSame($result, $this->store->exists('key'));
     }
 
     public function provideTrueFalse()

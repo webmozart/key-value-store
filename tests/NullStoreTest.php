@@ -32,13 +32,13 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
         $store->get('foo');
     }
 
-    public function testHasAlwaysReturnsFalse()
+    public function testExistsAlwaysReturnsFalse()
     {
         $store = new NullStore();
 
         $store->set('foo', 'bar');
 
-        $this->assertFalse($store->has('foo'));
+        $this->assertFalse($store->exists('foo'));
     }
 
     public function testRemoveAlwaysReturnsFalse()

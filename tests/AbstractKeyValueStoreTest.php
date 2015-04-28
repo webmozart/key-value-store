@@ -74,7 +74,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      */
-    abstract public function testHasThrowsReadExceptionIfReadFails();
+    abstract public function testExistsThrowsReadExceptionIfReadFails();
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
@@ -175,7 +175,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set('key', $value);
 
         $this->assertSame($value, $this->store->get('key'));
-        $this->assertTrue($this->store->has('key'));
+        $this->assertTrue($this->store->exists('key'));
     }
 
     /**
@@ -186,7 +186,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set('key', $value);
 
         $this->assertSame($value, $this->store->get('key'));
-        $this->assertTrue($this->store->has('key'));
+        $this->assertTrue($this->store->exists('key'));
     }
 
     /**
@@ -197,7 +197,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set('key', $value);
 
         $this->assertEquals($value, $this->store->get('key'));
-        $this->assertTrue($this->store->has('key'));
+        $this->assertTrue($this->store->exists('key'));
     }
 
     /**
@@ -208,7 +208,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set('key', $value);
 
         $this->assertEquals($value, $this->store->get('key'));
-        $this->assertTrue($this->store->has('key'));
+        $this->assertTrue($this->store->exists('key'));
     }
 
     public function provideInvalidValues()
@@ -250,20 +250,20 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider provideValidKeys
      */
-    public function testHas($key)
+    public function testExists($key)
     {
-        $this->assertFalse($this->store->has($key));
+        $this->assertFalse($this->store->exists($key));
         $this->store->set($key, 1234);
-        $this->assertTrue($this->store->has($key));
+        $this->assertTrue($this->store->exists($key));
     }
 
     /**
      * @dataProvider provideInvalidKeys
      * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
      */
-    public function testHasFailsIfInvalidKey($key)
+    public function testExistsFailsIfInvalidKey($key)
     {
-        $this->store->has($key);
+        $this->store->exists($key);
     }
 
     /**
@@ -297,9 +297,9 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
         $this->store->clear();
 
-        $this->assertFalse($this->store->has('a'));
-        $this->assertFalse($this->store->has('b'));
-        $this->assertFalse($this->store->has('c'));
+        $this->assertFalse($this->store->exists('a'));
+        $this->assertFalse($this->store->exists('b'));
+        $this->assertFalse($this->store->exists('c'));
         $this->assertSame(array(), $this->store->keys());
     }
 
@@ -314,11 +314,11 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
         $this->store->clear();
 
-        $this->assertFalse($this->store->has('a'));
+        $this->assertFalse($this->store->exists('a'));
 
         $this->store->set('a', 1234);
 
-        $this->assertTrue($this->store->has('a'));
+        $this->assertTrue($this->store->exists('a'));
         $this->assertSame(1234, $this->store->get('a'));
     }
 
