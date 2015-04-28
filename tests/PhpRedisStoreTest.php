@@ -197,4 +197,24 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
         $store = new PhpRedisStore($redis);
         $store->has('key');
     }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testKeysThrowsReadExceptionIfReadFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('keys')
+            ->willThrowException($exception);
+
+        $store = new PhpRedisStore($redis);
+        $store->keys();
+    }
 }

@@ -192,4 +192,27 @@ interface KeyValueStore
      * @throws WriteException If the store cannot be written.
      */
     public function clear();
+
+    /**
+     * Returns all keys currently stored in the store.
+     *
+     * If the backend of the store cannot be read, a {@link ReadException}
+     * is thrown. You should always handle this exception in your code:
+     *
+     * ```php
+     * try {
+     *     foreach ($store->keys() as $key) {
+     *         // ...
+     *     }
+     * } catch (ReadException $e) {
+     *     // read failed
+     * }
+     * ```
+     *
+     * @return array The keys stored in the store. Each key is either a string
+     *               or an integer. The order of the keys is undefined.
+     *
+     * @throws ReadException If the store cannot be read.
+     */
+    public function keys();
 }

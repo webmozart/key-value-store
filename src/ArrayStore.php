@@ -93,6 +93,14 @@ class ArrayStore implements KeyValueStore
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function keys()
+    {
+        return array_keys($this->array);
+    }
+
+    /**
      * Returns the contents of the store as array.
      *
      * @return array The keys and values in the store.

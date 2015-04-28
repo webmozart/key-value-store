@@ -192,4 +192,23 @@ class PredisStoreTest extends AbstractKeyValueStoreTest
         $store = new PredisStore($client);
         $store->has('key');
     }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testKeysThrowsReadExceptionIfReadFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $client = $this->getMock('Predis\ClientInterface');
+
+        $client->expects($this->once())
+            ->method('__call')
+            ->with('keys')
+            ->willThrowException($exception);
+
+        $store = new PredisStore($client);
+        $store->keys();
+    }
 }

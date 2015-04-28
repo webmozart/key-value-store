@@ -123,4 +123,12 @@ class CachedStore implements KeyValueStore
             $this->cache->flushAll();
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function keys()
+    {
+        return $this->store->keys();
+    }
 }

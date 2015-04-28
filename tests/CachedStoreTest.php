@@ -321,4 +321,13 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
 
         $this->store->clear();
     }
+
+    public function testKeysForwardsKeysFromStore()
+    {
+        $this->innerStore->expects($this->once())
+            ->method('keys')
+            ->willReturn(array('a', 'b', 'c'));
+
+        $this->assertSame(array('a', 'b', 'c'), $this->store->keys());
+    }
 }

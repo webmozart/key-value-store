@@ -51,10 +51,19 @@ class NullStore implements KeyValueStore
     {
         return false;
     }
+
     /**
      * {@inheritdoc}
      */
     public function clear()
     {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function keys()
+    {
+        return array();
     }
 }

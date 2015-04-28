@@ -126,6 +126,14 @@ class JsonFileStore implements KeyValueStore
         $this->save(new stdClass());
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function keys()
+    {
+        return array_keys($this->load());
+    }
+
     private function load()
     {
         $contents = file_exists($this->path)

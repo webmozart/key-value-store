@@ -358,4 +358,130 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
         $store = new RiakStore('test-bucket', $client);
         $store->has('key');
     }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testKeysThrowsReadExceptionIfReadFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $client = $this->getMockBuilder('Basho\Riak\Riak')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $bucket = $this->getMockBuilder('Basho\Riak\Bucket')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $client->expects($this->once())
+            ->method('bucket')
+            ->willReturn($bucket);
+
+        $bucket->expects($this->once())
+            ->method('getKeys')
+            ->willThrowException($exception);
+
+        $store = new RiakStore('test-bucket', $client);
+        $store->keys();
+    }
+
+    public function testClear()
+    {
+        $client = $this->getMockBuilder('Basho\Riak\Riak')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $bucket = $this->getMockBuilder('Basho\Riak\Bucket')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $object1 = $this->getMockBuilder('Basho\Riak\Object')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $object2 = $this->getMockBuilder('Basho\Riak\Object')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $object3 = $this->getMockBuilder('Basho\Riak\Object')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $client->expects($this->once())
+            ->method('bucket')
+            ->willReturn($bucket);
+
+        $bucket->expects($this->once())
+            ->method('getKeys')
+            ->willReturn(array('a', 'b', 'c'));
+
+        $bucket->expects($this->exactly(3))
+            ->method('get')
+            ->willReturnMap(array(
+                array('a', null, $object1),
+                array('b', null, $object2),
+                array('c', null, $object3),
+            ));
+
+        $object1->expects($this->once())
+            ->method('delete');
+
+        $object2->expects($this->once())
+            ->method('delete');
+
+        $object3->expects($this->once())
+            ->method('delete');
+
+        // Riak is eventually consistent. Even after deleting keys, getKeys()
+        // returns the deleted keys for some time, so we cannot use the parent
+        // test which tests keys() to return an empty array
+        $store = new RiakStore('test-bucket', $client);
+
+        $store->clear();
+    }
+
+    public function testKeys()
+    {
+        // In the parent test, the deleted keys are still present due to Riak's
+        // eventual consistency model. Hence we need to mock away the client.
+        $client = $this->getMockBuilder('Basho\Riak\Riak')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $bucket = $this->getMockBuilder('Basho\Riak\Bucket')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $client->expects($this->once())
+            ->method('bucket')
+            ->willReturn($bucket);
+
+        $bucket->expects($this->once())
+            ->method('getKeys')
+            ->willReturn(array('a', 'b', 'c'));
+
+        $store = new RiakStore('test-bucket', $client);
+
+        $this->assertSame(array('a', 'b', 'c'), $store->keys());
+    }
+
+    public function testKeysEmpty()
+    {
+        // In the parent test, the deleted keys are still present due to Riak's
+        // eventual consistency model. Hence we need to mock away the client.
+        $client = $this->getMockBuilder('Basho\Riak\Riak')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $bucket = $this->getMockBuilder('Basho\Riak\Bucket')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $client->expects($this->once())
+            ->method('bucket')
+            ->willReturn($bucket);
+
+        $bucket->expects($this->once())
+            ->method('getKeys')
+            ->willReturn(array());
+
+        $store = new RiakStore('test-bucket', $client);
+
+        $this->assertSame(array(), $store->keys());
+    }
 }

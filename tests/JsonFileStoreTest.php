@@ -167,4 +167,17 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
         chmod($notReadable, 0000);
         $store->has('key');
     }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage Permission denied
+     */
+    public function testKeysThrowsReadExceptionIfReadFails()
+    {
+        touch($notReadable = $this->tempDir.'/not-readable.json');
+        $store = new JsonFileStore($notReadable);
+
+        chmod($notReadable, 0000);
+        $store->keys();
+    }
 }

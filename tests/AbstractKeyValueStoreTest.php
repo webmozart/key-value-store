@@ -76,6 +76,11 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
      */
     abstract public function testHasThrowsReadExceptionIfReadFails();
 
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     */
+    abstract public function testKeysThrowsReadExceptionIfReadFails();
+
     public function provideValidKeys()
     {
         return array(
@@ -292,6 +297,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->store->has('a'));
         $this->assertFalse($this->store->has('b'));
         $this->assertFalse($this->store->has('c'));
+        $this->assertSame(array(), $this->store->keys());
     }
 
     public function testClearEmpty()
@@ -311,5 +317,24 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->store->has('a'));
         $this->assertSame(1234, $this->store->get('a'));
+    }
+
+    public function testKeys()
+    {
+        $this->store->set('a', 1234);
+        $this->store->set('b', 5678);
+        $this->store->set('c', 9123);
+
+        $keys = $this->store->keys();
+
+        // The order of the returned keys is undefined
+        sort($keys);
+
+        $this->assertSame(array('a', 'b', 'c'), $keys);
+    }
+
+    public function testKeysEmpty()
+    {
+        $this->assertSame(array(), $this->store->keys());
     }
 }

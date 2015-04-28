@@ -122,4 +122,16 @@ class PredisStore implements KeyValueStore
             throw WriteException::forException($e);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function keys()
+    {
+        try {
+            return $this->client->keys('*');
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
+    }
 }

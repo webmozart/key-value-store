@@ -53,4 +53,13 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($store->remove('foo'));
     }
+
+    public function testKeysAlwaysReturnsEmptyArray()
+    {
+        $store = new NullStore();
+
+        $store->set('foo', 'bar');
+
+        $this->assertSame(array(), $store->keys());
+    }
 }

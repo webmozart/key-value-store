@@ -140,4 +140,16 @@ class RiakStore implements KeyValueStore
             throw WriteException::forException($e);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function keys()
+    {
+        try {
+            return $this->client->bucket($this->bucketName)->getKeys();
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
+    }
 }

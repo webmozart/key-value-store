@@ -68,4 +68,10 @@ class ArrayStoreTest extends AbstractKeyValueStoreTest
         // ArrayStore never reads a storage
         $this->assertTrue(true);
     }
+
+    public function testKeysThrowsReadExceptionIfReadFails()
+    {
+        // ArrayStore never reads a storage
+        $this->assertTrue(true);
+    }
 }
