@@ -14,6 +14,7 @@ namespace Webmozart\KeyValueStore;
 use Exception;
 use Redis;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\ReadException;
 use Webmozart\KeyValueStore\Api\WriteException;
 use Webmozart\KeyValueStore\Assert\Assert;
@@ -72,18 +73,22 @@ class PhpRedisStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = null)
+    public function get($key)
     {
         KeyUtil::validate($key);
 
-        try {
-            if (!$this->client->exists($key)) {
-                return $default;
-            }
+        $serialized = null;
 
-            $serialized = $this->client->get($key);
+        try {
+            if ($this->client->exists($key)) {
+                $serialized = $this->client->get($key);
+            }
         } catch (Exception $e) {
             throw ReadException::forException($e);
+        }
+
+        if (null === $serialized) {
+            throw NoSuchKeyException::forKey($key);
         }
 
         return Serializer::unserialize($serialized);

@@ -74,48 +74,24 @@ interface KeyValueStore
      * }
      * ```
      *
-     * If a key does not exist in the store, this method returns `null`. You
-     * can pass a manual default value in the second argument:
-     *
-     * ```php
-     * try {
-     *     $value = $store->get('host', '127.0.0.1');
-     * } catch (ReadException $e) {
-     *     // read failed
-     * }
-     * ```
-     *
-     * If you want to ensure that a key exists in the store before retrieving
-     * it, call {@link has()}:
-     *
-     * ```php
-     * try {
-     *     if (!$store->has($key)) {
-     *         // fail
-     *     }
-     *
-     *     $value = $store->get($key);
-     * } catch (ReadException $e) {
-     *     // read failed
-     * }
-     * ```
+     * If a key does not exist in the store, an exception is thrown.
      *
      * Any integer or string value is accepted as key. If any other type is
      * passed for the key, an {@link InvalidKeyException} is thrown. You should
      * make sure that you only pass valid keys to the store.
      *
-     * @param int|string $key     The key to get.
-     * @param mixed      $default The value to return if the key is not set.
+     * @param int|string $key The key to get.
      *
      * @return mixed The value of the key or the default value if the key is
      *               not set.
      *
      * @throws ReadException If the store cannot be read.
+     * @throws NoSuchKeyException If the key was not found.
      * @throws InvalidKeyException If the key is not a string or integer.
      * @throws UnserializationFailedException If the stored value cannot be
      *                                        unserialized.
      */
-    public function get($key, $default = null);
+    public function get($key);
 
     /**
      * Removes a key from the store.

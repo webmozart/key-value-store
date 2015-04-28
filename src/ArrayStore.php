@@ -12,6 +12,7 @@
 namespace Webmozart\KeyValueStore;
 
 use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Assert\Assert;
 use Webmozart\KeyValueStore\Util\KeyUtil;
 
@@ -53,11 +54,15 @@ class ArrayStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = null)
+    public function get($key)
     {
         KeyUtil::validate($key);
 
-        return array_key_exists($key, $this->array) ? $this->array[$key] : $default;
+        if (!array_key_exists($key, $this->array)) {
+            throw NoSuchKeyException::forKey($key);
+        }
+
+        return $this->array[$key];
     }
 
     /**

@@ -14,6 +14,7 @@ namespace Webmozart\KeyValueStore;
 use stdClass;
 use Webmozart\Assert\Assert;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\ReadException;
 use Webmozart\KeyValueStore\Api\UnsupportedValueException;
 use Webmozart\KeyValueStore\Api\WriteException;
@@ -67,14 +68,14 @@ class JsonFileStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = null)
+    public function get($key)
     {
         KeyUtil::validate($key);
 
         $data = $this->load();
 
         if (!array_key_exists($key, $data)) {
-            return $default;
+            throw NoSuchKeyException::forKey($key);
         }
 
         $value = $data[$key];

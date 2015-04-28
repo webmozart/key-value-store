@@ -14,6 +14,7 @@ namespace Webmozart\KeyValueStore;
 use Basho\Riak\Riak;
 use Exception;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\ReadException;
 use Webmozart\KeyValueStore\Api\WriteException;
 use Webmozart\KeyValueStore\Assert\Assert;
@@ -72,18 +73,19 @@ class RiakStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = null)
+    public function get($key)
     {
         KeyUtil::validate($key);
 
         try {
             $object = $this->client->bucket($this->bucketName)->getBinary($key);
-
-            if (!$object->exists()) {
-                return $default;
-            }
+            $exists = $object->exists();
         } catch (Exception $e) {
             throw ReadException::forException($e);
+        }
+
+        if (!$exists) {
+            throw NoSuchKeyException::forKey($key);
         }
 
         return Serializer::unserialize($object->getData());

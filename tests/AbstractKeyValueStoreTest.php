@@ -239,9 +239,12 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->get($key);
     }
 
-    public function testGetReturnsDefaultIfKeyNotFound()
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\NoSuchKeyException
+     */
+    public function testGetThrowsExceptionIfKeyNotFound()
     {
-        $this->assertSame('bar', $this->store->get('foo', 'bar'));
+        $this->store->get('foo');
     }
 
     /**

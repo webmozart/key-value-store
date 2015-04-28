@@ -12,6 +12,7 @@
 namespace Webmozart\KeyValueStore;
 
 use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 
 /**
  * A key-value store that does nothing.
@@ -31,9 +32,9 @@ class NullStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = null)
+    public function get($key)
     {
-        return $default;
+        throw NoSuchKeyException::forKey($key);
     }
 
     /**
