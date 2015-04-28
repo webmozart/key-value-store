@@ -82,8 +82,7 @@ interface KeyValueStore
      *
      * @param int|string $key The key to get.
      *
-     * @return mixed The value of the key or the default value if the key is
-     *               not set.
+     * @return mixed The value of the key.
      *
      * @throws ReadException If the store cannot be read.
      * @throws NoSuchKeyException If the key was not found.
@@ -92,6 +91,38 @@ interface KeyValueStore
      *                                        unserialized.
      */
     public function get($key);
+
+    /**
+     * Returns the values of multiple keys in the store.
+     *
+     * If the backend of the store cannot be read, a {@link ReadException}
+     * is thrown. You should always handle this exception in your code:
+     *
+     * ```php
+     * try {
+     *     $value = $store->getMultiple(array($key1, $key2));
+     * } catch (ReadException $e) {
+     *     // read failed
+     * }
+     * ```
+     *
+     * If a key does not exist in the store, an exception is thrown.
+     *
+     * Any integer or string value is accepted as key. If any other type is
+     * passed for the key, an {@link InvalidKeyException} is thrown. You should
+     * make sure that you only pass valid keys to the store.
+     *
+     * @param array $keys The keys to get. The keys must be strings or integers.
+     *
+     * @return array The values of the passed keys, indexed by the keys.
+     *
+     * @throws ReadException If the store cannot be read.
+     * @throws NoSuchKeyException If a key was not found.
+     * @throws InvalidKeyException If a key is not a string or integer.
+     * @throws UnserializationFailedException If a stored value cannot be
+     *                                        unserialized.
+     */
+    public function getMultiple(array $keys);
 
     /**
      * Removes a key from the store.

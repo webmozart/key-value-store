@@ -31,10 +31,23 @@ class KeyUtil
     public static function validate($key)
     {
         if (!is_string($key) && !is_int($key)) {
-            throw new InvalidKeyException(sprintf(
-                'Expected a key of type integer or string. Got: %s',
-                is_object($key) ? get_class($key) : gettype($key)
-            ));
+            throw InvalidKeyException::forKey($key);
+        }
+    }
+
+    /**
+     * Validates that multiple keys are valid.
+     *
+     * @param array $keys The tested keys.
+     *
+     * @throws InvalidKeyException If a key is invalid.
+     */
+    public static function validateMultiple($keys)
+    {
+        foreach ($keys as $key) {
+            if (!is_string($key) && !is_int($key)) {
+                throw InvalidKeyException::forKey($key);
+            }
         }
     }
 

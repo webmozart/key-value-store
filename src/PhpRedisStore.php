@@ -80,18 +80,49 @@ class PhpRedisStore implements KeyValueStore
         $serialized = null;
 
         try {
-            if ($this->client->exists($key)) {
-                $serialized = $this->client->get($key);
-            }
+            $serialized = $this->client->get($key);
         } catch (Exception $e) {
             throw ReadException::forException($e);
         }
 
-        if (null === $serialized) {
+        if (false === $serialized) {
             throw NoSuchKeyException::forKey($key);
         }
 
         return Serializer::unserialize($serialized);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMultiple(array $keys)
+    {
+        KeyUtil::validateMultiple($keys);
+
+        // Normalize indices of the array
+        $keys = array_values($keys);
+        $values = array();
+        $notFoundKeys = array();
+
+        try {
+            $serializedValues = $this->client->getMultiple($keys);
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
+
+        foreach ($serializedValues as $i => $serializedValue) {
+            if (false === $serializedValue) {
+                $notFoundKeys[] = $keys[$i];
+            } elseif (!$notFoundKeys) {
+                $values[$keys[$i]] = Serializer::unserialize($serializedValue);
+            }
+        }
+
+        if ($notFoundKeys) {
+            throw NoSuchKeyException::forKeys($notFoundKeys);
+        }
+
+        return $values;
     }
 
     /**

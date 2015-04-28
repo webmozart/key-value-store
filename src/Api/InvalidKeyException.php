@@ -11,6 +11,7 @@
 
 namespace Webmozart\KeyValueStore\Api;
 
+use Exception;
 use RuntimeException;
 
 /**
@@ -21,4 +22,19 @@ use RuntimeException;
  */
 class InvalidKeyException extends RuntimeException
 {
+    /**
+     * Creates an exception for an invalid key.
+     *
+     * @param mixed     $key   The invalid key.
+     * @param Exception $cause The exception that caused this exception.
+     *
+     * @return static The created exception.
+     */
+    public static function forKey($key, Exception $cause = null)
+    {
+        return new static(sprintf(
+            'Expected a key of type integer or string. Got: %s',
+            is_object($key) ? get_class($key) : gettype($key)
+        ), 0, $cause);
+    }
 }

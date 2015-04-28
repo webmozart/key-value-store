@@ -37,4 +37,20 @@ class NoSuchKeyException extends RuntimeException
             $key
         ), 0, $cause);
     }
+
+    /**
+     * Creates an exception for multiple keys that were not found.
+     *
+     * @param array[]   $keys  The keys that were not found.
+     * @param Exception $cause The exception that caused this exception.
+     *
+     * @return static The created exception.
+     */
+    public static function forKeys(array $keys, Exception $cause = null)
+    {
+        return new static(sprintf(
+            'The keys "%s" does not exist.',
+            implode('", "', $keys)
+        ), 0, $cause);
+    }
 }

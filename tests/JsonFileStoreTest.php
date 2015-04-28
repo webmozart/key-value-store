@@ -159,6 +159,40 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      * @expectedExceptionMessage Permission denied
      */
+    public function testGetMultipleThrowsReadExceptionIfReadFails()
+    {
+        touch($notReadable = $this->tempDir.'/not-readable.json');
+        $store = new JsonFileStore($notReadable);
+
+        chmod($notReadable, 0000);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage JSON_ERROR_SYNTAX
+     */
+    public function testGetMultipleThrowsReadExceptionIfInvalidJsonSyntax()
+    {
+        file_put_contents($invalid = $this->tempDir.'/data.json', '{"foo":');
+        $store = new JsonFileStore($invalid);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    public function testGetMultipleThrowsExceptionIfNotUnserializable()
+    {
+        file_put_contents($path = $this->tempDir.'/data.json', '{"key":"foobar"}');
+        $store = new JsonFileStore($path);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage Permission denied
+     */
     public function testExistsThrowsReadExceptionIfReadFails()
     {
         touch($notReadable = $this->tempDir.'/not-readable.json');

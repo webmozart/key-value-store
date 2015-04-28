@@ -40,6 +40,14 @@ class NullStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
+    public function getMultiple(array $keys)
+    {
+        throw NoSuchKeyException::forKeys($keys);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function remove($key)
     {
         return false;

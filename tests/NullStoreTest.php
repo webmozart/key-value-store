@@ -32,6 +32,18 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
         $store->get('foo');
     }
 
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\NoSuchKeyException
+     */
+    public function testGetMultipleAlwaysThrowsException()
+    {
+        $store = new NullStore();
+
+        $store->set('foo', 'bar');
+
+        $store->getMultiple(array('foo'));
+    }
+
     public function testExistsAlwaysReturnsFalse()
     {
         $store = new NullStore();

@@ -16,6 +16,7 @@ use Doctrine\Common\Cache\ClearableCache;
 use Doctrine\Common\Cache\FlushableCache;
 use InvalidArgumentException;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 
 /**
  * A key-value store replicated in a cache.
@@ -72,14 +73,10 @@ class CachedStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = null)
+    public function get($key)
     {
         if ($this->cache->contains($key)) {
             return $this->cache->fetch($key);
-        }
-
-        if (!$this->store->exists($key)) {
-            return $default;
         }
 
         $value = $this->store->get($key);
@@ -87,6 +84,31 @@ class CachedStore implements KeyValueStore
         $this->cache->save($key, $value, $this->ttl);
 
         return $value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMultiple(array $keys)
+    {
+        $values = array();
+
+        // Read cached values from the cache
+        foreach ($keys as $i => $key) {
+            if ($this->cache->contains($key)) {
+                $values[$key] = $this->cache->fetch($key);
+                unset($keys[$i]);
+            }
+        }
+
+        $values = array_replace($values, $this->store->getMultiple($keys));
+
+        // Write newly fetched values to the cache
+        foreach ($keys as $key) {
+            $this->cache->save($key, $values[$key], $this->ttl);
+        }
+
+        return $values;
     }
 
     /**

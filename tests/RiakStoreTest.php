@@ -309,6 +309,95 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      * @expectedExceptionMessage I failed!
      */
+    public function testGetMultipleThrowsReadExceptionIfReadFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $client = $this->getMockBuilder('Basho\Riak\Riak')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $client->expects($this->once())
+            ->method('bucket')
+            ->willThrowException($exception);
+
+        $store = new RiakStore('test-bucket', $client);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testGetMultipleThrowsReadExceptionIfExistsFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $client = $this->getMockBuilder('Basho\Riak\Riak')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $bucket = $this->getMockBuilder('Basho\Riak\Bucket')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $object = $this->getMockBuilder('Basho\Riak\Object')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $client->expects($this->once())
+            ->method('bucket')
+            ->willReturn($bucket);
+
+        $bucket->expects($this->once())
+            ->method('getBinary')
+            ->willReturn($object);
+
+        $object->expects($this->once())
+            ->method('exists')
+            ->willThrowException($exception);
+
+        $store = new RiakStore('test-bucket', $client);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    public function testGetMultipleThrowsExceptionIfNotUnserializable()
+    {
+        $client = $this->getMockBuilder('Basho\Riak\Riak')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $bucket = $this->getMockBuilder('Basho\Riak\Bucket')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $object = $this->getMockBuilder('Basho\Riak\Object')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $client->expects($this->once())
+            ->method('bucket')
+            ->willReturn($bucket);
+
+        $bucket->expects($this->once())
+            ->method('getBinary')
+            ->willReturn($object);
+
+        $object->expects($this->once())
+            ->method('exists')
+            ->willReturn(true);
+
+        $object->expects($this->once())
+            ->method('getData')
+            ->willReturn('foobar');
+
+        $store = new RiakStore('test-bucket', $client);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
     public function testExistsThrowsReadExceptionIfReadFails()
     {
         $exception = new TestException('I failed!');

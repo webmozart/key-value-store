@@ -120,33 +120,9 @@ class PredisStoreTest extends AbstractKeyValueStoreTest
 
         $client = $this->getMock('Predis\ClientInterface');
 
-        $client->expects($this->at(0))
-            ->method('__call')
-            ->with('exists')
-            ->willReturn(true);
-
-        $client->expects($this->at(1))
-            ->method('__call')
-            ->with('get')
-            ->willThrowException($exception);
-
-        $store = new PredisStore($client);
-        $store->get('key');
-    }
-
-    /**
-     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
-     * @expectedExceptionMessage I failed!
-     */
-    public function testGetThrowsReadExceptionIfExistsFails()
-    {
-        $exception = new TestException('I failed!');
-
-        $client = $this->getMock('Predis\ClientInterface');
-
         $client->expects($this->once())
             ->method('__call')
-            ->with('exists')
+            ->with('get')
             ->willThrowException($exception);
 
         $store = new PredisStore($client);
@@ -160,18 +136,48 @@ class PredisStoreTest extends AbstractKeyValueStoreTest
     {
         $client = $this->getMock('Predis\ClientInterface');
 
-        $client->expects($this->at(0))
-            ->method('__call')
-            ->with('exists')
-            ->willReturn(true);
-
-        $client->expects($this->at(1))
+        $client->expects($this->once())
             ->method('__call')
             ->with('get')
             ->willReturn('foobar');
 
         $store = new PredisStore($client);
         $store->get('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testGetMultipleThrowsReadExceptionIfReadFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $client = $this->getMock('Predis\ClientInterface');
+
+        $client->expects($this->once())
+            ->method('__call')
+            ->with('mget')
+            ->willThrowException($exception);
+
+        $store = new PredisStore($client);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    public function testGetMultipleThrowsExceptionIfNotUnserializable()
+    {
+        $client = $this->getMock('Predis\ClientInterface');
+
+        $client->expects($this->once())
+            ->method('__call')
+            ->with('mget')
+            ->willReturn(array('foobar'));
+
+        $store = new PredisStore($client);
+        $store->getMultiple(array('key'));
     }
 
     /**
