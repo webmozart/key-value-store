@@ -68,14 +68,14 @@ class JsonFileStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function getOrFail($key)
+    public function get($key, $default = null)
     {
         KeyUtil::validate($key);
 
         $data = $this->load();
 
         if (!array_key_exists($key, $data)) {
-            throw NoSuchKeyException::forKey($key);
+            return $default;
         }
 
         $value = $data[$key];
@@ -90,14 +90,14 @@ class JsonFileStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function getIfExists($key, $default = null)
+    public function getOrFail($key)
     {
         KeyUtil::validate($key);
 
         $data = $this->load();
 
         if (!array_key_exists($key, $data)) {
-            return $default;
+            throw NoSuchKeyException::forKey($key);
         }
 
         $value = $data[$key];

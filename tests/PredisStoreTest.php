@@ -126,7 +126,7 @@ class PredisStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new PredisStore($client);
-        $store->getOrFail('key');
+        $store->get('key');
     }
 
     /**
@@ -142,7 +142,7 @@ class PredisStoreTest extends AbstractKeyValueStoreTest
             ->willReturn('foobar');
 
         $store = new PredisStore($client);
-        $store->getOrFail('key');
+        $store->get('key');
     }
 
     /**

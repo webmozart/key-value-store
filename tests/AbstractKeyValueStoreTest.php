@@ -245,11 +245,32 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set('key', $value);
     }
 
+    public function testGet()
+    {
+        $this->store->set('foo', 'bar');
+
+        $this->assertSame('bar', $this->store->get('foo', 'baz'));
+    }
+
+    /**
+     * @dataProvider provideInvalidKeys
+     * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
+     */
+    public function testGetFailsIfInvalidKey($key)
+    {
+        $this->store->get($key);
+    }
+
+    public function testGetReturnsDefaultIfKeyNotFound()
+    {
+        $this->assertSame('bar', $this->store->get('foo', 'bar'));
+    }
+
     public function testGetOrFail()
     {
         $this->store->set('foo', 'bar');
 
-        $this->assertSame('bar', $this->store->getIfExists('foo'));
+        $this->assertSame('bar', $this->store->get('foo'));
     }
 
     /**
@@ -267,27 +288,6 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     public function testGetOrFailThrowsExceptionIfKeyNotFound()
     {
         $this->store->getOrFail('foo');
-    }
-
-    public function testGetIfExists()
-    {
-        $this->store->set('foo', 'bar');
-
-        $this->assertSame('bar', $this->store->getIfExists('foo', 'baz'));
-    }
-
-    /**
-     * @dataProvider provideInvalidKeys
-     * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
-     */
-    public function testGetIfExistsFailsIfInvalidKey($key)
-    {
-        $this->store->getIfExists($key);
-    }
-
-    public function testGetIfExistsReturnsDefaultIfKeyNotFound()
-    {
-        $this->assertSame('bar', $this->store->getIfExists('foo', 'bar'));
     }
 
     public function testGetMultipleOrFailIgnoresArrayIndices()

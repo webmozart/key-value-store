@@ -63,38 +63,6 @@ interface KeyValueStore
     /**
      * Returns the value of a key in the store.
      *
-     * If the key does not exist in the store, an exception is thrown.
-     *
-     * Any integer or string value is accepted as key. If any other type is
-     * passed for the key, an {@link InvalidKeyException} is thrown. You should
-     * make sure that you only pass valid keys to the store.
-     *
-     * If the backend of the store cannot be read, a {@link ReadException}
-     * is thrown. You should always handle this exception in your code:
-     *
-     * ```php
-     * try {
-     *     $value = $store->get($key);
-     * } catch (ReadException $e) {
-     *     // read failed
-     * }
-     * ```
-     *
-     * @param int|string $key The key to get.
-     *
-     * @return mixed The value of the key.
-     *
-     * @throws ReadException If the store cannot be read.
-     * @throws NoSuchKeyException If the key was not found.
-     * @throws InvalidKeyException If the key is not a string or integer.
-     * @throws UnserializationFailedException If the stored value cannot be
-     *                                        unserialized.
-     */
-    public function getOrFail($key);
-
-    /**
-     * Returns the value of a key in the store.
-     *
      * If a key does not exist in the store, the default value passed in the
      * second parameter is returned.
      *
@@ -125,7 +93,39 @@ interface KeyValueStore
      * @throws UnserializationFailedException If the stored value cannot be
      *                                        unserialized.
      */
-    public function getIfExists($key, $default = null);
+    public function get($key, $default = null);
+
+    /**
+     * Returns the value of a key in the store.
+     *
+     * If the key does not exist in the store, an exception is thrown.
+     *
+     * Any integer or string value is accepted as key. If any other type is
+     * passed for the key, an {@link InvalidKeyException} is thrown. You should
+     * make sure that you only pass valid keys to the store.
+     *
+     * If the backend of the store cannot be read, a {@link ReadException}
+     * is thrown. You should always handle this exception in your code:
+     *
+     * ```php
+     * try {
+     *     $value = $store->get($key);
+     * } catch (ReadException $e) {
+     *     // read failed
+     * }
+     * ```
+     *
+     * @param int|string $key The key to get.
+     *
+     * @return mixed The value of the key.
+     *
+     * @throws ReadException If the store cannot be read.
+     * @throws NoSuchKeyException If the key was not found.
+     * @throws InvalidKeyException If the key is not a string or integer.
+     * @throws UnserializationFailedException If the stored value cannot be
+     *                                        unserialized.
+     */
+    public function getOrFail($key);
 
     /**
      * Returns the values of multiple keys in the store.

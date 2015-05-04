@@ -130,7 +130,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new PhpRedisStore($redis);
-        $store->getOrFail('key');
+        $store->get('key');
     }
 
     /**
@@ -147,7 +147,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
             ->willReturn('foobar');
 
         $store = new PhpRedisStore($redis);
-        $store->getOrFail('key');
+        $store->get('key');
     }
 
     /**

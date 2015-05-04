@@ -67,6 +67,28 @@ class PredisStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
+    public function get($key, $default = null)
+    {
+        KeyUtil::validate($key);
+
+        $serialized = null;
+
+        try {
+            $serialized = $this->client->get($key);
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
+
+        if (null === $serialized) {
+            return $default;
+        }
+
+        return Serializer::unserialize($serialized);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getOrFail($key)
     {
         KeyUtil::validate($key);
@@ -81,28 +103,6 @@ class PredisStore implements KeyValueStore
 
         if (null === $serialized) {
             throw NoSuchKeyException::forKey($key);
-        }
-
-        return Serializer::unserialize($serialized);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getIfExists($key, $default = null)
-    {
-        KeyUtil::validate($key);
-
-        $serialized = null;
-
-        try {
-            $serialized = $this->client->get($key);
-        } catch (Exception $e) {
-            throw ReadException::forException($e);
-        }
-
-        if (null === $serialized) {
-            return $default;
         }
 
         return Serializer::unserialize($serialized);

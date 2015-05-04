@@ -32,17 +32,17 @@ class NullStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function getOrFail($key)
+    public function get($key, $default = null)
     {
-        throw NoSuchKeyException::forKey($key);
+        return $default;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getIfExists($key, $default = null)
+    public function getOrFail($key)
     {
-        return $default;
+        throw NoSuchKeyException::forKey($key);
     }
 
     /**

@@ -20,6 +20,15 @@ use Webmozart\KeyValueStore\NullStore;
  */
 class NullStoreTest extends PHPUnit_Framework_TestCase
 {
+    public function testGetAlwaysReturnsDefault()
+    {
+        $store = new NullStore();
+
+        $store->set('foo', 'bar');
+
+        $this->assertSame('baz', $store->get('foo', 'baz'));
+    }
+
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\NoSuchKeyException
      */
@@ -30,15 +39,6 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
         $store->set('foo', 'bar');
 
         $store->getOrFail('foo');
-    }
-
-    public function testGetIfExistsAlwaysReturnsDefault()
-    {
-        $store = new NullStore();
-
-        $store->set('foo', 'bar');
-
-        $this->assertSame('baz', $store->getIfExists('foo', 'baz'));
     }
 
     /**

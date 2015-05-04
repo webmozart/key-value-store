@@ -4,12 +4,9 @@ Changelog
 * 1.0.0-next (@release_date@)
 
  * added `KeyValueStore::keys()`
- * made `KeyValueStore::get()` throw an exception when a key is not found to
-   prevent superfluous calls to `has()`
  * renamed `KeyValueStore::has()` to `exists()`
  * added `KeyValueStore::getMultiple()`
- * added `KeyValueStore::getIfExists()`
- * renamed `KeyValueStore::get()` to `getOrFail()`
+ * added `KeyValueStore::getOrFail()`
  * renamed `KeyValueStore::getMultiple()` to `getMultipleOrFail()`
 
 * 1.0.0-beta3 (2015-04-13)

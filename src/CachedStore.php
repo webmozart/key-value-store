@@ -73,23 +73,7 @@ class CachedStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function getOrFail($key)
-    {
-        if ($this->cache->contains($key)) {
-            return $this->cache->fetch($key);
-        }
-
-        $value = $this->store->getOrFail($key);
-
-        $this->cache->save($key, $value, $this->ttl);
-
-        return $value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getIfExists($key, $default = null)
+    public function get($key, $default = null)
     {
         if ($this->cache->contains($key)) {
             return $this->cache->fetch($key);
@@ -100,6 +84,22 @@ class CachedStore implements KeyValueStore
         } catch (NoSuchKeyException $e) {
             return $default;
         }
+
+        $this->cache->save($key, $value, $this->ttl);
+
+        return $value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOrFail($key)
+    {
+        if ($this->cache->contains($key)) {
+            return $this->cache->fetch($key);
+        }
+
+        $value = $this->store->getOrFail($key);
 
         $this->cache->save($key, $value, $this->ttl);
 
