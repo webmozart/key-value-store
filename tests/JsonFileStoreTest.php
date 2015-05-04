@@ -131,7 +131,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
         $store = new JsonFileStore($notReadable);
 
         chmod($notReadable, 0000);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -142,7 +142,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
     {
         file_put_contents($invalid = $this->tempDir.'/data.json', '{"foo":');
         $store = new JsonFileStore($invalid);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -152,7 +152,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
     {
         file_put_contents($path = $this->tempDir.'/data.json', '{"key":"foobar"}');
         $store = new JsonFileStore($path);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -165,7 +165,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
         $store = new JsonFileStore($notReadable);
 
         chmod($notReadable, 0000);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**
@@ -176,7 +176,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
     {
         file_put_contents($invalid = $this->tempDir.'/data.json', '{"foo":');
         $store = new JsonFileStore($invalid);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**
@@ -186,7 +186,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
     {
         file_put_contents($path = $this->tempDir.'/data.json', '{"key":"foobar"}');
         $store = new JsonFileStore($path);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**

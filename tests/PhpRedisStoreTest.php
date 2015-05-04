@@ -130,7 +130,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new PhpRedisStore($redis);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -147,7 +147,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
             ->willReturn('foobar');
 
         $store = new PhpRedisStore($redis);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -167,7 +167,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new PhpRedisStore($redis);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**
@@ -184,7 +184,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
             ->willReturn(array('foobar'));
 
         $store = new PhpRedisStore($redis);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**

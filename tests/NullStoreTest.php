@@ -29,7 +29,7 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
 
         $store->set('foo', 'bar');
 
-        $store->get('foo');
+        $store->getOrFail('foo');
     }
 
     public function testGetIfExistsAlwaysReturnsDefault()
@@ -50,7 +50,7 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
 
         $store->set('foo', 'bar');
 
-        $store->getMultiple(array('foo'));
+        $store->getMultipleOrFail(array('foo'));
     }
 
     public function testExistsAlwaysReturnsFalse()

@@ -32,7 +32,7 @@ class NullStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function get($key)
+    public function getOrFail($key)
     {
         throw NoSuchKeyException::forKey($key);
     }
@@ -48,7 +48,7 @@ class NullStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function getMultiple(array $keys)
+    public function getMultipleOrFail(array $keys)
     {
         throw NoSuchKeyException::forKeys($keys);
     }

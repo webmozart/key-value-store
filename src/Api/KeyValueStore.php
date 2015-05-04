@@ -63,7 +63,7 @@ interface KeyValueStore
     /**
      * Returns the value of a key in the store.
      *
-     * If a key does not exist in the store, an exception is thrown.
+     * If the key does not exist in the store, an exception is thrown.
      *
      * Any integer or string value is accepted as key. If any other type is
      * passed for the key, an {@link InvalidKeyException} is thrown. You should
@@ -90,7 +90,7 @@ interface KeyValueStore
      * @throws UnserializationFailedException If the stored value cannot be
      *                                        unserialized.
      */
-    public function get($key);
+    public function getOrFail($key);
 
     /**
      * Returns the value of a key in the store.
@@ -130,6 +130,8 @@ interface KeyValueStore
     /**
      * Returns the values of multiple keys in the store.
      *
+     * If a key does not exist in the store, an exception is thrown.
+     *
      * Any integer or string value is accepted as key. If any other type is
      * passed for the key, an {@link InvalidKeyException} is thrown. You should
      * make sure that you only pass valid keys to the store.
@@ -145,8 +147,6 @@ interface KeyValueStore
      * }
      * ```
      *
-     * If a key does not exist in the store, an exception is thrown.
-     *
      * @param array $keys The keys to get. The keys must be strings or integers.
      *
      * @return array The values of the passed keys, indexed by the keys.
@@ -157,7 +157,7 @@ interface KeyValueStore
      * @throws UnserializationFailedException If a stored value cannot be
      *                                        unserialized.
      */
-    public function getMultiple(array $keys);
+    public function getMultipleOrFail(array $keys);
 
     /**
      * Removes a key from the store.

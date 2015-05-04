@@ -67,7 +67,7 @@ class PredisStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function get($key)
+    public function getOrFail($key)
     {
         KeyUtil::validate($key);
 
@@ -111,7 +111,7 @@ class PredisStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function getMultiple(array $keys)
+    public function getMultipleOrFail(array $keys)
     {
         KeyUtil::validateMultiple($keys);
 

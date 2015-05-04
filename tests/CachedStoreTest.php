@@ -103,7 +103,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set('key', 'value');
     }
 
-    public function testGetReturnsFromCacheIfCached()
+    public function testGetOrFailReturnsFromCacheIfCached()
     {
         $this->cache->expects($this->at(0))
             ->method('contains')
@@ -111,17 +111,17 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(true);
 
         $this->innerStore->expects($this->never())
-            ->method('get');
+            ->method('getOrFail');
 
         $this->cache->expects($this->at(1))
             ->method('fetch')
             ->with('key')
             ->willReturn('value');
 
-        $this->assertSame('value', $this->store->get('key'));
+        $this->assertSame('value', $this->store->getOrFail('key'));
     }
 
-    public function testGetWritesToCacheIfNotCached()
+    public function testGetOrFailWritesToCacheIfNotCached()
     {
         $this->cache->expects($this->at(0))
             ->method('contains')
@@ -129,7 +129,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->once())
-            ->method('get')
+            ->method('getOrFail')
             ->with('key')
             ->willReturn('value');
 
@@ -137,10 +137,10 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with('key', 'value');
 
-        $this->assertSame('value', $this->store->get('key'));
+        $this->assertSame('value', $this->store->getOrFail('key'));
     }
 
-    public function testGetWritesTtlIfNotCached()
+    public function testGetOrFailWritesTtlIfNotCached()
     {
         $this->store = new CachedStore($this->innerStore, $this->cache, 100);
 
@@ -150,7 +150,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->once())
-            ->method('get')
+            ->method('getOrFail')
             ->with('key')
             ->willReturn('value');
 
@@ -158,13 +158,13 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with('key', 'value', 100);
 
-        $this->assertSame('value', $this->store->get('key'));
+        $this->assertSame('value', $this->store->getOrFail('key'));
     }
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\NoSuchKeyException
      */
-    public function testGetForwardsNoSuchKeyException()
+    public function testGetOrFailForwardsNoSuchKeyException()
     {
         $this->cache->expects($this->once())
             ->method('contains')
@@ -172,13 +172,13 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->once())
-            ->method('get')
+            ->method('getOrFail')
             ->willThrowException(NoSuchKeyException::forKey('key'));
 
         $this->cache->expects($this->never())
             ->method('save');
 
-        $this->store->get('key');
+        $this->store->getOrFail('key');
     }
 
     public function testGetIfExistsReturnsFromCacheIfCached()
@@ -189,7 +189,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(true);
 
         $this->innerStore->expects($this->never())
-            ->method('get');
+            ->method('getOrFail');
 
         $this->cache->expects($this->at(1))
             ->method('fetch')
@@ -207,7 +207,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->once())
-            ->method('get')
+            ->method('getOrFail')
             ->with('key')
             ->willReturn('value');
 
@@ -228,7 +228,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->once())
-            ->method('get')
+            ->method('getOrFail')
             ->with('key')
             ->willReturn('value');
 
@@ -247,7 +247,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->innerStore->expects($this->once())
-            ->method('get')
+            ->method('getOrFail')
             ->willThrowException(NoSuchKeyException::forKey('key'));
 
         $this->cache->expects($this->never())
@@ -256,7 +256,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
         $this->assertSame('default', $this->store->getIfExists('key', 'default'));
     }
 
-    public function testGetMultipleMergesCachedAndNonCachedEntries()
+    public function testGetMultipleOrFailMergesCachedAndNonCachedEntries()
     {
         $this->cache->expects($this->exactly(3))
             ->method('contains')
@@ -267,7 +267,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ));
 
         $this->innerStore->expects($this->once())
-            ->method('getMultiple')
+            ->method('getMultipleOrFail')
             ->with(array('a', 2 => 'c'))
             ->willReturn(array(
                 'a' => 'value1',
@@ -283,7 +283,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->withConsecutive(array('a', 'value1'), array('c', 'value3'));
 
-        $values = $this->store->getMultiple(array('a', 'b', 'c'));
+        $values = $this->store->getMultipleOrFail(array('a', 'b', 'c'));
 
         // Undefined order
         ksort($values);

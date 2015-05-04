@@ -9,6 +9,8 @@ Changelog
  * renamed `KeyValueStore::has()` to `exists()`
  * added `KeyValueStore::getMultiple()`
  * added `KeyValueStore::getIfExists()`
+ * renamed `KeyValueStore::get()` to `getOrFail()`
+ * renamed `KeyValueStore::getMultiple()` to `getMultipleOrFail()`
 
 * 1.0.0-beta3 (2015-04-13)
 

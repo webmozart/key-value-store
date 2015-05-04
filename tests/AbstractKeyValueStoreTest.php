@@ -111,8 +111,8 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     {
         $this->store->set($key, 1234);
 
-        $this->assertSame(1234, $this->store->get($key));
-        $this->assertSame(array($key => 1234), $this->store->getMultiple(array($key)));
+        $this->assertSame(1234, $this->store->getOrFail($key));
+        $this->assertSame(array($key => 1234), $this->store->getMultipleOrFail(array($key)));
     }
 
     public function provideInvalidKeys()
@@ -185,8 +185,8 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     {
         $this->store->set('key', $value);
 
-        $this->assertSame($value, $this->store->get('key'));
-        $this->assertSame(array('key' => $value), $this->store->getMultiple(array('key')));
+        $this->assertSame($value, $this->store->getOrFail('key'));
+        $this->assertSame(array('key' => $value), $this->store->getMultipleOrFail(array('key')));
         $this->assertTrue($this->store->exists('key'));
     }
 
@@ -197,8 +197,8 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     {
         $this->store->set('key', $value);
 
-        $this->assertSame($value, $this->store->get('key'));
-        $this->assertSame(array('key' => $value), $this->store->getMultiple(array('key')));
+        $this->assertSame($value, $this->store->getOrFail('key'));
+        $this->assertSame(array('key' => $value), $this->store->getMultipleOrFail(array('key')));
         $this->assertTrue($this->store->exists('key'));
     }
 
@@ -209,8 +209,8 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     {
         $this->store->set('key', $value);
 
-        $this->assertEquals($value, $this->store->get('key'));
-        $this->assertEquals(array('key' => $value), $this->store->getMultiple(array('key')));
+        $this->assertEquals($value, $this->store->getOrFail('key'));
+        $this->assertEquals(array('key' => $value), $this->store->getMultipleOrFail(array('key')));
         $this->assertTrue($this->store->exists('key'));
     }
 
@@ -221,8 +221,8 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     {
         $this->store->set('key', $value);
 
-        $this->assertEquals($value, $this->store->get('key'));
-        $this->assertEquals(array('key' => $value), $this->store->getMultiple(array('key')));
+        $this->assertEquals($value, $this->store->getOrFail('key'));
+        $this->assertEquals(array('key' => $value), $this->store->getMultipleOrFail(array('key')));
         $this->assertTrue($this->store->exists('key'));
     }
 
@@ -245,21 +245,28 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set('key', $value);
     }
 
+    public function testGetOrFail()
+    {
+        $this->store->set('foo', 'bar');
+
+        $this->assertSame('bar', $this->store->getIfExists('foo'));
+    }
+
     /**
      * @dataProvider provideInvalidKeys
      * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
      */
-    public function testGetFailsIfInvalidKey($key)
+    public function testGetOrFailFailsIfInvalidKey($key)
     {
-        $this->store->get($key);
+        $this->store->getOrFail($key);
     }
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\NoSuchKeyException
      */
-    public function testGetThrowsExceptionIfKeyNotFound()
+    public function testGetOrFailThrowsExceptionIfKeyNotFound()
     {
-        $this->store->get('foo');
+        $this->store->getOrFail('foo');
     }
 
     public function testGetIfExists()
@@ -283,7 +290,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->assertSame('bar', $this->store->getIfExists('foo', 'bar'));
     }
 
-    public function testGetMultipleIgnoresArrayIndices()
+    public function testGetMultipleOrFailIgnoresArrayIndices()
     {
         $this->store->set('a', 1234);
         $this->store->set('b', 5678);
@@ -292,28 +299,28 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->assertSame(array(
             'a' => 1234,
             'c' => 9012,
-        ), $this->store->getMultiple(array(5 => 'a', 7 => 'c')));
+        ), $this->store->getMultipleOrFail(array(5 => 'a', 7 => 'c')));
     }
 
     /**
      * @dataProvider provideInvalidKeys
      * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
      */
-    public function testGetMultipleFailsIfInvalidKey($key)
+    public function testGetMultipleOrFailFailsIfInvalidKey($key)
     {
         $this->store->set('a', 1234);
 
-        $this->store->getMultiple(array('a', $key));
+        $this->store->getMultipleOrFail(array('a', $key));
     }
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\NoSuchKeyException
      */
-    public function testGetMultipleThrowsExceptionIfKeyNotFound()
+    public function testGetMultipleOrFailThrowsExceptionIfKeyNotFound()
     {
         $this->store->set('a', 1234);
 
-        $this->store->getMultiple(array('a', 'foo'));
+        $this->store->getMultipleOrFail(array('a', 'foo'));
     }
 
     /**
@@ -388,7 +395,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set('a', 1234);
 
         $this->assertTrue($this->store->exists('a'));
-        $this->assertSame(1234, $this->store->get('a'));
+        $this->assertSame(1234, $this->store->getOrFail('a'));
     }
 
     public function testKeys()

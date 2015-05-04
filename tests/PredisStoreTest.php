@@ -126,7 +126,7 @@ class PredisStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new PredisStore($client);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -142,7 +142,7 @@ class PredisStoreTest extends AbstractKeyValueStoreTest
             ->willReturn('foobar');
 
         $store = new PredisStore($client);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -161,7 +161,7 @@ class PredisStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new PredisStore($client);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**
@@ -177,7 +177,7 @@ class PredisStoreTest extends AbstractKeyValueStoreTest
             ->willReturn(array('foobar'));
 
         $store = new PredisStore($client);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**

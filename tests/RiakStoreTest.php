@@ -233,7 +233,7 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new RiakStore('test-bucket', $client);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -267,7 +267,7 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new RiakStore('test-bucket', $client);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -302,7 +302,7 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
             ->willReturn('foobar');
 
         $store = new RiakStore('test-bucket', $client);
-        $store->get('key');
+        $store->getOrFail('key');
     }
 
     /**
@@ -322,7 +322,7 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new RiakStore('test-bucket', $client);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**
@@ -356,7 +356,7 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
             ->willThrowException($exception);
 
         $store = new RiakStore('test-bucket', $client);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**
@@ -391,7 +391,7 @@ class RiakStoreTest extends AbstractKeyValueStoreTest
             ->willReturn('foobar');
 
         $store = new RiakStore('test-bucket', $client);
-        $store->getMultiple(array('key'));
+        $store->getMultipleOrFail(array('key'));
     }
 
     /**

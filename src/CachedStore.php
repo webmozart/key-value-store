@@ -73,13 +73,13 @@ class CachedStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function get($key)
+    public function getOrFail($key)
     {
         if ($this->cache->contains($key)) {
             return $this->cache->fetch($key);
         }
 
-        $value = $this->store->get($key);
+        $value = $this->store->getOrFail($key);
 
         $this->cache->save($key, $value, $this->ttl);
 
@@ -96,7 +96,7 @@ class CachedStore implements KeyValueStore
         }
 
         try {
-            $value = $this->store->get($key);
+            $value = $this->store->getOrFail($key);
         } catch (NoSuchKeyException $e) {
             return $default;
         }
@@ -109,7 +109,7 @@ class CachedStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
-    public function getMultiple(array $keys)
+    public function getMultipleOrFail(array $keys)
     {
         $values = array();
 
@@ -121,7 +121,7 @@ class CachedStore implements KeyValueStore
             }
         }
 
-        $values = array_replace($values, $this->store->getMultiple($keys));
+        $values = array_replace($values, $this->store->getMultipleOrFail($keys));
 
         // Write newly fetched values to the cache
         foreach ($keys as $key) {
