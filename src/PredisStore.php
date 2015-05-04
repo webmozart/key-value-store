@@ -111,6 +111,32 @@ class PredisStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
+    public function getMultiple(array $keys, $default = null)
+    {
+        KeyUtil::validateMultiple($keys);
+
+        // Normalize indices of the array
+        $keys = array_values($keys);
+        $values = array();
+
+        try {
+            $serializedValues = $this->client->mget($keys);
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
+
+        foreach ($serializedValues as $i => $serializedValue) {
+            $values[$keys[$i]] = null === $serializedValue
+                ? $default
+                : Serializer::unserialize($serializedValue);
+        }
+
+        return $values;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getMultipleOrFail(array $keys)
     {
         KeyUtil::validateMultiple($keys);

@@ -109,6 +109,26 @@ class CachedStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
+    public function getMultiple(array $keys, $default = null)
+    {
+        $values = array();
+
+        // Read cached values from the cache
+        foreach ($keys as $i => $key) {
+            if ($this->cache->contains($key)) {
+                $values[$key] = $this->cache->fetch($key);
+                unset($keys[$i]);
+            }
+        }
+
+        // Don't write cache, as we can't differentiate between existing and
+        // non-existing keys
+        return array_replace($values, $this->store->getMultiple($keys, $default));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getMultipleOrFail(array $keys)
     {
         $values = array();

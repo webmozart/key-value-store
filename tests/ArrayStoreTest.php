@@ -63,6 +63,18 @@ class ArrayStoreTest extends AbstractKeyValueStoreTest
         $this->assertTrue(true);
     }
 
+    public function testGetOrFailThrowsReadExceptionIfReadFails()
+    {
+        // ArrayStore never reads a storage
+        $this->assertTrue(true);
+    }
+
+    public function testGetOrFailThrowsExceptionIfNotUnserializable()
+    {
+        // ArrayStore never serializes its values
+        $this->assertTrue(true);
+    }
+
     public function testGetMultipleThrowsReadExceptionIfReadFails()
     {
         // ArrayStore never reads a storage
@@ -70,6 +82,18 @@ class ArrayStoreTest extends AbstractKeyValueStoreTest
     }
 
     public function testGetMultipleThrowsExceptionIfNotUnserializable()
+    {
+        // ArrayStore never serializes its values
+        $this->assertTrue(true);
+    }
+
+    public function testGetMultipleOrFailThrowsReadExceptionIfReadFails()
+    {
+        // ArrayStore never reads a storage
+        $this->assertTrue(true);
+    }
+
+    public function testGetMultipleOrFailThrowsExceptionIfNotUnserializable()
     {
         // ArrayStore never serializes its values
         $this->assertTrue(true);

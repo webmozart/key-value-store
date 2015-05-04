@@ -154,7 +154,81 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      * @expectedExceptionMessage I failed!
      */
+    public function testGetOrFailThrowsReadExceptionIfReadFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('get')
+            ->willThrowException($exception);
+
+        $store = new PhpRedisStore($redis);
+        $store->getOrFail('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    public function testGetOrFailThrowsExceptionIfNotUnserializable()
+    {
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('get')
+            ->willReturn('foobar');
+
+        $store = new PhpRedisStore($redis);
+        $store->getOrFail('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
     public function testGetMultipleThrowsReadExceptionIfReadFails()
+    {
+        $exception = new TestException('I failed!');
+
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('getMultiple')
+            ->willThrowException($exception);
+
+        $store = new PhpRedisStore($redis);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    public function testGetMultipleThrowsExceptionIfNotUnserializable()
+    {
+        $redis = $this->getMockBuilder('Redis')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $redis->expects($this->once())
+            ->method('getMultiple')
+            ->willReturn(array('foobar'));
+
+        $store = new PhpRedisStore($redis);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage I failed!
+     */
+    public function testGetMultipleOrFailThrowsReadExceptionIfReadFails()
     {
         $exception = new TestException('I failed!');
 
@@ -173,7 +247,7 @@ class PhpRedisStoreTest extends AbstractKeyValueStoreTest
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
      */
-    public function testGetMultipleThrowsExceptionIfNotUnserializable()
+    public function testGetMultipleOrFailThrowsExceptionIfNotUnserializable()
     {
         $redis = $this->getMockBuilder('Redis')
             ->disableOriginalConstructor()

@@ -109,7 +109,7 @@ interface KeyValueStore
      *
      * ```php
      * try {
-     *     $value = $store->get($key);
+     *     $value = $store->getOrFail($key);
      * } catch (ReadException $e) {
      *     // read failed
      * }
@@ -130,7 +130,7 @@ interface KeyValueStore
     /**
      * Returns the values of multiple keys in the store.
      *
-     * If a key does not exist in the store, an exception is thrown.
+     * The passed default value is returned for keys that don't exist.
      *
      * Any integer or string value is accepted as key. If any other type is
      * passed for the key, an {@link InvalidKeyException} is thrown. You should
@@ -142,6 +142,40 @@ interface KeyValueStore
      * ```php
      * try {
      *     $value = $store->getMultiple(array($key1, $key2));
+     * } catch (ReadException $e) {
+     *     // read failed
+     * }
+     * ```
+     *
+     * @param array $keys    The keys to get. The keys must be strings or integers.
+     * @param mixed $default The default value to return for keys that are not
+     *                       found.
+     *
+     * @return array The values of the passed keys, indexed by the keys.
+     *
+     * @throws ReadException If the store cannot be read.
+     * @throws NoSuchKeyException If a key was not found.
+     * @throws InvalidKeyException If a key is not a string or integer.
+     * @throws UnserializationFailedException If a stored value cannot be
+     *                                        unserialized.
+     */
+    public function getMultiple(array $keys, $default = null);
+
+    /**
+     * Returns the values of multiple keys in the store.
+     *
+     * If a key does not exist in the store, an exception is thrown.
+     *
+     * Any integer or string value is accepted as key. If any other type is
+     * passed for the key, an {@link InvalidKeyException} is thrown. You should
+     * make sure that you only pass valid keys to the store.
+     *
+     * If the backend of the store cannot be read, a {@link ReadException}
+     * is thrown. You should always handle this exception in your code:
+     *
+     * ```php
+     * try {
+     *     $value = $store->getMultipleOrFail(array($key1, $key2));
      * } catch (ReadException $e) {
      *     // read failed
      * }

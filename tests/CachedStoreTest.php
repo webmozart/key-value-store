@@ -256,6 +256,45 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
         $this->store->getOrFail('key');
     }
 
+    public function testGetMultipleMergesCachedAndNonCachedEntries()
+    {
+        $this->cache->expects($this->exactly(3))
+            ->method('contains')
+            ->willReturnMap(array(
+                array('a', false),
+                array('b', true),
+                array('c', false),
+            ));
+
+        $this->innerStore->expects($this->once())
+            ->method('getMultiple')
+            ->with(array('a', 2 => 'c'), 'default')
+            ->willReturn(array(
+                'a' => 'value1',
+                'c' => 'default',
+            ));
+
+        $this->cache->expects($this->once())
+            ->method('fetch')
+            ->with('b')
+            ->willReturn('value2');
+
+        // We don't know which keys to save and which not
+        $this->cache->expects($this->never())
+            ->method('save');
+
+        $values = $this->store->getMultiple(array('a', 'b', 'c'), 'default');
+
+        // Undefined order
+        ksort($values);
+
+        $this->assertSame(array(
+            'a' => 'value1',
+            'b' => 'value2',
+            'c' => 'default',
+        ), $values);
+    }
+
     public function testGetMultipleOrFailMergesCachedAndNonCachedEntries()
     {
         $this->cache->expects($this->exactly(3))

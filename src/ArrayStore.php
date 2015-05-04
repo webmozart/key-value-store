@@ -82,8 +82,28 @@ class ArrayStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
+    public function getMultiple(array $keys, $default = null)
+    {
+        KeyUtil::validateMultiple($keys);
+
+        $values = array();
+
+        foreach ($keys as $key) {
+            $values[$key] = array_key_exists($key, $this->array)
+                ? $this->array[$key]
+                : $default;
+        }
+
+        return $values;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getMultipleOrFail(array $keys)
     {
+        KeyUtil::validateMultiple($keys);
+
         $values = array();
 
         foreach ($keys as $key) {

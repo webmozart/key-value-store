@@ -115,6 +115,36 @@ class RiakStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
+    public function getMultiple(array $keys, $default = null)
+    {
+        KeyUtil::validateMultiple($keys);
+
+        $values = array();
+
+        try {
+            $bucket = $this->client->bucket($this->bucketName);
+
+            foreach ($keys as $key) {
+                $object = $bucket->getBinary($key);
+
+                $values[$key] = $object->exists() ? $object->getData() : false;
+            }
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
+
+        foreach ($values as $key => $value) {
+            $values[$key] = false === $value
+                ? $default
+                : Serializer::unserialize($value);
+        }
+
+        return $values;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getMultipleOrFail(array $keys)
     {
         KeyUtil::validateMultiple($keys);

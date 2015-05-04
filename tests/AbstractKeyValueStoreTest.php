@@ -74,12 +74,32 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      */
+    abstract public function testGetOrFailThrowsReadExceptionIfReadFails();
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    abstract public function testGetOrFailThrowsExceptionIfNotUnserializable();
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     */
     abstract public function testGetMultipleThrowsReadExceptionIfReadFails();
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
      */
     abstract public function testGetMultipleThrowsExceptionIfNotUnserializable();
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     */
+    abstract public function testGetMultipleOrFailThrowsReadExceptionIfReadFails();
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    abstract public function testGetMultipleOrFailThrowsExceptionIfNotUnserializable();
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
@@ -288,6 +308,39 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     public function testGetOrFailThrowsExceptionIfKeyNotFound()
     {
         $this->store->getOrFail('foo');
+    }
+
+    public function testGetMultipleIgnoresArrayIndices()
+    {
+        $this->store->set('a', 1234);
+        $this->store->set('b', 5678);
+        $this->store->set('c', 9012);
+
+        $this->assertSame(array(
+            'a' => 1234,
+            'c' => 9012,
+        ), $this->store->getMultiple(array(5 => 'a', 7 => 'c')));
+    }
+
+    /**
+     * @dataProvider provideInvalidKeys
+     * @expectedException \Webmozart\KeyValueStore\Api\InvalidKeyException
+     */
+    public function testGetMultipleFailsIfInvalidKey($key)
+    {
+        $this->store->set('a', 1234);
+
+        $this->store->getMultiple(array('a', $key));
+    }
+
+    public function testGetMultipleReturnsDefaultForNotFoundKeys()
+    {
+        $this->store->set('a', 1234);
+
+        $this->assertSame(array(
+            'a' => 1234,
+            'foo' => 'default',
+        ), $this->store->getMultiple(array('a', 'foo'), 'default'));
     }
 
     public function testGetMultipleOrFailIgnoresArrayIndices()

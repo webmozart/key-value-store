@@ -159,7 +159,75 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      * @expectedExceptionMessage Permission denied
      */
+    public function testGetOrFailThrowsReadExceptionIfReadFails()
+    {
+        touch($notReadable = $this->tempDir.'/not-readable.json');
+        $store = new JsonFileStore($notReadable);
+
+        chmod($notReadable, 0000);
+        $store->getOrFail('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage JSON_ERROR_SYNTAX
+     */
+    public function testGetOrFailThrowsReadExceptionIfInvalidJsonSyntax()
+    {
+        file_put_contents($invalid = $this->tempDir.'/data.json', '{"foo":');
+        $store = new JsonFileStore($invalid);
+        $store->getOrFail('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    public function testGetOrFailThrowsExceptionIfNotUnserializable()
+    {
+        file_put_contents($path = $this->tempDir.'/data.json', '{"key":"foobar"}');
+        $store = new JsonFileStore($path);
+        $store->getOrFail('key');
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage Permission denied
+     */
     public function testGetMultipleThrowsReadExceptionIfReadFails()
+    {
+        touch($notReadable = $this->tempDir.'/not-readable.json');
+        $store = new JsonFileStore($notReadable);
+
+        chmod($notReadable, 0000);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage JSON_ERROR_SYNTAX
+     */
+    public function testGetMultipleThrowsReadExceptionIfInvalidJsonSyntax()
+    {
+        file_put_contents($invalid = $this->tempDir.'/data.json', '{"foo":');
+        $store = new JsonFileStore($invalid);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
+     */
+    public function testGetMultipleThrowsExceptionIfNotUnserializable()
+    {
+        file_put_contents($path = $this->tempDir.'/data.json', '{"key":"foobar"}');
+        $store = new JsonFileStore($path);
+        $store->getMultiple(array('key'));
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     * @expectedExceptionMessage Permission denied
+     */
+    public function testGetMultipleOrFailThrowsReadExceptionIfReadFails()
     {
         touch($notReadable = $this->tempDir.'/not-readable.json');
         $store = new JsonFileStore($notReadable);
@@ -172,7 +240,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
      * @expectedExceptionMessage JSON_ERROR_SYNTAX
      */
-    public function testGetMultipleThrowsReadExceptionIfInvalidJsonSyntax()
+    public function testGetMultipleOrFailThrowsReadExceptionIfInvalidJsonSyntax()
     {
         file_put_contents($invalid = $this->tempDir.'/data.json', '{"foo":');
         $store = new JsonFileStore($invalid);
@@ -182,7 +250,7 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\UnserializationFailedException
      */
-    public function testGetMultipleThrowsExceptionIfNotUnserializable()
+    public function testGetMultipleOrFailThrowsExceptionIfNotUnserializable()
     {
         file_put_contents($path = $this->tempDir.'/data.json', '{"key":"foobar"}');
         $store = new JsonFileStore($path);

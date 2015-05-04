@@ -112,6 +112,33 @@ class JsonFileStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
+    public function getMultiple(array $keys, $default = null)
+    {
+        $values = array();
+        $data = $this->load();
+
+        foreach ($keys as $key) {
+            KeyUtil::validate($key);
+
+            if (array_key_exists($key, $data)) {
+                $value = $data[$key];
+
+                if (is_string($value)) {
+                    $value = Serializer::unserialize($value);
+                }
+            } else {
+                $value = $default;
+            }
+
+            $values[$key] = $value;
+        }
+
+        return $values;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getMultipleOrFail(array $keys)
     {
         $values = array();
