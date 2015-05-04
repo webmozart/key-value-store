@@ -154,7 +154,6 @@ interface KeyValueStore
      * @return array The values of the passed keys, indexed by the keys.
      *
      * @throws ReadException If the store cannot be read.
-     * @throws NoSuchKeyException If a key was not found.
      * @throws InvalidKeyException If a key is not a string or integer.
      * @throws UnserializationFailedException If a stored value cannot be
      *                                        unserialized.
