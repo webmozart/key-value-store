@@ -32,6 +32,15 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
         $store->get('foo');
     }
 
+    public function testGetIfExistsAlwaysReturnsDefault()
+    {
+        $store = new NullStore();
+
+        $store->set('foo', 'bar');
+
+        $this->assertSame('baz', $store->getIfExists('foo', 'baz'));
+    }
+
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\NoSuchKeyException
      */

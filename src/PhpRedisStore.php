@@ -95,6 +95,28 @@ class PhpRedisStore implements KeyValueStore
     /**
      * {@inheritdoc}
      */
+    public function getIfExists($key, $default = null)
+    {
+        KeyUtil::validate($key);
+
+        $serialized = null;
+
+        try {
+            $serialized = $this->client->get($key);
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
+
+        if (false === $serialized) {
+            return $default;
+        }
+
+        return Serializer::unserialize($serialized);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getMultiple(array $keys)
     {
         KeyUtil::validateMultiple($keys);

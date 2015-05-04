@@ -181,6 +181,81 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
         $this->store->get('key');
     }
 
+    public function testGetIfExistsReturnsFromCacheIfCached()
+    {
+        $this->cache->expects($this->at(0))
+            ->method('contains')
+            ->with('key')
+            ->willReturn(true);
+
+        $this->innerStore->expects($this->never())
+            ->method('get');
+
+        $this->cache->expects($this->at(1))
+            ->method('fetch')
+            ->with('key')
+            ->willReturn('value');
+
+        $this->assertSame('value', $this->store->getIfExists('key'));
+    }
+
+    public function testGetIfExistsWritesToCacheIfNotCached()
+    {
+        $this->cache->expects($this->at(0))
+            ->method('contains')
+            ->with('key')
+            ->willReturn(false);
+
+        $this->innerStore->expects($this->once())
+            ->method('get')
+            ->with('key')
+            ->willReturn('value');
+
+        $this->cache->expects($this->at(1))
+            ->method('save')
+            ->with('key', 'value');
+
+        $this->assertSame('value', $this->store->getIfExists('key'));
+    }
+
+    public function testGetIfExistsWritesTtlIfNotCached()
+    {
+        $this->store = new CachedStore($this->innerStore, $this->cache, 100);
+
+        $this->cache->expects($this->at(0))
+            ->method('contains')
+            ->with('key')
+            ->willReturn(false);
+
+        $this->innerStore->expects($this->once())
+            ->method('get')
+            ->with('key')
+            ->willReturn('value');
+
+        $this->cache->expects($this->at(1))
+            ->method('save')
+            ->with('key', 'value', 100);
+
+        $this->assertSame('value', $this->store->getIfExists('key'));
+    }
+
+    public function testGetIfExistsDoesNotSaveToCacheIfKeyNotFound()
+    {
+        $this->cache->expects($this->once())
+            ->method('contains')
+            ->with('key')
+            ->willReturn(false);
+
+        $this->innerStore->expects($this->once())
+            ->method('get')
+            ->willThrowException(NoSuchKeyException::forKey('key'));
+
+        $this->cache->expects($this->never())
+            ->method('save');
+
+        $this->assertSame('default', $this->store->getIfExists('key', 'default'));
+    }
+
     public function testGetMultipleMergesCachedAndNonCachedEntries()
     {
         $this->cache->expects($this->exactly(3))

@@ -8,6 +8,7 @@ Changelog
    prevent superfluous calls to `has()`
  * renamed `KeyValueStore::has()` to `exists()`
  * added `KeyValueStore::getMultiple()`
+ * added `KeyValueStore::getIfExists()`
 
 * 1.0.0-beta3 (2015-04-13)
 

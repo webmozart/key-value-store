@@ -27,6 +27,17 @@ interface KeyValueStore
     /**
      * Sets the value for a key in the store.
      *
+     * The key-value store accepts any serializable value. If a value is not
+     * serializable, a {@link SerializationFailedException} is thrown.
+     * Additionally, implementations may put further restrictions on their
+     * accepted values. If an unsupported value is passed, an
+     * {@link UnsupportedValueException} is thrown. Check the documentation of
+     * the implementation to learn more about its supported values.
+     *
+     * Any integer or string value is accepted as key. If any other type is
+     * passed for the key, an {@link InvalidKeyException} is thrown. You should
+     * make sure that you only pass valid keys to the store.
+     *
      * If the backend of the store cannot be written, a {@link WriteException}
      * is thrown. You should always handle this exception in your code:
      *
@@ -37,17 +48,6 @@ interface KeyValueStore
      *     // write failed
      * }
      * ```
-     *
-     * Any integer or string value is accepted as key. If any other type is
-     * passed for the key, an {@link InvalidKeyException} is thrown. You should
-     * make sure that you only pass valid keys to the store.
-     *
-     * The key-value store accepts any serializable value. If a value is not
-     * serializable, a {@link SerializationFailedException} is thrown.
-     * Additionally, implementations may put further restrictions on their
-     * accepted values. If an unsupported value is passed, an
-     * {@link UnsupportedValueException} is thrown. Check the documentation of
-     * the implementation to learn more about its supported values.
      *
      * @param int|string $key   The key to set.
      * @param mixed      $value The value to set for the key.
@@ -63,6 +63,12 @@ interface KeyValueStore
     /**
      * Returns the value of a key in the store.
      *
+     * If a key does not exist in the store, an exception is thrown.
+     *
+     * Any integer or string value is accepted as key. If any other type is
+     * passed for the key, an {@link InvalidKeyException} is thrown. You should
+     * make sure that you only pass valid keys to the store.
+     *
      * If the backend of the store cannot be read, a {@link ReadException}
      * is thrown. You should always handle this exception in your code:
      *
@@ -73,12 +79,6 @@ interface KeyValueStore
      *     // read failed
      * }
      * ```
-     *
-     * If a key does not exist in the store, an exception is thrown.
-     *
-     * Any integer or string value is accepted as key. If any other type is
-     * passed for the key, an {@link InvalidKeyException} is thrown. You should
-     * make sure that you only pass valid keys to the store.
      *
      * @param int|string $key The key to get.
      *
@@ -93,7 +93,46 @@ interface KeyValueStore
     public function get($key);
 
     /**
+     * Returns the value of a key in the store.
+     *
+     * If a key does not exist in the store, the default value passed in the
+     * second parameter is returned.
+     *
+     * Any integer or string value is accepted as key. If any other type is
+     * passed for the key, an {@link InvalidKeyException} is thrown. You should
+     * make sure that you only pass valid keys to the store.
+     *
+     * If the backend of the store cannot be read, a {@link ReadException}
+     * is thrown. You should always handle this exception in your code:
+     *
+     * ```php
+     * try {
+     *     $value = $store->get($key);
+     * } catch (ReadException $e) {
+     *     // read failed
+     * }
+     * ```
+     *
+     * @param int|string $key     The key to get.
+     * @param mixed      $default The default value to return if the key does
+     *                            not exist.
+     *
+     * @return mixed The value of the key or the default value if the key does
+     *               not exist.
+     *
+     * @throws ReadException If the store cannot be read.
+     * @throws InvalidKeyException If the key is not a string or integer.
+     * @throws UnserializationFailedException If the stored value cannot be
+     *                                        unserialized.
+     */
+    public function getIfExists($key, $default = null);
+
+    /**
      * Returns the values of multiple keys in the store.
+     *
+     * Any integer or string value is accepted as key. If any other type is
+     * passed for the key, an {@link InvalidKeyException} is thrown. You should
+     * make sure that you only pass valid keys to the store.
      *
      * If the backend of the store cannot be read, a {@link ReadException}
      * is thrown. You should always handle this exception in your code:
@@ -107,10 +146,6 @@ interface KeyValueStore
      * ```
      *
      * If a key does not exist in the store, an exception is thrown.
-     *
-     * Any integer or string value is accepted as key. If any other type is
-     * passed for the key, an {@link InvalidKeyException} is thrown. You should
-     * make sure that you only pass valid keys to the store.
      *
      * @param array $keys The keys to get. The keys must be strings or integers.
      *
@@ -129,6 +164,10 @@ interface KeyValueStore
      *
      * If the store does not contain the key, this method returns `false`.
      *
+     * Any integer or string value is accepted as key. If any other type is
+     * passed for the key, an {@link InvalidKeyException} is thrown. You should
+     * make sure that you only pass valid keys to the store.
+     *
      * If the backend of the store cannot be written, a {@link WriteException}
      * is thrown. You should always handle this exception in your code:
      *
@@ -139,10 +178,6 @@ interface KeyValueStore
      *     // write failed
      * }
      * ```
-     *
-     * Any integer or string value is accepted as key. If any other type is
-     * passed for the key, an {@link InvalidKeyException} is thrown. You should
-     * make sure that you only pass valid keys to the store.
      *
      * @param int|string $key The key to remove.
      *
@@ -156,6 +191,10 @@ interface KeyValueStore
     /**
      * Returns whether a key exists.
      *
+     * Any integer or string value is accepted as key. If any other type is
+     * passed for the key, an {@link InvalidKeyException} is thrown. You should
+     * make sure that you only pass valid keys to the store.
+     *
      * If the backend of the store cannot be read, a {@link ReadException}
      * is thrown. You should always handle this exception in your code:
      *
@@ -168,10 +207,6 @@ interface KeyValueStore
      *     // read failed
      * }
      * ```
-     *
-     * Any integer or string value is accepted as key. If any other type is
-     * passed for the key, an {@link InvalidKeyException} is thrown. You should
-     * make sure that you only pass valid keys to the store.
      *
      * @param int|string $key The key to test.
      *
