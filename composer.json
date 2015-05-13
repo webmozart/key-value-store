@@ -16,7 +16,8 @@
         "symfony/filesystem": "~2.5",
         "predis/predis": "~1.0",
         "basho/riak": "~1.4",
-        "doctrine/cache": "~1.4"
+        "doctrine/cache": "~1.4",
+        "phpunit/phpunit": "^4.6"
     },
     "suggest": {
         "predis/predis": "To enable the PredisStore",
