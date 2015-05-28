@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Webmozart\KeyValueStore\Assert\Assert | Webmozart Key-Value Store API</title>
+	<title>Class Webmozart\KeyValueStore\Util\KeyUtil | Webmozart Key-Value Store API</title>
 
-	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
 
 </head>
 
@@ -36,11 +36,6 @@
 
 						</li>
 				<li class="active">
-					<a href="namespace-Webmozart.KeyValueStore.Assert.html">
-						Assert					</a>
-
-						</li>
-				<li>
 					<a href="namespace-Webmozart.KeyValueStore.Util.html">
 						Util					</a>
 
@@ -55,7 +50,8 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Webmozart.KeyValueStore.Assert.Assert.html">Assert</a></li>
+				<li class="active"><a href="class-Webmozart.KeyValueStore.Util.KeyUtil.html">KeyUtil</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Util.Serializer.html">Serializer</a></li>
 			</ul>
 
 
@@ -82,7 +78,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-Webmozart.KeyValueStore.Assert.html" title="Summary of Webmozart\KeyValueStore\Assert"><span>Namespace</span></a>
+				<a href="namespace-Webmozart.KeyValueStore.Util.html" title="Summary of Webmozart\KeyValueStore\Util"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -94,11 +90,11 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class Assert</h1>
+	<h1>Class KeyUtil</h1>
 
 
 	<div class="description">
-	<p>Contains domain-specific assertions.</p>
+	<p>Utility methods for dealing with key-value store keys.</p>
 	</div>
 
 
@@ -112,14 +108,14 @@
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a>\<a href="namespace-Webmozart.KeyValueStore.Assert.html">Assert</a><br>
+		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a>\<a href="namespace-Webmozart.KeyValueStore.Util.html">Util</a><br>
 		
 
 				<b>Author:</b>
 				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
 				<b>Since:</b>
 				1.0<br>
-			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.Assert.Assert.html#17-66" title="Go to source code">Assert/Assert.php</a>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.Util.KeyUtil.html#16-57" title="Go to source code">Util/KeyUtil.php</a>
 		<br>
 	</div>
 
@@ -127,7 +123,7 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="key" id="_key">
+	<tr data-order="validate" id="_validate">
 
 		<td class="attributes"><code>
 			 public static
@@ -138,26 +134,35 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_key">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Assert.Assert.html#25-33" title="Go to source code">key</a>( <span> <var>$key</var></span> )</code>
+		<a class="anchor" href="#_validate">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.Util.KeyUtil.html#24-36" title="Go to source code">validate</a>( <span>mixed <var>$key</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Validates that a key is valid.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Validates that a key is valid.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The tested key.</dd>
+				</dl></div>
 
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.InvalidKeyException.html">Webmozart\KeyValueStore\Api\InvalidKeyException</a></code><br>If the key is invalid.
+				</div>
 
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="string" id="_string">
+	<tr data-order="validateMultiple" id="_validateMultiple">
 
 		<td class="attributes"><code>
 			 public static
@@ -168,79 +173,28 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_string">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Assert.Assert.html#35-43" title="Go to source code">string</a>( <span> <var>$value</var></span>, <span> <var>$message</var></span> )</code>
+		<a class="anchor" href="#_validateMultiple">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.Util.KeyUtil.html#38-52" title="Go to source code">validateMultiple</a>( <span>array <var>$keys</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Validates that multiple keys are valid.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Validates that multiple keys are valid.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$keys</var></dt>
+					<dd>The tested keys.</dd>
+				</dl></div>
 
 
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="notEmpty" id="_notEmpty">
-
-		<td class="attributes"><code>
-			 public static
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_notEmpty">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Assert.Assert.html#45-53" title="Go to source code">notEmpty</a>( <span> <var>$value</var></span>, <span> <var>$message</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="boolean" id="_boolean">
-
-		<td class="attributes"><code>
-			 public static
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_boolean">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Assert.Assert.html#55-63" title="Go to source code">boolean</a>( <span> <var>$value</var></span>, <span> <var>$message</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.InvalidKeyException.html">Webmozart\KeyValueStore\Api\InvalidKeyException</a></code><br>If a key is invalid.
+				</div>
 
 
 

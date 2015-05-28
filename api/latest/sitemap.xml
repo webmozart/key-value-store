@@ -13,14 +13,59 @@
 	<loc>https://webmozart.github.io/key-value-store/api/latest/namespace-Webmozart.KeyValueStore.Api.html</loc>
 </url>
 <url>
-	<loc>https://webmozart.github.io/key-value-store/api/latest/namespace-Webmozart.KeyValueStore.Assert.html</loc>
-</url>
-<url>
 	<loc>https://webmozart.github.io/key-value-store/api/latest/namespace-Webmozart.KeyValueStore.Util.html</loc>
 </url>
 
 
 <url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.ArrayStore.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.CachedStore.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.JsonFileStore.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.NullStore.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.PhpRedisStore.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.PredisStore.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.RiakStore.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Util.KeyUtil.html</loc>
+</url>
+<url>
 	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Util.Serializer.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.KeyValueStore.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.InvalidKeyException.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.ReadException.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.SerializationFailedException.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.UnsupportedValueException.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.WriteException.html</loc>
 </url>
 </urlset>

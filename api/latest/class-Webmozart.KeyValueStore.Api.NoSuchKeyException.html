@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Webmozart\KeyValueStore\Api\UnserializationFailedException | Webmozart Key-Value Store API</title>
+	<title>Class Webmozart\KeyValueStore\Api\NoSuchKeyException | Webmozart Key-Value Store API</title>
 
 	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
 
@@ -58,10 +58,10 @@
 			<h3>Exceptions</h3>
 			<ul>
 				<li><a href="class-Webmozart.KeyValueStore.Api.InvalidKeyException.html">InvalidKeyException</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">NoSuchKeyException</a></li>
+				<li class="active"><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">NoSuchKeyException</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">ReadException</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.Api.SerializationFailedException.html">SerializationFailedException</a></li>
-				<li class="active"><a href="class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html">UnserializationFailedException</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html">UnserializationFailedException</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.Api.UnsupportedValueException.html">UnsupportedValueException</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">WriteException</a></li>
 			</ul>
@@ -99,11 +99,11 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class UnserializationFailedException</h1>
+	<h1>Class NoSuchKeyException</h1>
 
 
 	<div class="description">
-	<p>Thrown when a value cannot be unserialized.</p>
+	<p>Thrown when a key was not found in the store.</p>
 	</div>
 
 	<dl class="tree">
@@ -120,7 +120,7 @@ RuntimeException
 		</dd>
 		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>Webmozart\KeyValueStore\Api\UnserializationFailedException</span></b>			
+<b><span>Webmozart\KeyValueStore\Api\NoSuchKeyException</span></b>			
 			
 			
 		</dd>
@@ -143,7 +143,7 @@ RuntimeException
 				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
 				<b>Since:</b>
 				1.0<br>
-			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html#17-60" title="Go to source code">Api/UnserializationFailedException.php</a>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html#17-56" title="Go to source code">Api/NoSuchKeyException.php</a>
 		<br>
 	</div>
 
@@ -151,7 +151,7 @@ RuntimeException
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="forValue" id="_forValue">
+	<tr data-order="forKey" id="_forKey">
 
 		<td class="attributes"><code>
 			 public static
@@ -162,33 +162,28 @@ RuntimeException
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_forValue">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html#25-39" title="Go to source code">forValue</a>( <span>mixed <var>$value</var></span>, <span>string <var>$reason</var> = <span class="php-quote">''</span></span>, <span>integer <var>$code</var> = <span class="php-num">0</span></span>, <span>Exception <var>$cause</var> = <span class="php-keyword1">null</span></span> )</code>
+		<a class="anchor" href="#_forKey">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html#25-39" title="Go to source code">forKey</a>( <span>string|integer <var>$key</var></span>, <span>Exception <var>$cause</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
-			<p>Creates a new exception for the given value.</p>
+			<p>Creates an exception for a key that was not found.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Creates a new exception for the given value.</p>
+			<p>Creates an exception for a key that was not found.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$value</var></dt>
-					<dd>The value that could not be unserialized.</dd>
-					<dt><var>$reason</var></dt>
-					<dd><p>The reason why the value could not be
-                         unserialized.</p></dd>
-					<dt><var>$code</var></dt>
-					<dd>The exception code.</dd>
+					<dt><var>$key</var></dt>
+					<dd>The key that was not found.</dd>
 					<dt><var>$cause</var></dt>
 					<dd>The exception that caused this exception.</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					static<br>The new exception.
+					static<br>The created exception.
 				</div>
 
 
@@ -197,7 +192,7 @@ RuntimeException
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="forType" id="_forType">
+	<tr data-order="forKeys" id="_forKeys">
 
 		<td class="attributes"><code>
 			 public static
@@ -208,33 +203,28 @@ RuntimeException
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_forType">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html#41-59" title="Go to source code">forType</a>( <span>string <var>$type</var></span>, <span>string <var>$reason</var> = <span class="php-quote">''</span></span>, <span>integer <var>$code</var> = <span class="php-num">0</span></span>, <span>Exception <var>$cause</var> = <span class="php-keyword1">null</span></span> )</code>
+		<a class="anchor" href="#_forKeys">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html#41-55" title="Go to source code">forKeys</a>( <span>array <var>$keys</var></span>, <span>Exception <var>$cause</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
-			<p>Creates a new exception for the given value type.</p>
+			<p>Creates an exception for multiple keys that were not found.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Creates a new exception for the given value type.</p>
+			<p>Creates an exception for multiple keys that were not found.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$type</var></dt>
-					<dd>The type that could not be unserialized.</dd>
-					<dt><var>$reason</var></dt>
-					<dd><p>The reason why the value could not be
-                         unserialized.</p></dd>
-					<dt><var>$code</var></dt>
-					<dd>The exception code.</dd>
+					<dt><var>$keys</var></dt>
+					<dd>The keys that were not found.</dd>
 					<dt><var>$cause</var></dt>
 					<dd>The exception that caused this exception.</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					static<br>The new exception.
+					static<br>The created exception.
 				</div>
 
 

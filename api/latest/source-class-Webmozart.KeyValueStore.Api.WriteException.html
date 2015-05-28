@@ -6,7 +6,7 @@
 
 	<title>File Api/WriteException.php | Webmozart Key-Value Store API</title>
 
-	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
 
 </head>
 
@@ -37,11 +37,6 @@
 
 						</li>
 				<li>
-					<a href="namespace-Webmozart.KeyValueStore.Assert.html">
-						Assert					</a>
-
-						</li>
-				<li>
 					<a href="namespace-Webmozart.KeyValueStore.Util.html">
 						Util					</a>
 
@@ -56,11 +51,33 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Webmozart.KeyValueStore.ArrayStore.html">Webmozart\KeyValueStore\ArrayStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.CachedStore.html">Webmozart\KeyValueStore\CachedStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.JsonFileStore.html">Webmozart\KeyValueStore\JsonFileStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.NullStore.html">Webmozart\KeyValueStore\NullStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">Webmozart\KeyValueStore\PhpRedisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.PredisStore.html">Webmozart\KeyValueStore\PredisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.RiakStore.html">Webmozart\KeyValueStore\RiakStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Util.KeyUtil.html">Webmozart\KeyValueStore\Util\KeyUtil</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.Util.Serializer.html">Webmozart\KeyValueStore\Util\Serializer</a></li>
 			</ul>
 
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html">Webmozart\KeyValueStore\Api\KeyValueStore</a></li>
+			</ul>
 
 
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Webmozart.KeyValueStore.Api.InvalidKeyException.html">Webmozart\KeyValueStore\Api\InvalidKeyException</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">Webmozart\KeyValueStore\Api\NoSuchKeyException</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Api.SerializationFailedException.html">Webmozart\KeyValueStore\Api\SerializationFailedException</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html">Webmozart\KeyValueStore\Api\UnserializationFailedException</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Api.UnsupportedValueException.html">Webmozart\KeyValueStore\Api\UnsupportedValueException</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></li>
+			</ul>
 
 
 		</div>
@@ -85,8 +102,7 @@
 			<li>
 <span>Namespace</span>			</li>
 			<li>
-				<a href="class-Webmozart.KeyValueStore.Api.WriteException.html" title="Summary of Webmozart\KeyValueStore\Api\WriteException"><span>Class</span></a>
-			</li>
+<span>Class</span>			</li>
 		</ul>
 		<ul>
 		</ul>
@@ -94,53 +110,54 @@
 		</ul>
 	</div>
 
-<pre><code><span id="1" class="l"><a href="#1"> 1: </a><span class="xlang">&lt;?php</span>
-</span><span id="2" class="l"><a href="#2"> 2: </a>
-</span><span id="3" class="l"><a href="#3"> 3: </a><span class="php-comment">/*
-</span></span><span id="4" class="l"><a href="#4"> 4: </a><span class="php-comment"> * This file is part of the webmozart/key-value-store package.
-</span></span><span id="5" class="l"><a href="#5"> 5: </a><span class="php-comment"> *
-</span></span><span id="6" class="l"><a href="#6"> 6: </a><span class="php-comment"> * (c) Bernhard Schussek &lt;bschussek@gmail.com&gt;
-</span></span><span id="7" class="l"><a href="#7"> 7: </a><span class="php-comment"> *
-</span></span><span id="8" class="l"><a href="#8"> 8: </a><span class="php-comment"> * For the full copyright and license information, please view the LICENSE
-</span></span><span id="9" class="l"><a href="#9"> 9: </a><span class="php-comment"> * file that was distributed with this source code.
-</span></span><span id="10" class="l"><a href="#10">10: </a><span class="php-comment"> */</span>
-</span><span id="11" class="l"><a href="#11">11: </a>
-</span><span id="12" class="l"><a href="#12">12: </a><span class="php-keyword1">namespace</span> Webmozart\KeyValueStore\Api;
-</span><span id="13" class="l"><a href="#13">13: </a>
-</span><span id="14" class="l"><a href="#14">14: </a><span class="php-keyword1">use</span> Exception;
-</span><span id="15" class="l"><a href="#15">15: </a><span class="php-keyword1">use</span> RuntimeException;
-</span><span id="16" class="l"><a href="#16">16: </a>
-</span><span id="17" class="l"><a href="#17">17: </a><span class="php-comment">/**
-</span></span><span id="18" class="l"><a href="#18">18: </a><span class="php-comment"> * Thrown when a key-value store cannot be written.
-</span></span><span id="19" class="l"><a href="#19">19: </a><span class="php-comment"> *
-</span></span><span id="20" class="l"><a href="#20">20: </a><span class="php-comment"> * @since  1.0
-</span></span><span id="21" class="l"><a href="#21">21: </a><span class="php-comment"> * @author Bernhard Schussek &lt;bschussek@gmail.com&gt;
-</span></span><span id="22" class="l"><a href="#22">22: </a><span class="php-comment"> */</span>
-</span><span id="23" class="l"><a href="#23">23: </a><span class="php-keyword1">class</span> WriteException <span class="php-keyword1">extends</span> RuntimeException
-</span><span id="24" class="l"><a href="#24">24: </a>{
-</span><span id="25" class="l"><a href="#25">25: </a>    <span class="php-comment">/**
-</span></span><span id="26" class="l"><a href="#26">26: </a><span class="php-comment">     * Creates a new exception..
-</span></span><span id="27" class="l"><a href="#27">27: </a><span class="php-comment">     *
-</span></span><span id="28" class="l"><a href="#28">28: </a><span class="php-comment">     * @param Exception $exception The exception that caused this exception.
-</span></span><span id="29" class="l"><a href="#29">29: </a><span class="php-comment">     *
-</span></span><span id="30" class="l"><a href="#30">30: </a><span class="php-comment">     * @return static The new exception.
-</span></span><span id="31" class="l"><a href="#31">31: </a><span class="php-comment">     */</span>
-</span><span id="32" class="l"><a href="#32">32: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> forException(Exception <span class="php-var">$exception</span>)
-</span><span id="33" class="l"><a href="#33">33: </a>    {
-</span><span id="34" class="l"><a href="#34">34: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> <span class="php-keyword1">static</span>(<span class="php-keyword2">sprintf</span>(
-</span><span id="35" class="l"><a href="#35">35: </a>            <span class="php-quote">'Could not write key-value store: %s'</span>,
-</span><span id="36" class="l"><a href="#36">36: </a>            <span class="php-var">$exception</span>-&gt;getMessage()
-</span><span id="37" class="l"><a href="#37">37: </a>        ), <span class="php-var">$exception</span>-&gt;getCode(), <span class="php-var">$exception</span>);
-</span><span id="38" class="l"><a href="#38">38: </a>    }
-</span><span id="39" class="l"><a href="#39">39: </a>}
-</span><span id="40" class="l"><a href="#40">40: </a></span></code></pre>
+<pre class="numbers"><code><span class="l"><a href="#1"> 1: </a></span><span class="l"><a href="#2"> 2: </a></span><span class="l"><a href="#3"> 3: </a></span></span><span class="l"><a href="#4"> 4: </a></span></span><span class="l"><a href="#5"> 5: </a></span></span><span class="l"><a href="#6"> 6: </a></span></span><span class="l"><a href="#7"> 7: </a></span></span><span class="l"><a href="#8"> 8: </a></span></span><span class="l"><a href="#9"> 9: </a></span></span><span class="l"><a href="#10">10: </a></span><span class="l"><a href="#11">11: </a></span><span class="l"><a href="#12">12: </a></span><span class="l"><a href="#13">13: </a></span><span class="l"><a href="#14">14: </a></span><span class="l"><a href="#15">15: </a></span><span class="l"><a href="#16">16: </a></span><span class="l"><a href="#17">17: </a></span></span><span class="l"><a href="#18">18: </a></span></span><span class="l"><a href="#19">19: </a></span></span><span class="l"><a href="#20">20: </a></span></span><span class="l"><a href="#21">21: </a></span></span><span class="l"><a href="#22">22: </a></span><span class="l"><a href="#23">23: </a></span><span class="l"><a href="#24">24: </a></span><span class="l"><a href="#25">25: </a></span></span><span class="l"><a href="#26">26: </a></span></span><span class="l"><a href="#27">27: </a></span></span><span class="l"><a href="#28">28: </a></span></span><span class="l"><a href="#29">29: </a></span></span><span class="l"><a href="#30">30: </a></span></span><span class="l"><a href="#31">31: </a></span><span class="l"><a href="#32">32: </a></span><span class="l"><a href="#33">33: </a></span><span class="l"><a href="#34">34: </a></span><span class="l"><a href="#35">35: </a></span><span class="l"><a href="#36">36: </a></span><span class="l"><a href="#37">37: </a></span><span class="l"><a href="#38">38: </a></span><span class="l"><a href="#39">39: </a></span><span class="l"><a href="#40">40: </a></span></code></pre>
+<pre class="code"><code><span id="1" class="l"><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l">
+</span><span id="3" class="l"><span class="php-comment">/*
+</span></span><span id="4" class="l"><span class="php-comment"> * This file is part of the webmozart/key-value-store package.
+</span></span><span id="5" class="l"><span class="php-comment"> *
+</span></span><span id="6" class="l"><span class="php-comment"> * (c) Bernhard Schussek &lt;bschussek@gmail.com&gt;
+</span></span><span id="7" class="l"><span class="php-comment"> *
+</span></span><span id="8" class="l"><span class="php-comment"> * For the full copyright and license information, please view the LICENSE
+</span></span><span id="9" class="l"><span class="php-comment"> * file that was distributed with this source code.
+</span></span><span id="10" class="l"><span class="php-comment"> */</span>
+</span><span id="11" class="l">
+</span><span id="12" class="l"><span class="php-keyword1">namespace</span> Webmozart\KeyValueStore\Api;
+</span><span id="13" class="l">
+</span><span id="14" class="l"><span class="php-keyword1">use</span> Exception;
+</span><span id="15" class="l"><span class="php-keyword1">use</span> RuntimeException;
+</span><span id="16" class="l">
+</span><span id="17" class="l"><span class="php-comment">/**
+</span></span><span id="18" class="l"><span class="php-comment"> * Thrown when a key-value store cannot be written.
+</span></span><span id="19" class="l"><span class="php-comment"> *
+</span></span><span id="20" class="l"><span class="php-comment"> * @since  1.0
+</span></span><span id="21" class="l"><span class="php-comment"> * @author Bernhard Schussek &lt;bschussek@gmail.com&gt;
+</span></span><span id="22" class="l"><span class="php-comment"> */</span>
+</span><span id="23" class="l"><span class="php-keyword1">class</span> WriteException <span class="php-keyword1">extends</span> RuntimeException
+</span><span id="24" class="l">{
+</span><span id="25" class="l">    <span class="php-comment">/**
+</span></span><span id="26" class="l"><span class="php-comment">     * Creates a new exception..
+</span></span><span id="27" class="l"><span class="php-comment">     *
+</span></span><span id="28" class="l"><span class="php-comment">     * @param Exception $exception The exception that caused this exception.
+</span></span><span id="29" class="l"><span class="php-comment">     *
+</span></span><span id="30" class="l"><span class="php-comment">     * @return static The new exception.
+</span></span><span id="31" class="l"><span class="php-comment">     */</span>
+</span><span id="32" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> forException(Exception <span class="php-var">$exception</span>)
+</span><span id="33" class="l">    {
+</span><span id="34" class="l">        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> <span class="php-keyword1">static</span>(<span class="php-keyword2">sprintf</span>(
+</span><span id="35" class="l">            <span class="php-quote">'Could not write key-value store: %s'</span>,
+</span><span id="36" class="l">            <span class="php-var">$exception</span>-&gt;getMessage()
+</span><span id="37" class="l">        ), <span class="php-var">$exception</span>-&gt;getCode(), <span class="php-var">$exception</span>);
+</span><span id="38" class="l">    }
+</span><span id="39" class="l">}
+</span><span id="40" class="l"></span></code></pre>
 
 	<div id="footer">
 		Webmozart Key-Value Store API API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?878ae6dd43d0bed56b5f23631f6509e56bbf8218"></script>
-<script src="elementlist.js?164026f70c04e2677cd4b6a51fc3c57f055b29af"></script>
+<script src="resources/combined.js?a19097cfdd755d55f3a8fc0478ad665df58bea63"></script>
+<script src="elementlist.js?85c48e04c23850935ccdf190507684c7b9abcea1"></script>
 </body>
 </html>
