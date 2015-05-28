@@ -1,11 +1,12 @@
 Changelog
 =========
 
-* 1.0.0-next (@release_date@)
+* 1.0.0-beta4 (2015-05-28)
 
  * added `KeyValueStore::keys()`
  * renamed `KeyValueStore::has()` to `exists()`
  * added `KeyValueStore::getOrFail()`
+ * added `KeyValueStore::getMultiple()`
  * added `KeyValueStore::getMultipleOrFail()`
 
 * 1.0.0-beta3 (2015-04-13)
