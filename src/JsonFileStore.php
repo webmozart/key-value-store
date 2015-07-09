@@ -13,9 +13,9 @@ namespace Webmozart\KeyValueStore;
 
 use stdClass;
 use Webmozart\Assert\Assert;
-use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\ReadException;
+use Webmozart\KeyValueStore\Api\SortableStore;
 use Webmozart\KeyValueStore\Api\UnsupportedValueException;
 use Webmozart\KeyValueStore\Api\WriteException;
 use Webmozart\KeyValueStore\Util\KeyUtil;
@@ -28,7 +28,7 @@ use Webmozart\KeyValueStore\Util\Serializer;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class JsonFileStore implements KeyValueStore
+class JsonFileStore implements SortableStore
 {
     /**
      * This seems to be the biggest float supported by json_encode()/json_decode().
@@ -210,6 +210,18 @@ class JsonFileStore implements KeyValueStore
     public function keys()
     {
         return array_keys($this->load());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function sort($flags = SORT_REGULAR)
+    {
+        $data = $this->load();
+
+        ksort($data, $flags);
+
+        $this->save($data);
     }
 
     private function load()

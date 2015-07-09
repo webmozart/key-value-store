@@ -19,13 +19,13 @@ use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 
 /**
- * A key-value store replicated in a cache.
+ * A caching decorator implementing a cache layer for any store.
  *
  * @since  1.0
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class CachedStore implements KeyValueStore
+class CachingDecorator implements KeyValueStore
 {
     /**
      * @var KeyValueStore
@@ -46,6 +46,8 @@ class CachedStore implements KeyValueStore
      * @param Cache         $cache The cache.
      * @param int           $ttl   The time-to-live for cache entries. If set to
      *                             0, cache entries never expire.
+     *
+     * @throws InvalidArgumentException If the provided cache is not supported
      */
     public function __construct(KeyValueStore $store, Cache $cache, $ttl = 0)
     {

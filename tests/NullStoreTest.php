@@ -92,4 +92,26 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame(array(), $store->keys());
     }
+
+    public function testClearDoesNothing()
+    {
+        $store = new NullStore();
+
+        $store->set('foo1', 'bar1');
+        $store->set('foo2', 'bar2');
+        $store->clear();
+
+        $this->assertSame(array(), $store->keys());
+    }
+
+    public function testSortDoesNothing()
+    {
+        $store = new NullStore();
+
+        $store->set('foo1', 'bar1');
+        $store->set('foo2', 'bar2');
+        $store->sort();
+
+        $this->assertSame(array(), $store->keys());
+    }
 }
