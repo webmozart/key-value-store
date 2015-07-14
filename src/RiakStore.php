@@ -17,7 +17,6 @@ use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\ReadException;
 use Webmozart\KeyValueStore\Api\WriteException;
-use Webmozart\KeyValueStore\Assert\Assert;
 use Webmozart\KeyValueStore\Util\KeyUtil;
 use Webmozart\KeyValueStore\Util\Serializer;
 
