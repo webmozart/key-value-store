@@ -13,7 +13,6 @@ namespace Webmozart\KeyValueStore;
 
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
-use Webmozart\KeyValueStore\Assert\Assert;
 use Webmozart\KeyValueStore\Util\KeyUtil;
 
 /**
