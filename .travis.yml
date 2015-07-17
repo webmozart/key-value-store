@@ -11,6 +11,8 @@ services:
   - redis-server
   - riak
 
+sudo: false
+
 matrix:
     allow_failures:
         - php: hhvm
