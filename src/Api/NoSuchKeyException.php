@@ -26,8 +26,8 @@ class NoSuchKeyException extends RuntimeException
     /**
      * Creates an exception for a key that was not found.
      *
-     * @param string|int $key   The key that was not found.
-     * @param Exception  $cause The exception that caused this exception.
+     * @param string|int     $key   The key that was not found.
+     * @param Exception|null $cause The exception that caused this exception.
      *
      * @return static The created exception.
      */
@@ -42,8 +42,8 @@ class NoSuchKeyException extends RuntimeException
     /**
      * Creates an exception for multiple keys that were not found.
      *
-     * @param array[]   $keys  The keys that were not found.
-     * @param Exception $cause The exception that caused this exception.
+     * @param array[]        $keys  The keys that were not found.
+     * @param Exception|null $cause The exception that caused this exception.
      *
      * @return static The created exception.
      */

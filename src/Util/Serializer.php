@@ -22,7 +22,7 @@ use Webmozart\KeyValueStore\Api\UnserializationFailedException;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class Serializer
+final class Serializer
 {
     /**
      * Serializes a value.

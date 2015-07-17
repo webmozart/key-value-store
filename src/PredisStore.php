@@ -11,15 +11,8 @@
 
 namespace Webmozart\KeyValueStore;
 
-use Exception;
 use Predis\Client;
 use Predis\ClientInterface;
-use Webmozart\KeyValueStore\Api\KeyValueStore;
-use Webmozart\KeyValueStore\Api\NoSuchKeyException;
-use Webmozart\KeyValueStore\Api\ReadException;
-use Webmozart\KeyValueStore\Api\WriteException;
-use Webmozart\KeyValueStore\Util\KeyUtil;
-use Webmozart\KeyValueStore\Util\Serializer;
 
 /**
  * A key-value store that uses Predis to connect to a Redis instance.
@@ -27,21 +20,17 @@ use Webmozart\KeyValueStore\Util\Serializer;
  * @since  1.0
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
+ * @author Titouan Galopin <galopintitouan@gmail.com>
  */
-class PredisStore implements KeyValueStore
+class PredisStore extends AbstractRedisStore
 {
-    /**
-     * @var ClientInterface
-     */
-    private $client;
-
     /**
      * Creates a store backed by a Predis client.
      *
      * If no client is passed, a new one is created using the default server
      * "127.0.0.1" and the default port 6379.
      *
-     * @param ClientInterface $client The client used to connect to Redis.
+     * @param ClientInterface|null $client The client used to connect to Redis.
      */
     public function __construct(ClientInterface $client = null)
     {
@@ -49,173 +38,66 @@ class PredisStore implements KeyValueStore
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function set($key, $value)
+    protected function clientNotFoundValue()
     {
-        KeyUtil::validate($key);
-
-        $serialized = Serializer::serialize($value);
-
-        try {
-            $this->client->set($key, $serialized);
-        } catch (Exception $e) {
-            throw WriteException::forException($e);
-        }
+        return null;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function get($key, $default = null)
+    protected function clientGet($key)
     {
-        KeyUtil::validate($key);
-
-        $serialized = null;
-
-        try {
-            $serialized = $this->client->get($key);
-        } catch (Exception $e) {
-            throw ReadException::forException($e);
-        }
-
-        if (null === $serialized) {
-            return $default;
-        }
-
-        return Serializer::unserialize($serialized);
+        return $this->client->get($key);
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function getOrFail($key)
+    protected function clientGetMultiple(array $keys)
     {
-        KeyUtil::validate($key);
-
-        $serialized = null;
-
-        try {
-            $serialized = $this->client->get($key);
-        } catch (Exception $e) {
-            throw ReadException::forException($e);
-        }
-
-        if (null === $serialized) {
-            throw NoSuchKeyException::forKey($key);
-        }
-
-        return Serializer::unserialize($serialized);
+        return $this->client->mget($keys);
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function getMultiple(array $keys, $default = null)
+    protected function clientSet($key, $value)
     {
-        KeyUtil::validateMultiple($keys);
-
-        // Normalize indices of the array
-        $keys = array_values($keys);
-        $values = array();
-
-        try {
-            $serializedValues = $this->client->mget($keys);
-        } catch (Exception $e) {
-            throw ReadException::forException($e);
-        }
-
-        foreach ($serializedValues as $i => $serializedValue) {
-            $values[$keys[$i]] = null === $serializedValue
-                ? $default
-                : Serializer::unserialize($serializedValue);
-        }
-
-        return $values;
+        $this->client->set($key, $value);
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function getMultipleOrFail(array $keys)
+    protected function clientRemove($key)
     {
-        KeyUtil::validateMultiple($keys);
-
-        // Normalize indices of the array
-        $keys = array_values($keys);
-        $values = array();
-        $notFoundKeys = array();
-
-        try {
-            $serializedValues = $this->client->mget($keys);
-        } catch (Exception $e) {
-            throw ReadException::forException($e);
-        }
-
-        foreach ($serializedValues as $i => $serializedValue) {
-            if (null === $serializedValue) {
-                $notFoundKeys[] = $keys[$i];
-            } elseif (!$notFoundKeys) {
-                $values[$keys[$i]] = Serializer::unserialize($serializedValue);
-            }
-        }
-
-        if ($notFoundKeys) {
-            throw NoSuchKeyException::forKeys($notFoundKeys);
-        }
-
-        return $values;
+        return (bool) $this->client->del($key);
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function remove($key)
+    protected function clientExists($key)
     {
-        KeyUtil::validate($key);
-
-        try {
-            return (bool) $this->client->del($key);
-        } catch (Exception $e) {
-            throw WriteException::forException($e);
-        }
+        return (bool) $this->client->exists($key);
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function exists($key)
+    protected function clientClear()
     {
-        KeyUtil::validate($key);
-
-        try {
-            return $this->client->exists($key);
-        } catch (Exception $e) {
-            throw ReadException::forException($e);
-        }
+        $this->client->flushdb();
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function clear()
+    protected function clientKeys()
     {
-        try {
-            $this->client->flushdb();
-        } catch (Exception $e) {
-            throw WriteException::forException($e);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function keys()
-    {
-        try {
-            return $this->client->keys('*');
-        } catch (Exception $e) {
-            throw ReadException::forException($e);
-        }
+        return $this->client->keys('*');
     }
 }

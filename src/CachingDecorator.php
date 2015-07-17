@@ -33,7 +33,7 @@ class CachingDecorator implements KeyValueStore
     private $store;
 
     /**
-     * @var Cache|ClearableCache|FlushableCache
+     * @var Cache
      */
     private $cache;
 

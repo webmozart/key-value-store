@@ -26,8 +26,8 @@ class InvalidKeyException extends RuntimeException
     /**
      * Creates an exception for an invalid key.
      *
-     * @param mixed     $key   The invalid key.
-     * @param Exception $cause The exception that caused this exception.
+     * @param mixed          $key   The invalid key.
+     * @param Exception|null $cause The exception that caused this exception.
      *
      * @return static The created exception.
      */

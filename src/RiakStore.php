@@ -45,8 +45,8 @@ class RiakStore implements KeyValueStore
      * If no client is passed, a new one is created using the default server
      * "127.0.0.1" and the default port 8098.
      *
-     * @param string $bucketName The name of the Riak bucket to use.
-     * @param Riak   $client     The client used to connect to Riak.
+     * @param string    $bucketName The name of the Riak bucket to use.
+     * @param Riak|null $client     The client used to connect to Riak.
      */
     public function __construct($bucketName, Riak $client = null)
     {
@@ -166,7 +166,7 @@ class RiakStore implements KeyValueStore
             throw ReadException::forException($e);
         }
 
-        if ($notFoundKeys) {
+        if (0 !== count($notFoundKeys)) {
             throw NoSuchKeyException::forKeys($notFoundKeys);
         }
 

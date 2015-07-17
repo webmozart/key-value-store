@@ -265,7 +265,6 @@ interface KeyValueStore
      * }
      * ```
      *
-     *
      * @throws WriteException If the store cannot be written.
      */
     public function clear();
