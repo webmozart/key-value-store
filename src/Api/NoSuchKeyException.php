@@ -18,6 +18,7 @@ use RuntimeException;
  * Thrown when a key was not found in the store.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class NoSuchKeyException extends RuntimeException

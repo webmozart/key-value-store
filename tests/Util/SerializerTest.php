@@ -19,6 +19,7 @@ use Webmozart\KeyValueStore\Util\Serializer;
 
 /**
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class SerializerTest extends PHPUnit_Framework_TestCase

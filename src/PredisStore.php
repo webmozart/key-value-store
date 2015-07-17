@@ -25,6 +25,7 @@ use Webmozart\KeyValueStore\Util\Serializer;
  * A key-value store that uses Predis to connect to a Redis instance.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class PredisStore implements KeyValueStore

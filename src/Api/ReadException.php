@@ -18,6 +18,7 @@ use RuntimeException;
  * Thrown when a key-value store cannot be read.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class ReadException extends RuntimeException

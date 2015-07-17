@@ -18,6 +18,7 @@ use RuntimeException;
  * Thrown when a key-value store cannot be written.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class WriteException extends RuntimeException

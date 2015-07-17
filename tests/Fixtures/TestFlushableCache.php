@@ -16,6 +16,7 @@ use Doctrine\Common\Cache\FlushableCache;
 
 /**
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 interface TestFlushableCache extends Cache, FlushableCache

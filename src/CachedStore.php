@@ -22,6 +22,7 @@ use Webmozart\KeyValueStore\Api\NoSuchKeyException;
  * A key-value store replicated in a cache.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class CachedStore implements KeyValueStore

@@ -18,6 +18,7 @@ use Webmozart\KeyValueStore\Api\NoSuchKeyException;
  * A key-value store that does nothing.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class NullStore implements KeyValueStore

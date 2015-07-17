@@ -16,6 +16,7 @@ use Webmozart\KeyValueStore\NullStore;
 
 /**
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class NullStoreTest extends PHPUnit_Framework_TestCase

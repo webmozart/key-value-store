@@ -17,6 +17,7 @@ use Webmozart\KeyValueStore\Tests\Fixtures\TestException;
 
 /**
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @author Philipp Wahala <philipp.wahala@gmail.com>
  */

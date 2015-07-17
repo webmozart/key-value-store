@@ -21,6 +21,7 @@ use Webmozart\KeyValueStore\Util\KeyUtil;
  * The contents of the store are lost when the store is released from memory.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class ArrayStore implements KeyValueStore

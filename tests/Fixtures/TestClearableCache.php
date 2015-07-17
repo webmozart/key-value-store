@@ -16,6 +16,7 @@ use Doctrine\Common\Cache\ClearableCache;
 
 /**
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 interface TestClearableCache extends Cache, ClearableCache

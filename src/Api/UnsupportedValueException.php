@@ -18,6 +18,7 @@ use RuntimeException;
  * Thrown when an unsupported value is stored in a key-value store.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class UnsupportedValueException extends RuntimeException

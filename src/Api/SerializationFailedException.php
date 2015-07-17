@@ -18,6 +18,7 @@ use RuntimeException;
  * Thrown when a value cannot be serialized.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class SerializationFailedException extends RuntimeException

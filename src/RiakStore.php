@@ -24,6 +24,7 @@ use Webmozart\KeyValueStore\Util\Serializer;
  * A key-value store backed by a Riak client.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class RiakStore implements KeyValueStore

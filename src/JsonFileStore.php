@@ -25,12 +25,13 @@ use Webmozart\KeyValueStore\Util\Serializer;
  * A key-value store backed by a JSON file.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class JsonFileStore implements KeyValueStore
 {
     /**
-     * This seems to be the biggest float supported by json_encode()/json_decode()
+     * This seems to be the biggest float supported by json_encode()/json_decode().
      */
     const MAX_FLOAT = 1.0E+14;
 

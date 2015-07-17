@@ -17,6 +17,7 @@ use Webmozart\KeyValueStore\Api\InvalidKeyException;
  * Utility methods for dealing with key-value store keys.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class KeyUtil

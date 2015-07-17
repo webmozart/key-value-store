@@ -16,6 +16,7 @@ use Webmozart\KeyValueStore\JsonFileStore;
 
 /**
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class JsonFileStoreTest extends AbstractKeyValueStoreTest
@@ -24,7 +25,8 @@ class JsonFileStoreTest extends AbstractKeyValueStoreTest
 
     protected function setUp()
     {
-        while (false === @mkdir($this->tempDir = sys_get_temp_dir().'/webmozart-JsonFileStoreTest'.rand(10000, 99999), 0777, true)) {}
+        while (false === @mkdir($this->tempDir = sys_get_temp_dir().'/webmozart-JsonFileStoreTest'.rand(10000, 99999), 0777, true)) {
+        }
 
         parent::setUp();
     }

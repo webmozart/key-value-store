@@ -20,6 +20,7 @@ namespace Webmozart\KeyValueStore\Api;
  * documentation of the implementation for more information.
  *
  * @since  1.0
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 interface KeyValueStore
@@ -52,11 +53,11 @@ interface KeyValueStore
      * @param int|string $key   The key to set.
      * @param mixed      $value The value to set for the key.
      *
-     * @throws WriteException If the store cannot be written.
-     * @throws InvalidKeyException If the key is not a string or integer.
+     * @throws WriteException               If the store cannot be written.
+     * @throws InvalidKeyException          If the key is not a string or integer.
      * @throws SerializationFailedException If the value cannot be serialized.
-     * @throws UnsupportedValueException If the value is not supported by the
-     *                                   implementation.
+     * @throws UnsupportedValueException    If the value is not supported by the
+     *                                      implementation.
      */
     public function set($key, $value);
 
@@ -88,8 +89,8 @@ interface KeyValueStore
      * @return mixed The value of the key or the default value if the key does
      *               not exist.
      *
-     * @throws ReadException If the store cannot be read.
-     * @throws InvalidKeyException If the key is not a string or integer.
+     * @throws ReadException                  If the store cannot be read.
+     * @throws InvalidKeyException            If the key is not a string or integer.
      * @throws UnserializationFailedException If the stored value cannot be
      *                                        unserialized.
      */
@@ -119,9 +120,9 @@ interface KeyValueStore
      *
      * @return mixed The value of the key.
      *
-     * @throws ReadException If the store cannot be read.
-     * @throws NoSuchKeyException If the key was not found.
-     * @throws InvalidKeyException If the key is not a string or integer.
+     * @throws ReadException                  If the store cannot be read.
+     * @throws NoSuchKeyException             If the key was not found.
+     * @throws InvalidKeyException            If the key is not a string or integer.
      * @throws UnserializationFailedException If the stored value cannot be
      *                                        unserialized.
      */
@@ -153,8 +154,8 @@ interface KeyValueStore
      *
      * @return array The values of the passed keys, indexed by the keys.
      *
-     * @throws ReadException If the store cannot be read.
-     * @throws InvalidKeyException If a key is not a string or integer.
+     * @throws ReadException                  If the store cannot be read.
+     * @throws InvalidKeyException            If a key is not a string or integer.
      * @throws UnserializationFailedException If a stored value cannot be
      *                                        unserialized.
      */
@@ -184,9 +185,9 @@ interface KeyValueStore
      *
      * @return array The values of the passed keys, indexed by the keys.
      *
-     * @throws ReadException If the store cannot be read.
-     * @throws NoSuchKeyException If a key was not found.
-     * @throws InvalidKeyException If a key is not a string or integer.
+     * @throws ReadException                  If the store cannot be read.
+     * @throws NoSuchKeyException             If a key was not found.
+     * @throws InvalidKeyException            If a key is not a string or integer.
      * @throws UnserializationFailedException If a stored value cannot be
      *                                        unserialized.
      */
@@ -216,7 +217,7 @@ interface KeyValueStore
      *
      * @return bool Returns `true` if a key was removed from the store.
      *
-     * @throws WriteException If the store cannot be written.
+     * @throws WriteException      If the store cannot be written.
      * @throws InvalidKeyException If the key is not a string or integer.
      */
     public function remove($key);
@@ -245,7 +246,7 @@ interface KeyValueStore
      *
      * @return bool Whether the key exists in the store.
      *
-     * @throws ReadException If the store cannot be read.
+     * @throws ReadException       If the store cannot be read.
      * @throws InvalidKeyException If the key is not a string or integer.
      */
     public function exists($key);
