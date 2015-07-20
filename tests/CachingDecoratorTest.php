@@ -19,14 +19,14 @@ use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Api\WriteException;
-use Webmozart\KeyValueStore\CachedStore;
+use Webmozart\KeyValueStore\CachingDecorator;
 
 /**
  * @since  1.0
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class CachedStoreTest extends PHPUnit_Framework_TestCase
+class CachingDecoratorTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var PHPUnit_Framework_MockObject_MockObject|KeyValueStore
@@ -39,7 +39,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
     private $cache;
 
     /**
-     * @var CachedStore
+     * @var CachingDecorator
      */
     private $store;
 
@@ -47,7 +47,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
     {
         $this->innerStore = $this->getMock('Webmozart\KeyValueStore\Api\KeyValueStore');
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableCache');
-        $this->store = new CachedStore($this->innerStore, $this->cache);
+        $this->store = new CachingDecorator($this->innerStore, $this->cache);
     }
 
     /**
@@ -57,7 +57,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
     {
         $this->cache = $this->getMock('Doctrine\Common\Cache\Cache');
 
-        new CachedStore($this->innerStore, $this->cache);
+        new CachingDecorator($this->innerStore, $this->cache);
     }
 
     public function testSetWritesToCache()
@@ -75,7 +75,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
 
     public function testSetWritesTtlIfGiven()
     {
-        $this->store = new CachedStore($this->innerStore, $this->cache, 100);
+        $this->store = new CachingDecorator($this->innerStore, $this->cache, 100);
 
         $this->innerStore->expects($this->once())
             ->method('set')
@@ -143,7 +143,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
 
     public function testGetWritesTtlIfNotCached()
     {
-        $this->store = new CachedStore($this->innerStore, $this->cache, 100);
+        $this->store = new CachingDecorator($this->innerStore, $this->cache, 100);
 
         $this->cache->expects($this->at(0))
             ->method('contains')
@@ -218,7 +218,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
 
     public function testGetOrFailWritesTtlIfNotCached()
     {
-        $this->store = new CachedStore($this->innerStore, $this->cache, 100);
+        $this->store = new CachingDecorator($this->innerStore, $this->cache, 100);
 
         $this->cache->expects($this->at(0))
             ->method('contains')
@@ -406,7 +406,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
     public function testClearDeletesAllFromCache()
     {
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableCache');
-        $this->store = new CachedStore($this->innerStore, $this->cache);
+        $this->store = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
             ->method('clear');
@@ -423,7 +423,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
     public function testClearDoesNotDeleteAllFromCacheIfClearFails()
     {
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableCache');
-        $this->store = new CachedStore($this->innerStore, $this->cache);
+        $this->store = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
             ->method('clear')
@@ -438,7 +438,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
     public function testClearFlushesCache()
     {
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestFlushableCache');
-        $this->store = new CachedStore($this->innerStore, $this->cache);
+        $this->store = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
             ->method('clear');
@@ -452,7 +452,7 @@ class CachedStoreTest extends PHPUnit_Framework_TestCase
     public function testClearDeletesAllIfFlushableAndClearable()
     {
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableFlushableCache');
-        $this->store = new CachedStore($this->innerStore, $this->cache);
+        $this->store = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
             ->method('clear');

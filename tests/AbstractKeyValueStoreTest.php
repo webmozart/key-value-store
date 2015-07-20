@@ -13,6 +13,7 @@ namespace Webmozart\KeyValueStore\Tests;
 
 use PHPUnit_Framework_TestCase;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\Api\SortableStore;
 use Webmozart\KeyValueStore\Tests\Fixtures\NotSerializable;
 use Webmozart\KeyValueStore\Tests\Fixtures\PrivateProperties;
 
@@ -26,12 +27,12 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     const BINARY_INPUT = "\xff\xf0";
 
     /**
-     * @var KeyValueStore
+     * @var KeyValueStore|SortableStore
      */
-    private $store;
+    protected $store;
 
     /**
-     * @return KeyValueStore The created store.
+     * @return KeyValueStore|SortableStore The created store.
      */
     abstract protected function createStore();
 

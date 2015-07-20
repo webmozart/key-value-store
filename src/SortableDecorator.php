@@ -11,86 +11,37 @@
 
 namespace Webmozart\KeyValueStore;
 
-use Webmozart\KeyValueStore\Api\NoSuchKeyException;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SortableStore;
 
 /**
- * A key-value store that does nothing.
+ * A sortable decorator implementing a sort system for any store.
  *
  * @since  1.0
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
+ * @author Titouan Galopin <galopintitouan@gmail.com>
  */
-class NullStore implements SortableStore
+class SortableDecorator implements SortableStore
 {
     /**
-     * {@inheritdoc}
+     * @var KeyValueStore
      */
-    public function set($key, $value)
-    {
-    }
+    private $store;
 
     /**
-     * {@inheritdoc}
+     * @var int
      */
-    public function get($key, $default = null)
-    {
-        return $default;
-    }
+    private $flags;
 
     /**
-     * {@inheritdoc}
+     * Creates the store.
+     *
+     * @param KeyValueStore $store The store to sort.
      */
-    public function getOrFail($key)
+    public function __construct(KeyValueStore $store)
     {
-        throw NoSuchKeyException::forKey($key);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMultiple(array $keys, $default = null)
-    {
-        return array_fill_keys($keys, $default);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMultipleOrFail(array $keys)
-    {
-        throw NoSuchKeyException::forKeys($keys);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function remove($key)
-    {
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function exists($key)
-    {
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function clear()
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function keys()
-    {
-        return array();
+        $this->store = $store;
     }
 
     /**
@@ -98,5 +49,85 @@ class NullStore implements SortableStore
      */
     public function sort($flags = SORT_REGULAR)
     {
+        $this->flags = $flags;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function set($key, $value)
+    {
+        $this->flags = null;
+        $this->store->set($key, $value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get($key, $default = null)
+    {
+        return $this->store->get($key, $default);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOrFail($key)
+    {
+        return $this->store->getOrFail($key);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMultiple(array $keys, $default = null)
+    {
+        return $this->store->getMultiple($keys, $default);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMultipleOrFail(array $keys)
+    {
+        return $this->store->getMultipleOrFail($keys);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove($key)
+    {
+        $this->store->remove($key);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function exists($key)
+    {
+        return $this->store->exists($key);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function clear()
+    {
+        $this->store->clear();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function keys()
+    {
+        $keys = $this->store->keys();
+
+        if (null !== $this->flags) {
+            sort($keys, $this->flags);
+        }
+
+        return $keys;
     }
 }
