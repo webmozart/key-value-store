@@ -18,7 +18,7 @@ use Webmozart\KeyValueStore\ArrayStore;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class ArrayStoreTest extends AbstractSortableStoreTest
+class ArrayStoreTest extends AbstractSortableCountableStoreTest
 {
     protected function createStore()
     {
@@ -121,6 +121,12 @@ class ArrayStoreTest extends AbstractSortableStoreTest
     public function testSortThrowsWriteExceptionIfWriteFails()
     {
         // ArrayStore never write a storage
+        $this->assertTrue(true);
+    }
+
+    public function testCountThrowsReadExceptionIfReadFails()
+    {
+        // ArrayStore never reads a storage
         $this->assertTrue(true);
     }
 }

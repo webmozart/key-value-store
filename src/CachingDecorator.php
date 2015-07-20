@@ -25,13 +25,8 @@ use Webmozart\KeyValueStore\Api\NoSuchKeyException;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class CachingDecorator implements KeyValueStore
+class CachingDecorator extends AbstractDecorator
 {
-    /**
-     * @var KeyValueStore
-     */
-    private $store;
-
     /**
      * @var Cache
      */
@@ -59,7 +54,8 @@ class CachingDecorator implements KeyValueStore
             ));
         }
 
-        $this->store = $store;
+        parent::__construct($store);
+
         $this->cache = $cache;
         $this->ttl = $ttl;
     }
@@ -187,13 +183,5 @@ class CachingDecorator implements KeyValueStore
         } else {
             $this->cache->flushAll();
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function keys()
-    {
-        return $this->store->keys();
     }
 }

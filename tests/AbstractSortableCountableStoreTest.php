@@ -17,7 +17,7 @@ namespace Webmozart\KeyValueStore\Tests;
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @author Titouan Galopin <galopintitouan@gmail.com>
  */
-abstract class AbstractSortableStoreTest extends AbstractKeyValueStoreTest
+abstract class AbstractSortableCountableStoreTest extends AbstractCountableStoreTest
 {
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException

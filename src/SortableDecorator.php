@@ -11,7 +11,6 @@
 
 namespace Webmozart\KeyValueStore;
 
-use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SortableStore;
 
 /**
@@ -22,27 +21,12 @@ use Webmozart\KeyValueStore\Api\SortableStore;
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @author Titouan Galopin <galopintitouan@gmail.com>
  */
-class SortableDecorator implements SortableStore
+class SortableDecorator extends AbstractDecorator implements SortableStore
 {
-    /**
-     * @var KeyValueStore
-     */
-    private $store;
-
     /**
      * @var int
      */
     private $flags;
-
-    /**
-     * Creates the store.
-     *
-     * @param KeyValueStore $store The store to sort.
-     */
-    public function __construct(KeyValueStore $store)
-    {
-        $this->store = $store;
-    }
 
     /**
      * {@inheritdoc}
@@ -59,62 +43,6 @@ class SortableDecorator implements SortableStore
     {
         $this->flags = null;
         $this->store->set($key, $value);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function get($key, $default = null)
-    {
-        return $this->store->get($key, $default);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrFail($key)
-    {
-        return $this->store->getOrFail($key);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMultiple(array $keys, $default = null)
-    {
-        return $this->store->getMultiple($keys, $default);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMultipleOrFail(array $keys)
-    {
-        return $this->store->getMultipleOrFail($keys);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function remove($key)
-    {
-        $this->store->remove($key);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function exists($key)
-    {
-        return $this->store->exists($key);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function clear()
-    {
-        $this->store->clear();
     }
 
     /**

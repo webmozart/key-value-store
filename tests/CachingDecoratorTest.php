@@ -13,7 +13,6 @@ namespace Webmozart\KeyValueStore\Tests;
 
 use Doctrine\Common\Cache\Cache;
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
 use Webmozart\KeyValueStore\Api\InvalidKeyException;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
@@ -26,28 +25,36 @@ use Webmozart\KeyValueStore\CachingDecorator;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class CachingDecoratorTest extends PHPUnit_Framework_TestCase
+class CachingDecoratorTest extends AbstractDecoratorTest
 {
-    /**
-     * @var PHPUnit_Framework_MockObject_MockObject|KeyValueStore
-     */
-    private $innerStore;
-
     /**
      * @var PHPUnit_Framework_MockObject_MockObject|Cache
      */
     private $cache;
 
-    /**
-     * @var CachingDecorator
-     */
-    private $store;
-
-    protected function setUp()
+    protected function createDecorator(KeyValueStore $innerStore)
     {
-        $this->innerStore = $this->getMock('Webmozart\KeyValueStore\Api\KeyValueStore');
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableCache');
-        $this->store = new CachingDecorator($this->innerStore, $this->cache);
+
+        return new CachingDecorator($this->innerStore, $this->cache);
+    }
+
+    public function testGetDelegate()
+    {
+        // We test the get in another way
+        $this->assertTrue(true);
+    }
+
+    public function testGetMultipleDelegate()
+    {
+        // We test the getMultiple in another way
+        $this->assertTrue(true);
+    }
+
+    public function testGetMultipleOrFailDelegate()
+    {
+        // We test the getMultipleOrFail in another way
+        $this->assertTrue(true);
     }
 
     /**
@@ -70,12 +77,12 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with('key', 'value');
 
-        $this->store->set('key', 'value');
+        $this->decorator->set('key', 'value');
     }
 
     public function testSetWritesTtlIfGiven()
     {
-        $this->store = new CachingDecorator($this->innerStore, $this->cache, 100);
+        $this->decorator = new CachingDecorator($this->innerStore, $this->cache, 100);
 
         $this->innerStore->expects($this->once())
             ->method('set')
@@ -85,7 +92,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with('key', 'value', 100);
 
-        $this->store->set('key', 'value');
+        $this->decorator->set('key', 'value');
     }
 
     /**
@@ -101,7 +108,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->cache->expects($this->never())
             ->method('save');
 
-        $this->store->set('key', 'value');
+        $this->decorator->set('key', 'value');
     }
 
     public function testGetReturnsFromCacheIfCached()
@@ -119,7 +126,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->with('key')
             ->willReturn('value');
 
-        $this->assertSame('value', $this->store->get('key'));
+        $this->assertSame('value', $this->decorator->get('key'));
     }
 
     public function testGetWritesToCacheIfNotCached()
@@ -138,12 +145,12 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with('key', 'value');
 
-        $this->assertSame('value', $this->store->get('key'));
+        $this->assertSame('value', $this->decorator->get('key'));
     }
 
     public function testGetWritesTtlIfNotCached()
     {
-        $this->store = new CachingDecorator($this->innerStore, $this->cache, 100);
+        $this->decorator = new CachingDecorator($this->innerStore, $this->cache, 100);
 
         $this->cache->expects($this->at(0))
             ->method('contains')
@@ -159,7 +166,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with('key', 'value', 100);
 
-        $this->assertSame('value', $this->store->get('key'));
+        $this->assertSame('value', $this->decorator->get('key'));
     }
 
     public function testGetDoesNotSaveToCacheIfKeyNotFound()
@@ -176,7 +183,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->cache->expects($this->never())
             ->method('save');
 
-        $this->assertSame('default', $this->store->get('key', 'default'));
+        $this->assertSame('default', $this->decorator->get('key', 'default'));
     }
 
     public function testGetOrFailReturnsFromCacheIfCached()
@@ -194,7 +201,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->with('key')
             ->willReturn('value');
 
-        $this->assertSame('value', $this->store->getOrFail('key'));
+        $this->assertSame('value', $this->decorator->getOrFail('key'));
     }
 
     public function testGetOrFailWritesToCacheIfNotCached()
@@ -213,12 +220,12 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with('key', 'value');
 
-        $this->assertSame('value', $this->store->getOrFail('key'));
+        $this->assertSame('value', $this->decorator->getOrFail('key'));
     }
 
     public function testGetOrFailWritesTtlIfNotCached()
     {
-        $this->store = new CachingDecorator($this->innerStore, $this->cache, 100);
+        $this->decorator = new CachingDecorator($this->innerStore, $this->cache, 100);
 
         $this->cache->expects($this->at(0))
             ->method('contains')
@@ -234,7 +241,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with('key', 'value', 100);
 
-        $this->assertSame('value', $this->store->getOrFail('key'));
+        $this->assertSame('value', $this->decorator->getOrFail('key'));
     }
 
     /**
@@ -254,7 +261,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->cache->expects($this->never())
             ->method('save');
 
-        $this->store->getOrFail('key');
+        $this->decorator->getOrFail('key');
     }
 
     public function testGetMultipleMergesCachedAndNonCachedEntries()
@@ -284,7 +291,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->cache->expects($this->never())
             ->method('save');
 
-        $values = $this->store->getMultiple(array('a', 'b', 'c'), 'default');
+        $values = $this->decorator->getMultiple(array('a', 'b', 'c'), 'default');
 
         // Undefined order
         ksort($values);
@@ -323,7 +330,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->method('save')
             ->withConsecutive(array('a', 'value1'), array('c', 'value3'));
 
-        $values = $this->store->getMultipleOrFail(array('a', 'b', 'c'));
+        $values = $this->decorator->getMultipleOrFail(array('a', 'b', 'c'));
 
         // Undefined order
         ksort($values);
@@ -345,7 +352,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->innerStore->expects($this->never())
             ->method('exists');
 
-        $this->assertTrue($this->store->exists('key'));
+        $this->assertTrue($this->decorator->exists('key'));
     }
 
     /**
@@ -363,7 +370,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->with('key')
             ->willReturn($result);
 
-        $this->assertSame($result, $this->store->exists('key'));
+        $this->assertSame($result, $this->decorator->exists('key'));
     }
 
     public function provideTrueFalse()
@@ -384,7 +391,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->method('delete')
             ->with('key');
 
-        $this->store->remove('key');
+        $this->decorator->remove('key');
     }
 
     /**
@@ -400,13 +407,13 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->cache->expects($this->never())
             ->method('delete');
 
-        $this->store->remove('key');
+        $this->decorator->remove('key');
     }
 
     public function testClearDeletesAllFromCache()
     {
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableCache');
-        $this->store = new CachingDecorator($this->innerStore, $this->cache);
+        $this->decorator = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
             ->method('clear');
@@ -414,7 +421,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->cache->expects($this->once())
             ->method('deleteAll');
 
-        $this->store->clear();
+        $this->decorator->clear();
     }
 
     /**
@@ -423,7 +430,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
     public function testClearDoesNotDeleteAllFromCacheIfClearFails()
     {
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableCache');
-        $this->store = new CachingDecorator($this->innerStore, $this->cache);
+        $this->decorator = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
             ->method('clear')
@@ -432,13 +439,13 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->cache->expects($this->never())
             ->method('deleteAll');
 
-        $this->store->clear();
+        $this->decorator->clear();
     }
 
     public function testClearFlushesCache()
     {
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestFlushableCache');
-        $this->store = new CachingDecorator($this->innerStore, $this->cache);
+        $this->decorator = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
             ->method('clear');
@@ -446,13 +453,13 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->cache->expects($this->once())
             ->method('flushAll');
 
-        $this->store->clear();
+        $this->decorator->clear();
     }
 
     public function testClearDeletesAllIfFlushableAndClearable()
     {
         $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableFlushableCache');
-        $this->store = new CachingDecorator($this->innerStore, $this->cache);
+        $this->decorator = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
             ->method('clear');
@@ -460,7 +467,7 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
         $this->cache->expects($this->once())
             ->method('deleteAll');
 
-        $this->store->clear();
+        $this->decorator->clear();
     }
 
     public function testKeysForwardsKeysFromStore()
@@ -469,6 +476,6 @@ class CachingDecoratorTest extends PHPUnit_Framework_TestCase
             ->method('keys')
             ->willReturn(array('a', 'b', 'c'));
 
-        $this->assertSame(array('a', 'b', 'c'), $this->store->keys());
+        $this->assertSame(array('a', 'b', 'c'), $this->decorator->keys());
     }
 }
