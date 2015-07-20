@@ -20,7 +20,7 @@ use Webmozart\KeyValueStore\Api\InvalidKeyException;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class KeyUtil
+final class KeyUtil
 {
     /**
      * Validates that a key is valid.

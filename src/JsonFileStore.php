@@ -230,7 +230,7 @@ class JsonFileStore implements SortableStore
             ? trim($this->readFile($this->path))
             : null;
 
-        if (!$contents) {
+        if (false === (bool) $contents) {
             return array();
         }
 

@@ -26,10 +26,10 @@ class UnsupportedValueException extends RuntimeException
     /**
      * Creates a new exception for the given value type.
      *
-     * @param string        $type  The name of the unsupported type.
-     * @param KeyValueStore $store The store that does not support the type.
-     * @param int           $code  The exception code.
-     * @param Exception     $cause The exception that caused this exception.
+     * @param string         $type  The name of the unsupported type.
+     * @param KeyValueStore  $store The store that does not support the type.
+     * @param int            $code  The exception code.
+     * @param Exception|null $cause The exception that caused this exception.
      *
      * @return static The new exception.
      */
