@@ -13,6 +13,7 @@ namespace Webmozart\KeyValueStore;
 
 use stdClass;
 use Webmozart\Assert\Assert;
+use Webmozart\KeyValueStore\Api\CountableStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\ReadException;
 use Webmozart\KeyValueStore\Api\SortableStore;
@@ -28,7 +29,7 @@ use Webmozart\KeyValueStore\Util\Serializer;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class JsonFileStore implements SortableStore
+class JsonFileStore implements SortableStore, CountableStore
 {
     /**
      * This seems to be the biggest float supported by json_encode()/json_decode().
@@ -222,6 +223,16 @@ class JsonFileStore implements SortableStore
         ksort($data, $flags);
 
         $this->save($data);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function count()
+    {
+        $data = $this->load();
+
+        return count($data);
     }
 
     private function load()

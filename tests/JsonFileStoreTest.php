@@ -19,7 +19,7 @@ use Webmozart\KeyValueStore\JsonFileStore;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class JsonFileStoreTest extends AbstractSortableStoreTest
+class JsonFileStoreTest extends AbstractSortableCountableStoreTest
 {
     private $tempDir;
 
@@ -307,5 +307,17 @@ class JsonFileStoreTest extends AbstractSortableStoreTest
 
         chmod($readOnlyFile, 0400);
         $store->sort();
+    }
+
+    /**
+     * @expectedException \Webmozart\KeyValueStore\Api\ReadException
+     */
+    public function testCountThrowsReadExceptionIfReadFails()
+    {
+        touch($notReadable = $this->tempDir.'/not-readable.json');
+        $store = new JsonFileStore($notReadable);
+
+        chmod($notReadable, 0000);
+        $store->count();
     }
 }

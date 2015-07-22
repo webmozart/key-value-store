@@ -11,6 +11,7 @@
 
 namespace Webmozart\KeyValueStore;
 
+use Webmozart\KeyValueStore\Api\CountableStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\SortableStore;
 use Webmozart\KeyValueStore\Util\KeyUtil;
@@ -24,7 +25,7 @@ use Webmozart\KeyValueStore\Util\KeyUtil;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class ArrayStore implements SortableStore
+class ArrayStore implements SortableStore, CountableStore
 {
     /**
      * @var array
@@ -169,5 +170,13 @@ class ArrayStore implements SortableStore
     public function sort($flags = SORT_REGULAR)
     {
         ksort($this->array, $flags);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function count()
+    {
+        return count($this->array);
     }
 }

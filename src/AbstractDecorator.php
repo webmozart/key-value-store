@@ -11,24 +11,43 @@
 
 namespace Webmozart\KeyValueStore;
 
-use Webmozart\KeyValueStore\Api\CountableStore;
-use Webmozart\KeyValueStore\Api\NoSuchKeyException;
-use Webmozart\KeyValueStore\Api\SortableStore;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
 
 /**
- * A key-value store that does nothing.
+ * A delegating decorator delegate each call of a KeyValueStore method
+ * to the internal store.
+ *
+ * It is used by decorators that need to override only a few specific
+ * methods (such as SortableDecorator or CountableDecorator).
  *
  * @since  1.0
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
+ * @author Titouan Galopin <galopintitouan@gmail.com>
  */
-class NullStore implements SortableStore, CountableStore
+class AbstractDecorator implements KeyValueStore
 {
+    /**
+     * @var KeyValueStore
+     */
+    protected $store;
+
+    /**
+     * Creates the store.
+     *
+     * @param KeyValueStore $store The store to sort.
+     */
+    public function __construct(KeyValueStore $store)
+    {
+        $this->store = $store;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function set($key, $value)
     {
+        $this->store->set($key, $value);
     }
 
     /**
@@ -36,7 +55,7 @@ class NullStore implements SortableStore, CountableStore
      */
     public function get($key, $default = null)
     {
-        return $default;
+        return $this->store->get($key, $default);
     }
 
     /**
@@ -44,7 +63,7 @@ class NullStore implements SortableStore, CountableStore
      */
     public function getOrFail($key)
     {
-        throw NoSuchKeyException::forKey($key);
+        return $this->store->getOrFail($key);
     }
 
     /**
@@ -52,7 +71,7 @@ class NullStore implements SortableStore, CountableStore
      */
     public function getMultiple(array $keys, $default = null)
     {
-        return array_fill_keys($keys, $default);
+        return $this->store->getMultiple($keys, $default);
     }
 
     /**
@@ -60,7 +79,7 @@ class NullStore implements SortableStore, CountableStore
      */
     public function getMultipleOrFail(array $keys)
     {
-        throw NoSuchKeyException::forKeys($keys);
+        return $this->store->getMultipleOrFail($keys);
     }
 
     /**
@@ -68,7 +87,7 @@ class NullStore implements SortableStore, CountableStore
      */
     public function remove($key)
     {
-        return false;
+        $this->store->remove($key);
     }
 
     /**
@@ -76,7 +95,7 @@ class NullStore implements SortableStore, CountableStore
      */
     public function exists($key)
     {
-        return false;
+        return $this->store->exists($key);
     }
 
     /**
@@ -84,6 +103,7 @@ class NullStore implements SortableStore, CountableStore
      */
     public function clear()
     {
+        $this->store->clear();
     }
 
     /**
@@ -91,21 +111,6 @@ class NullStore implements SortableStore, CountableStore
      */
     public function keys()
     {
-        return array();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function sort($flags = SORT_REGULAR)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function count()
-    {
-        return 0;
+        return $this->store->keys();
     }
 }
