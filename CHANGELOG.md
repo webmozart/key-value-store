@@ -1,6 +1,20 @@
 Changelog
 =========
 
+* 1.0.0-beta5 (2015-08-11)
+
+ * added `AbstractDecorator`
+ * added `AbstractRedisStore`
+ * added `CountableStore`
+ * added `SortableStore`
+ * renamed `CachedStore` to `CachingDecorator`
+ * added `CountableDecorator`
+ * added `SortableDecorator`
+ * implemented `CountableStore` and `SortableStore` in `ArrayStore`,
+  `JsonFileStore` and `NullStore`
+ * made `KeyUtil` final
+ * made `Serializer` final
+
 * 1.0.0-beta4 (2015-05-28)
 
  * added `KeyValueStore::keys()`
