@@ -18,12 +18,28 @@ All contained key-value stores implement the interface [`KeyValueStore`]. The
 following stores are currently supported:
 
 * [`ArrayStore`]
-* [`CachedStore`]
 * [`JsonFileStore`]
 * [`NullStore`]
 * [`PhpRedisStore`]
 * [`PredisStore`]
 * [`RiakStore`]
+
+The interface [`CountableStore`] is supported by the following classes:
+
+* [`ArrayStore`]
+* [`JsonFileStore`]
+* [`NullStore`]
+* [`CountableDecorator`]
+
+The interface [`SortableStore`] is supported by the following classes:
+
+* [`ArrayStore`]
+* [`JsonFileStore`]
+* [`NullStore`]
+* [`SortableDecorator`]
+
+The decorator [`CachingDecorator`] exists for caching another store instance
+in a Doctrine cache.
 
 FAQ
 ---
@@ -50,8 +66,8 @@ kind of database).
 Hence the two libraries fulfill two very different purposes, even if their
 interfaces and implementations are often similar.
 
-The [`CachedStore`] actually uses a Doctrine Cache object to cache the data of
-a persistent [`KeyValueStore`].
+The [`CachingDecorator`] actually uses a Doctrine Cache object to cache the data
+of a persistent [`KeyValueStore`].
 
 Authors
 -------
@@ -97,10 +113,14 @@ All contents of this package are licensed under the [MIT license].
 [Doctrine Cache]: https://github.com/doctrine/cache
 [API Documentation]: https://webmozart.github.io/key-value-store/api
 [`KeyValueStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.KeyValueStore.html
+[`CountableStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.CountableStore.html
+[`SortableStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.SortableStore.html
 [`ArrayStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.ArrayStore.html
-[`CachedStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.CachedStore.html
 [`JsonFileStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.JsonFileStore.html
 [`NullStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.NullStore.html
 [`PhpRedisStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.PhpRedisStore.html
 [`PredisStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.PredisStore.html
 [`RiakStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.RiakStore.html
+[`CachingDecorator`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html
+[`CountableDecorator`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Decorator.CountableDecorator.html
+[`SortableDecorator`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Decorator.SortableDecorator.html
