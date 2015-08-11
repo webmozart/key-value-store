@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Webmozart\KeyValueStore\Api\InvalidKeyException | Webmozart Key-Value Store API</title>
+	<title>Interface Webmozart\KeyValueStore\Api\SortableStore | Webmozart Key-Value Store API</title>
 
 	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
 
@@ -58,13 +58,13 @@
 			<ul>
 				<li><a href="class-Webmozart.KeyValueStore.Api.CountableStore.html">CountableStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html">KeyValueStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.Api.SortableStore.html">SortableStore</a></li>
+				<li class="active"><a href="class-Webmozart.KeyValueStore.Api.SortableStore.html">SortableStore</a></li>
 			</ul>
 
 
 			<h3>Exceptions</h3>
 			<ul>
-				<li class="active"><a href="class-Webmozart.KeyValueStore.Api.InvalidKeyException.html">InvalidKeyException</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Api.InvalidKeyException.html">InvalidKeyException</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">NoSuchKeyException</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">ReadException</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.Api.SerializationFailedException.html">SerializationFailedException</a></li>
@@ -106,28 +106,21 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class InvalidKeyException</h1>
+	<h1>Interface SortableStore</h1>
 
 
 	<div class="description">
-	<p>Thrown when a key is invalid.</p>
+	<p>A sortable key-value store.</p>
+
+<p>In addition of the properties of a classical store, a sortable store
+has the ability to sort its values by its keys.</p>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Exception
-			
-			
-		</dd>
-		<dd style="padding-left:30px">
-			<img src="resources/inherit.png" alt="Extended by">
-RuntimeException
-			
-			
-		</dd>
-		<dd style="padding-left:60px">
-			<img src="resources/inherit.png" alt="Extended by">
-<b><span>Webmozart\KeyValueStore\Api\InvalidKeyException</span></b>			
+<b><span>Webmozart\KeyValueStore\Api\SortableStore</span></b>			
+			 implements 
+				<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html"><span>Webmozart\KeyValueStore\Api\KeyValueStore</span></a>
 			
 			
 		</dd>
@@ -136,6 +129,13 @@ RuntimeException
 
 
 
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html">Webmozart\KeyValueStore\ArrayStore</a>, 
+			<a href="class-Webmozart.KeyValueStore.Decorator.SortableDecorator.html">Webmozart\KeyValueStore\Decorator\SortableDecorator</a>, 
+			<a href="class-Webmozart.KeyValueStore.JsonFileStore.html">Webmozart\KeyValueStore\JsonFileStore</a>, 
+			<a href="class-Webmozart.KeyValueStore.NullStore.html">Webmozart\KeyValueStore\NullStore</a>
+	</div>
 
 
 
@@ -150,7 +150,9 @@ RuntimeException
 				1.0<br>
 				<b>Author:</b>
 				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.Api.InvalidKeyException.html#17-41" title="Go to source code">Api/InvalidKeyException.php</a>
+				<b>Author:</b>
+				Titouan Galopin <a href="mailto:ga&#108;&#111;&#112;&#105;&#110;&#116;&#105;&#116;&#111;&#117;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">ga&#108;&#111;&#112;&#105;&#110;&#116;&#105;&#116;&#111;&#117;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.Api.SortableStore.html#14-44" title="Go to source code">Api/SortableStore.php</a>
 		<br>
 	</div>
 
@@ -158,42 +160,51 @@ RuntimeException
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="forKey" id="_forKey">
+	<tr data-order="sort" id="_sort">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 
-			static
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_forKey">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Api.InvalidKeyException.html#26-40" title="Go to source code">forKey</a>( <span>mixed <var>$key</var></span>, <span>Exception <var>$cause</var> = <span class="php-keyword1">null</span></span> )</code>
+		<a class="anchor" href="#_sort">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.Api.SortableStore.html#27-43" title="Go to source code">sort</a>( <span>integer <var>$flags</var> = SORT_REGULAR</span> )</code>
 
 		<div class="description short">
-			<p>Creates an exception for an invalid key.</p>
+			<p>Sort the store by its keys.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Creates an exception for an invalid key.</p>
+			<p>Sort the store by its keys.</p>
+
+<p>The store values will be arranged from lowest to highest when this
+function has completed.</p>
+
+<p>This method accepts an optional second parameter that may be used
+to modify the sorting behavior using the standard sort flags of PHP.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$key</var></dt>
-					<dd>The invalid key.</dd>
-					<dt><var>$cause</var></dt>
-					<dd>The exception that caused this exception.</dd>
+					<dt><var>$flags</var></dt>
+					<dd>Sorting type flags (from the standard PHP sort flags).</dd>
 				</dl></div>
 
-				<h4>Returns</h4>
+
+				<h4>Throws</h4>
 				<div class="list">
-					static<br>The created exception.
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.
 				</div>
 
-
+				<h4>See</h4>
+				<div class="list">
+						http://php.net/manual/en/function.sort.php<br>
+				</div>
 
 
 		</div>
@@ -202,18 +213,18 @@ RuntimeException
 	</table>
 
 	<table class="summary inherited">
-	<caption>Methods inherited from Exception</caption>
+	<caption>Methods inherited from <a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#methods">Webmozart\KeyValueStore\Api\KeyValueStore</a></caption>
 	<tr>
 		<td><code>
-__construct(), 
-__toString(), 
-getCode(), 
-getFile(), 
-getLine(), 
-getMessage(), 
-getPrevious(), 
-getTrace(), 
-getTraceAsString()
+			<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_clear">clear()</a>, 
+			<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_exists">exists()</a>, 
+			<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_get">get()</a>, 
+			<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_getMultiple">getMultiple()</a>, 
+			<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_getMultipleOrFail">getMultipleOrFail()</a>, 
+			<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_getOrFail">getOrFail()</a>, 
+			<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_keys">keys()</a>, 
+			<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_remove">remove()</a>, 
+			<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_set">set()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -229,17 +240,6 @@ getTraceAsString()
 
 
 
-	<table class="summary inherited">
-	<caption>Properties inherited from Exception</caption>
-	<tr>
-		<td><code>
-<var>$code</var>, 
-<var>$file</var>, 
-<var>$line</var>, 
-<var>$message</var>
-		</code></td>
-	</tr>
-	</table>
 
 
 

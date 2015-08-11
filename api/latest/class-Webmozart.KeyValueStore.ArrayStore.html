@@ -36,6 +36,11 @@
 
 						</li>
 				<li>
+					<a href="namespace-Webmozart.KeyValueStore.Decorator.html">
+						Decorator					</a>
+
+						</li>
+				<li>
 					<a href="namespace-Webmozart.KeyValueStore.Util.html">
 						Util					</a>
 
@@ -50,8 +55,8 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Webmozart.KeyValueStore.AbstractRedisStore.html">AbstractRedisStore</a></li>
 				<li class="active"><a href="class-Webmozart.KeyValueStore.ArrayStore.html">ArrayStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.CachedStore.html">CachedStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.JsonFileStore.html">JsonFileStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.NullStore.html">NullStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">PhpRedisStore</a></li>
@@ -108,7 +113,9 @@
 		<dd style="padding-left:0px">
 <b><span>Webmozart\KeyValueStore\ArrayStore</span></b>			
 			 implements 
-				<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html"><span>Webmozart\KeyValueStore\Api\KeyValueStore</span></a>
+				<a href="class-Webmozart.KeyValueStore.Api.SortableStore.html"><span>Webmozart\KeyValueStore\Api\SortableStore</span></a>, 
+			
+				<a href="class-Webmozart.KeyValueStore.Api.CountableStore.html"><span>Webmozart\KeyValueStore\Api\CountableStore</span></a>
 			
 			
 		</dd>
@@ -127,11 +134,11 @@
 		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a><br>
 		
 
-				<b>Author:</b>
-				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
 				<b>Since:</b>
 				1.0<br>
-			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#19-165" title="Go to source code">ArrayStore.php</a>
+				<b>Author:</b>
+				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#19-182" title="Go to source code">ArrayStore.php</a>
 		<br>
 	</div>
 
@@ -151,7 +158,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#34-42" title="Go to source code">__construct</a>( <span>array <var>$array</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#35-43" title="Go to source code">__construct</a>( <span>array <var>$array</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Creates a new store.</p>
@@ -186,7 +193,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#44-52" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#45-53" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Sets the value for a key in the store.</p>
@@ -211,7 +218,7 @@
 					InvalidKeyException<br>If the key is not a string or integer.<br>
 					SerializationFailedException<br>If the value cannot be serialized.<br>
 					UnsupportedValueException<br><p>If the value is not supported by the
-                                  implementation.</p>
+                                     implementation.</p>
 				</div>
 
 
@@ -233,7 +240,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#54-66" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#55-67" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -285,7 +292,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#68-80" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#69-81" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -334,7 +341,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultiple">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#82-98" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#83-99" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -385,7 +392,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultipleOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#100-114" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#101-115" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -434,7 +441,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_remove">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#116-128" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#117-129" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Removes a key from the store.</p>
@@ -480,7 +487,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#130-138" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#131-139" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns whether a key exists.</p>
@@ -526,7 +533,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clear">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#140-146" title="Go to source code">clear</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#141-147" title="Go to source code">clear</a>( )</code>
 
 		<div class="description short">
 			<p>Removes all keys from the store.</p>
@@ -562,7 +569,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_keys">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#148-154" title="Go to source code">keys</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#149-155" title="Go to source code">keys</a>( )</code>
 
 		<div class="description short">
 			<p>Returns all keys currently stored in the store.</p>
@@ -603,7 +610,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_toArray">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#156-164" title="Go to source code">toArray</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#157-165" title="Go to source code">toArray</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the contents of the store as array.</p>
@@ -622,6 +629,84 @@
 
 
 
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sort" id="_sort">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sort">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#167-173" title="Go to source code">sort</a>( <span>integer <var>$flags</var> = SORT_REGULAR</span> )</code>
+
+		<div class="description short">
+			<p>Sort the store by its keys.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sort the store by its keys.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$flags</var></dt>
+					<dd>Sorting type flags (from the standard PHP sort flags).</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					ReadException<br>If the store cannot be read.<br>
+					WriteException<br>If the store cannot be written.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.SortableStore.html#_sort">Webmozart\KeyValueStore\Api\SortableStore::sort()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="count" id="_count">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_count">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#175-181" title="Go to source code">count</a>( )</code>
+
+		<div class="description short">
+			<p>Count the number of keys in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Count the number of keys in the store.</p>
+
+
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					ReadException<br>If the store cannot be read.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.CountableStore.html#_count">Webmozart\KeyValueStore\Api\CountableStore::count()</a></code></div>
 		</div>
 		</div></td>
 	</tr>

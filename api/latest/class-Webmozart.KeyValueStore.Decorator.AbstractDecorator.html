@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Webmozart\KeyValueStore\JsonFileStore | Webmozart Key-Value Store API</title>
+	<title>Class Webmozart\KeyValueStore\Decorator\AbstractDecorator | Webmozart Key-Value Store API</title>
 
 	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
 
@@ -35,7 +35,7 @@
 						Api					</a>
 
 						</li>
-				<li>
+				<li class="active">
 					<a href="namespace-Webmozart.KeyValueStore.Decorator.html">
 						Decorator					</a>
 
@@ -55,13 +55,10 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Webmozart.KeyValueStore.AbstractRedisStore.html">AbstractRedisStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.ArrayStore.html">ArrayStore</a></li>
-				<li class="active"><a href="class-Webmozart.KeyValueStore.JsonFileStore.html">JsonFileStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.NullStore.html">NullStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">PhpRedisStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.PredisStore.html">PredisStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.RiakStore.html">RiakStore</a></li>
+				<li class="active"><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html">AbstractDecorator</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html">CachingDecorator</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.CountableDecorator.html">CountableDecorator</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.SortableDecorator.html">SortableDecorator</a></li>
 			</ul>
 
 
@@ -88,7 +85,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-Webmozart.KeyValueStore.html" title="Summary of Webmozart\KeyValueStore"><span>Namespace</span></a>
+				<a href="namespace-Webmozart.KeyValueStore.Decorator.html" title="Summary of Webmozart\KeyValueStore\Decorator"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -100,26 +97,34 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class JsonFileStore</h1>
+	<h1>Class AbstractDecorator</h1>
 
 
 	<div class="description">
-	<p>A key-value store backed by a JSON file.</p>
+	<p>A delegating decorator delegate each call of a KeyValueStore method
+to the internal store.</p>
+
+<p>It is used by decorators that need to override only a few specific
+methods (such as SortableDecorator or CountableDecorator).</p>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-<b><span>Webmozart\KeyValueStore\JsonFileStore</span></b>			
+<b><span>Webmozart\KeyValueStore\Decorator\AbstractDecorator</span></b>			
 			 implements 
-				<a href="class-Webmozart.KeyValueStore.Api.SortableStore.html"><span>Webmozart\KeyValueStore\Api\SortableStore</span></a>, 
-			
-				<a href="class-Webmozart.KeyValueStore.Api.CountableStore.html"><span>Webmozart\KeyValueStore\Api\CountableStore</span></a>
+				<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html"><span>Webmozart\KeyValueStore\Api\KeyValueStore</span></a>
 			
 			
 		</dd>
 	</dl>
 
 
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html">Webmozart\KeyValueStore\Decorator\CachingDecorator</a>, 
+			<a href="class-Webmozart.KeyValueStore.Decorator.CountableDecorator.html">Webmozart\KeyValueStore\Decorator\CountableDecorator</a>, 
+			<a href="class-Webmozart.KeyValueStore.Decorator.SortableDecorator.html">Webmozart\KeyValueStore\Decorator\SortableDecorator</a>
+	</div>
 
 
 
@@ -129,14 +134,16 @@
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a><br>
+		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a>\<a href="namespace-Webmozart.KeyValueStore.Decorator.html">Decorator</a><br>
 		
 
 				<b>Since:</b>
 				1.0<br>
 				<b>Author:</b>
 				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#25-381" title="Go to source code">JsonFileStore.php</a>
+				<b>Author:</b>
+				Titouan Galopin <a href="mailto:ga&#108;&#111;&#112;&#105;&#110;&#116;&#105;&#116;&#111;&#117;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">ga&#108;&#111;&#112;&#105;&#110;&#116;&#105;&#116;&#111;&#117;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#16-116" title="Go to source code">Decorator/AbstractDecorator.php</a>
 		<br>
 	</div>
 
@@ -156,16 +163,21 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#41-47" title="Go to source code">__construct</a>( <span> <var>$path</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#35-43" title="Go to source code">__construct</a>( <span><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html">Webmozart\KeyValueStore\Api\KeyValueStore</a></code> <var>$store</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Creates the store.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Creates the store.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$store</var></dt>
+					<dd>The store to sort.</dd>
+				</dl></div>
 
 
 
@@ -186,7 +198,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#49-68" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#45-51" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Sets the value for a key in the store.</p>
@@ -207,10 +219,10 @@
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.<br>
+					WriteException<br>If the store cannot be written.<br>
 					InvalidKeyException<br>If the key is not a string or integer.<br>
 					SerializationFailedException<br>If the value cannot be serialized.<br>
-					<code><a href="class-Webmozart.KeyValueStore.Api.UnsupportedValueException.html">Webmozart\KeyValueStore\Api\UnsupportedValueException</a></code><br><p>If the value is not supported by the
+					UnsupportedValueException<br><p>If the value is not supported by the
                                      implementation.</p>
 				</div>
 
@@ -233,7 +245,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#70-90" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#53-59" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -260,7 +272,7 @@
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					ReadException<br>If the store cannot be read.<br>
 					InvalidKeyException<br>If the key is not a string or integer.<br>
 					UnserializationFailedException<br><p>If the stored value cannot be
                                        unserialized.</p>
@@ -285,7 +297,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#92-112" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#61-67" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -308,8 +320,8 @@
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
-					<code><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">Webmozart\KeyValueStore\Api\NoSuchKeyException</a></code><br>If the key was not found.<br>
+					ReadException<br>If the store cannot be read.<br>
+					NoSuchKeyException<br>If the key was not found.<br>
 					InvalidKeyException<br>If the key is not a string or integer.<br>
 					UnserializationFailedException<br><p>If the stored value cannot be
                                        unserialized.</p>
@@ -334,7 +346,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultiple">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#114-139" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#69-75" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -360,7 +372,7 @@
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					ReadException<br>If the store cannot be read.<br>
 					InvalidKeyException<br>If a key is not a string or integer.<br>
 					UnserializationFailedException<br><p>If a stored value cannot be
                                        unserialized.</p>
@@ -385,7 +397,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultipleOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#141-166" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#77-83" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -408,8 +420,8 @@
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
-					<code><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">Webmozart\KeyValueStore\Api\NoSuchKeyException</a></code><br>If a key was not found.<br>
+					ReadException<br>If the store cannot be read.<br>
+					NoSuchKeyException<br>If a key was not found.<br>
 					InvalidKeyException<br>If a key is not a string or integer.<br>
 					UnserializationFailedException<br><p>If a stored value cannot be
                                        unserialized.</p>
@@ -434,7 +446,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_remove">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#168-186" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#85-91" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Removes a key from the store.</p>
@@ -457,7 +469,7 @@
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.<br>
+					WriteException<br>If the store cannot be written.<br>
 					InvalidKeyException<br>If the key is not a string or integer.
 				</div>
 
@@ -480,7 +492,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#188-198" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#93-99" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns whether a key exists.</p>
@@ -503,7 +515,7 @@
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					ReadException<br>If the store cannot be read.<br>
 					InvalidKeyException<br>If the key is not a string or integer.
 				</div>
 
@@ -526,7 +538,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clear">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#200-206" title="Go to source code">clear</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#101-107" title="Go to source code">clear</a>( )</code>
 
 		<div class="description short">
 			<p>Removes all keys from the store.</p>
@@ -540,7 +552,7 @@
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.
+					WriteException<br>If the store cannot be written.
 				</div>
 
 
@@ -562,7 +574,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_keys">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#208-214" title="Go to source code">keys</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#109-115" title="Go to source code">keys</a>( )</code>
 
 		<div class="description short">
 			<p>Returns all keys currently stored in the store.</p>
@@ -581,7 +593,7 @@
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.
+					ReadException<br>If the store cannot be read.
 				</div>
 
 
@@ -591,84 +603,6 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="sort" id="_sort">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_sort">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#216-226" title="Go to source code">sort</a>( <span>integer <var>$flags</var> = SORT_REGULAR</span> )</code>
-
-		<div class="description short">
-			<p>Sort the store by its keys.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Sort the store by its keys.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$flags</var></dt>
-					<dd>Sorting type flags (from the standard PHP sort flags).</dd>
-				</dl></div>
-
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
-					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.SortableStore.html#_sort">Webmozart\KeyValueStore\Api\SortableStore::sort()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="count" id="_count">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_count">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#228-236" title="Go to source code">count</a>( )</code>
-
-		<div class="description short">
-			<p>Count the number of keys in the store.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Count the number of keys in the store.</p>
-
-
-
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.CountableStore.html#_count">Webmozart\KeyValueStore\Api\CountableStore::count()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
 	</table>
 
 
@@ -678,37 +612,38 @@
 
 
 
-	<table class="summary constants" id="constants">
-	<caption>Constants summary</caption>
-	<tr data-order="MAX_FLOAT" id="MAX_FLOAT">
 
-		<td class="attributes"><code>float</code></td>
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="store" id="$store">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html">Webmozart\KeyValueStore\Api\KeyValueStore</a></code>
+		</code></td>
+
 		<td class="name">
-			<code>
-				<a href="source-constant-MAX_FLOAT.html#34-37" title="Go to source code"><b>MAX_FLOAT</b></a>
-			</code>
+				<a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#30-33" title="Go to source code"><var>$store</var></a>
 
 			<div class="description short">
-				<p>This seems to be the biggest float supported by json_encode()/json_decode().</p>
+				
 			</div>
 
 			<div class="description detailed hidden">
-				<p>This seems to be the biggest float supported by json_encode()/json_decode().</p>
+				
 
 			</div>
 		</td>
 		<td class="value">
 			<div>
-				<a href="#MAX_FLOAT" class="anchor">#</a>
-				<code><span class="php-num">1.0E+14</span></code>
+				<a href="#$store" class="anchor">#</a>
+				<code></code>
 			</div>
 		</td>
 	</tr>
 	</table>
-
-
-
-
 
 
 

@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Webmozart\KeyValueStore\AbstractRedisStore | Webmozart Key-Value Store API</title>
+
+	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Webmozart.html">
+						Webmozart<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Webmozart.KeyValueStore.html">
+						KeyValueStore<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Webmozart.KeyValueStore.Api.html">
+						Api					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Webmozart.KeyValueStore.Decorator.html">
+						Decorator					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Webmozart.KeyValueStore.Util.html">
+						Util					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Webmozart.KeyValueStore.AbstractRedisStore.html">AbstractRedisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.ArrayStore.html">ArrayStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.JsonFileStore.html">JsonFileStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.NullStore.html">NullStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">PhpRedisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.PredisStore.html">PredisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.RiakStore.html">RiakStore</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Webmozart.KeyValueStore.html" title="Summary of Webmozart\KeyValueStore"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AbstractRedisStore</h1>
+
+
+	<div class="description">
+	<p>An abstract Redis key-value store to support multiple Redis clients without code duplication.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Webmozart\KeyValueStore\AbstractRedisStore</span></b>			
+			 implements 
+				<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html"><span>Webmozart\KeyValueStore\Api\KeyValueStore</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">Webmozart\KeyValueStore\PhpRedisStore</a>, 
+			<a href="class-Webmozart.KeyValueStore.PredisStore.html">Webmozart\KeyValueStore\PredisStore</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a><br>
+		
+
+				<b>Since:</b>
+				1.0<br>
+				<b>Author:</b>
+				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
+				<b>Author:</b>
+				Titouan Galopin <a href="mailto:ga&#108;&#111;&#112;&#105;&#110;&#116;&#105;&#116;&#111;&#117;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">ga&#108;&#111;&#112;&#105;&#110;&#116;&#105;&#116;&#111;&#117;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#22-276" title="Go to source code">AbstractRedisStore.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="clientNotFoundValue" id="_clientNotFoundValue">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clientNotFoundValue">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#39-45" title="Go to source code">clientNotFoundValue</a>( )</code>
+
+		<div class="description short">
+			<p>Return the value corresponding to "not found"
+for the internal client.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return the value corresponding to "not found"
+for the internal client.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clientGet" id="_clientGet">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clientGet">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#47-55" title="Go to source code">clientGet</a>( <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Call the internal client method to fetch a key.
+Don't have to catch the exceptions.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Call the internal client method to fetch a key.
+Don't have to catch the exceptions.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The key to fetch</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>The raw value
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clientGetMultiple" id="_clientGetMultiple">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clientGetMultiple">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#57-65" title="Go to source code">clientGetMultiple</a>( <span>array <var>$keys</var></span> )</code>
+
+		<div class="description short">
+			<p>Call the internal client method to fetch multiple keys.
+Don't have to catch the exceptions.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Call the internal client method to fetch multiple keys.
+Don't have to catch the exceptions.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$keys</var></dt>
+					<dd>The keys to fetch</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>The raw values
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clientSet" id="_clientSet">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clientSet">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#67-74" title="Go to source code">clientSet</a>( <span>string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Call the internal client method to set a value associated to a key.
+Don't have to catch the exceptions.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Call the internal client method to set a value associated to a key.
+Don't have to catch the exceptions.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clientRemove" id="_clientRemove">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clientRemove">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#76-84" title="Go to source code">clientRemove</a>( <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Call the internal client method to remove a key.
+Don't have to catch the exceptions.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Call the internal client method to remove a key.
+Don't have to catch the exceptions.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>true if the removal worked, false otherwise
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clientExists" id="_clientExists">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clientExists">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#86-94" title="Go to source code">clientExists</a>( <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Call the internal client method to check if a key exists.
+Don't have to catch the exceptions.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Call the internal client method to check if a key exists.
+Don't have to catch the exceptions.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clientClear" id="_clientClear">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clientClear">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#96-100" title="Go to source code">clientClear</a>( )</code>
+
+		<div class="description short">
+			<p>Call the internal client method to clear all the keys.
+Don't have to catch the exceptions.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Call the internal client method to clear all the keys.
+Don't have to catch the exceptions.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clientKeys" id="_clientKeys">
+
+		<td class="attributes"><code>
+			abstract protected 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clientKeys">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#102-108" title="Go to source code">clientKeys</a>( )</code>
+
+		<div class="description short">
+			<p>Call the internal client method to fetch all the keys.
+Don't have to catch the exceptions.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Call the internal client method to fetch all the keys.
+Don't have to catch the exceptions.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>The keys
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getMultiple" id="_getMultiple">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getMultiple">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#110-134" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Returns the values of multiple keys in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the values of multiple keys in the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$keys</var></dt>
+					<dd>The keys to get. The keys must be strings or integers.</dd>
+					<dt><var>$default</var></dt>
+					<dd><p>The default value to return for keys that are not
+                      found.</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>The values of the passed keys, indexed by the keys.
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					InvalidKeyException<br>If a key is not a string or integer.<br>
+					UnserializationFailedException<br><p>If a stored value cannot be
+                                       unserialized.</p>
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_getMultiple">Webmozart\KeyValueStore\Api\KeyValueStore::getMultiple()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getMultipleOrFail" id="_getMultipleOrFail">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getMultipleOrFail">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#136-167" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns the values of multiple keys in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the values of multiple keys in the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$keys</var></dt>
+					<dd>The keys to get. The keys must be strings or integers.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>The values of the passed keys, indexed by the keys.
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">Webmozart\KeyValueStore\Api\NoSuchKeyException</a></code><br>If a key was not found.<br>
+					InvalidKeyException<br>If a key is not a string or integer.<br>
+					UnserializationFailedException<br><p>If a stored value cannot be
+                                       unserialized.</p>
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_getMultipleOrFail">Webmozart\KeyValueStore\Api\KeyValueStore::getMultipleOrFail()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#169-187" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Returns the value of a key in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the value of a key in the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The key to get.</dd>
+					<dt><var>$default</var></dt>
+					<dd><p>The default value to return if the key does
+                           not exist.</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br><p>The value of the key or the default value if the key does
+              not exist.</p>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					InvalidKeyException<br>If the key is not a string or integer.<br>
+					UnserializationFailedException<br><p>If the stored value cannot be
+                                       unserialized.</p>
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_get">Webmozart\KeyValueStore\Api\KeyValueStore::get()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getOrFail" id="_getOrFail">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getOrFail">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#189-207" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns the value of a key in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the value of a key in the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The key to get.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>The value of the key.
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">Webmozart\KeyValueStore\Api\NoSuchKeyException</a></code><br>If the key was not found.<br>
+					InvalidKeyException<br>If the key is not a string or integer.<br>
+					UnserializationFailedException<br><p>If the stored value cannot be
+                                       unserialized.</p>
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_getOrFail">Webmozart\KeyValueStore\Api\KeyValueStore::getOrFail()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="set" id="_set">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_set">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#209-223" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the value for a key in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the value for a key in the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The key to set.</dd>
+					<dt><var>$value</var></dt>
+					<dd>The value to set for the key.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.<br>
+					InvalidKeyException<br>If the key is not a string or integer.<br>
+					SerializationFailedException<br>If the value cannot be serialized.<br>
+					UnsupportedValueException<br><p>If the value is not supported by the
+                                     implementation.</p>
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_set">Webmozart\KeyValueStore\Api\KeyValueStore::set()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="remove" id="_remove">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_remove">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#225-237" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Removes a key from the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Removes a key from the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The key to remove.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>Returns <code>true</code> if a key was removed from the store.
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.<br>
+					InvalidKeyException<br>If the key is not a string or integer.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_remove">Webmozart\KeyValueStore\Api\KeyValueStore::remove()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="exists" id="_exists">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_exists">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#239-251" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns whether a key exists.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns whether a key exists.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The key to test.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>Whether the key exists in the store.
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					InvalidKeyException<br>If the key is not a string or integer.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_exists">Webmozart\KeyValueStore\Api\KeyValueStore::exists()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clear" id="_clear">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clear">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#253-263" title="Go to source code">clear</a>( )</code>
+
+		<div class="description short">
+			<p>Removes all keys from the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Removes all keys from the store.</p>
+
+
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_clear">Webmozart\KeyValueStore\Api\KeyValueStore::clear()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="keys" id="_keys">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_keys">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#265-275" title="Go to source code">keys</a>( )</code>
+
+		<div class="description short">
+			<p>Returns all keys currently stored in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns all keys currently stored in the store.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br><p>The keys stored in the store. Each key is either a string
+              or an integer. The order of the keys is undefined.</p>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_keys">Webmozart\KeyValueStore\Api\KeyValueStore::keys()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="client" id="$client">
+		<td class="attributes"><code>
+			protected  
+			object
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Webmozart.KeyValueStore.AbstractRedisStore.html#32-37" title="Go to source code"><var>$client</var></a>
+
+			<div class="description short">
+				<p>Redis client.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Redis client.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$client" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Webmozart Key-Value Store API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

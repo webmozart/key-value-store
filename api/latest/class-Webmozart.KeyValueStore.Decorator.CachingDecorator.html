@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Webmozart\KeyValueStore\CachedStore | Webmozart Key-Value Store API</title>
+	<title>Class Webmozart\KeyValueStore\Decorator\CachingDecorator | Webmozart Key-Value Store API</title>
 
 	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
 
@@ -35,6 +35,11 @@
 						Api					</a>
 
 						</li>
+				<li class="active">
+					<a href="namespace-Webmozart.KeyValueStore.Decorator.html">
+						Decorator					</a>
+
+						</li>
 				<li>
 					<a href="namespace-Webmozart.KeyValueStore.Util.html">
 						Util					</a>
@@ -50,13 +55,10 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Webmozart.KeyValueStore.ArrayStore.html">ArrayStore</a></li>
-				<li class="active"><a href="class-Webmozart.KeyValueStore.CachedStore.html">CachedStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.JsonFileStore.html">JsonFileStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.NullStore.html">NullStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">PhpRedisStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.PredisStore.html">PredisStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.RiakStore.html">RiakStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html">AbstractDecorator</a></li>
+				<li class="active"><a href="class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html">CachingDecorator</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.CountableDecorator.html">CountableDecorator</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.SortableDecorator.html">SortableDecorator</a></li>
 			</ul>
 
 
@@ -83,7 +85,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-Webmozart.KeyValueStore.html" title="Summary of Webmozart\KeyValueStore"><span>Namespace</span></a>
+				<a href="namespace-Webmozart.KeyValueStore.Decorator.html" title="Summary of Webmozart\KeyValueStore\Decorator"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -95,18 +97,25 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class CachedStore</h1>
+	<h1>Class CachingDecorator</h1>
 
 
 	<div class="description">
-	<p>A key-value store replicated in a cache.</p>
+	<p>A caching decorator implementing a cache layer for any store.</p>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-<b><span>Webmozart\KeyValueStore\CachedStore</span></b>			
+			<a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html"><span>Webmozart\KeyValueStore\Decorator\AbstractDecorator</span></a>
+			
 			 implements 
 				<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html"><span>Webmozart\KeyValueStore\Api\KeyValueStore</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Webmozart\KeyValueStore\Decorator\CachingDecorator</span></b>			
 			
 			
 		</dd>
@@ -122,14 +131,14 @@
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a><br>
+		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a>\<a href="namespace-Webmozart.KeyValueStore.Decorator.html">Decorator</a><br>
 		
 
-				<b>Author:</b>
-				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
 				<b>Since:</b>
 				1.0<br>
-			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.CachedStore.html#21-196" title="Go to source code">CachedStore.php</a>
+				<b>Author:</b>
+				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#21-187" title="Go to source code">Decorator/CachingDecorator.php</a>
 		<br>
 	</div>
 
@@ -149,7 +158,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#41-62" title="Go to source code">__construct</a>( <span><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html">Webmozart\KeyValueStore\Api\KeyValueStore</a></code> <var>$store</var></span>, <span>Doctrine\Common\Cache\Cache <var>$cache</var></span>, <span>integer <var>$ttl</var> = <span class="php-num">0</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#37-61" title="Go to source code">__construct</a>( <span><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html">Webmozart\KeyValueStore\Api\KeyValueStore</a></code> <var>$store</var></span>, <span>Doctrine\Common\Cache\Cache <var>$cache</var></span>, <span>integer <var>$ttl</var> = <span class="php-num">0</span></span> )</code>
 
 		<div class="description short">
 			<p>Creates the store.</p>
@@ -171,8 +180,14 @@
 				</dl></div>
 
 
+				<h4>Throws</h4>
+				<div class="list">
+					InvalidArgumentException<br>If the provided cache is not supported
+				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#___construct">Webmozart\KeyValueStore\Decorator\AbstractDecorator::__construct()</a></code></div>
 
 		</div>
 		</div></td>
@@ -189,7 +204,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#64-71" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#63-70" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Sets the value for a key in the store.</p>
@@ -214,13 +229,13 @@
 					InvalidKeyException<br>If the key is not a string or integer.<br>
 					SerializationFailedException<br>If the value cannot be serialized.<br>
 					UnsupportedValueException<br><p>If the value is not supported by the
-                                  implementation.</p>
+                                     implementation.</p>
 				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#_set">Webmozart\KeyValueStore\Decorator\AbstractDecorator::set()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_set">Webmozart\KeyValueStore\Api\KeyValueStore::set()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -236,7 +251,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#73-91" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#72-90" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -270,9 +285,9 @@
 				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#_get">Webmozart\KeyValueStore\Decorator\AbstractDecorator::get()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_get">Webmozart\KeyValueStore\Api\KeyValueStore::get()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -288,7 +303,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#93-107" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#92-106" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -319,9 +334,9 @@
 				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#_getOrFail">Webmozart\KeyValueStore\Decorator\AbstractDecorator::getOrFail()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_getOrFail">Webmozart\KeyValueStore\Api\KeyValueStore::getOrFail()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -337,7 +352,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultiple">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#109-127" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#108-126" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -370,9 +385,9 @@
 				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#_getMultiple">Webmozart\KeyValueStore\Decorator\AbstractDecorator::getMultiple()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_getMultiple">Webmozart\KeyValueStore\Api\KeyValueStore::getMultiple()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -388,7 +403,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultipleOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#129-152" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#128-151" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -419,9 +434,9 @@
 				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#_getMultipleOrFail">Webmozart\KeyValueStore\Decorator\AbstractDecorator::getMultipleOrFail()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_getMultipleOrFail">Webmozart\KeyValueStore\Api\KeyValueStore::getMultipleOrFail()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -437,7 +452,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_remove">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#154-161" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#153-160" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Removes a key from the store.</p>
@@ -465,9 +480,9 @@
 				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#_remove">Webmozart\KeyValueStore\Decorator\AbstractDecorator::remove()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_remove">Webmozart\KeyValueStore\Api\KeyValueStore::remove()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -483,7 +498,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#163-173" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#162-172" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns whether a key exists.</p>
@@ -511,9 +526,9 @@
 				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#_exists">Webmozart\KeyValueStore\Decorator\AbstractDecorator::exists()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_exists">Webmozart\KeyValueStore\Api\KeyValueStore::exists()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -529,7 +544,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clear">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#175-187" title="Go to source code">clear</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html#174-186" title="Go to source code">clear</a>( )</code>
 
 		<div class="description short">
 			<p>Removes all keys from the store.</p>
@@ -547,52 +562,20 @@
 				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#_clear">Webmozart\KeyValueStore\Decorator\AbstractDecorator::clear()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_clear">Webmozart\KeyValueStore\Api\KeyValueStore::clear()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="keys" id="_keys">
+	</table>
 
-		<td class="attributes"><code>
-			 public 
-
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_keys">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.CachedStore.html#189-195" title="Go to source code">keys</a>( )</code>
-
-		<div class="description short">
-			<p>Returns all keys currently stored in the store.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns all keys currently stored in the store.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					array<br><p>The keys stored in the store. Each key is either a string
-              or an integer. The order of the keys is undefined.</p>
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					ReadException<br>If the store cannot be read.
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html#_keys">Webmozart\KeyValueStore\Api\KeyValueStore::keys()</a></code></div>
-		</div>
-		</div></td>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#methods">Webmozart\KeyValueStore\Decorator\AbstractDecorator</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#_keys">keys()</a>
+		</code></td>
 	</tr>
 	</table>
 
@@ -607,7 +590,14 @@
 
 
 
-
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#properties">Webmozart\KeyValueStore\Decorator\AbstractDecorator</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#$store"><var>$store</var></a>
+		</code></td>
+	</tr>
+	</table>
 
 
 

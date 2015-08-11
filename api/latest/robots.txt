@@ -1,3 +1,0 @@
-User-agent: *
-Disallow:
-Sitemap: https://webmozart.github.io/key-value-store/api/latest/sitemap.xml

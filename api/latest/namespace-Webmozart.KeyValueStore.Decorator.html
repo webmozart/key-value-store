@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Namespace Webmozart\KeyValueStore\Util | Webmozart Key-Value Store API</title>
+	<title>Namespace Webmozart\KeyValueStore\Decorator | Webmozart Key-Value Store API</title>
 
 	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
 
@@ -35,12 +35,12 @@
 						Api					</a>
 
 						</li>
-				<li>
+				<li class="active">
 					<a href="namespace-Webmozart.KeyValueStore.Decorator.html">
 						Decorator					</a>
 
 						</li>
-				<li class="active">
+				<li>
 					<a href="namespace-Webmozart.KeyValueStore.Util.html">
 						Util					</a>
 
@@ -55,8 +55,10 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Webmozart.KeyValueStore.Util.KeyUtil.html">KeyUtil</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.Util.Serializer.html">Serializer</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html">AbstractDecorator</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html">CachingDecorator</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.CountableDecorator.html">CountableDecorator</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.Decorator.SortableDecorator.html">SortableDecorator</a></li>
 			</ul>
 
 
@@ -94,19 +96,28 @@
 	</div>
 
 <div id="content" class="namespace">
-	<h1>Namespace <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a>\Util</h1>
+	<h1>Namespace <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a>\Decorator</h1>
 
 
 
 <table class="summary" id="classes">
 <caption>Classes summary</caption>
 <tr>
-	<td class="name"><a href="class-Webmozart.KeyValueStore.Util.KeyUtil.html">KeyUtil</a></td>
-	<td>Utility methods for dealing with key-value store keys.</td>
+	<td class="name"><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html">AbstractDecorator</a></td>
+	<td><p>A delegating decorator delegate each call of a KeyValueStore method
+to the internal store.</p></td>
 </tr>
 <tr>
-	<td class="name"><a href="class-Webmozart.KeyValueStore.Util.Serializer.html">Serializer</a></td>
-	<td>Wrapper for <code>serialize()</code>/<code>unserialize()</code> that throws proper exceptions.</td>
+	<td class="name"><a href="class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html">CachingDecorator</a></td>
+	<td>A caching decorator implementing a cache layer for any store.</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-Webmozart.KeyValueStore.Decorator.CountableDecorator.html">CountableDecorator</a></td>
+	<td>A countable decorator implementing a count system for any store.</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-Webmozart.KeyValueStore.Decorator.SortableDecorator.html">SortableDecorator</a></td>
+	<td>A sortable decorator implementing a sort system for any store.</td>
 </tr>
 </table>
 
