@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests;
+namespace Webmozart\KeyValueStore\Tests\Decorator;
 
 use Webmozart\KeyValueStore\Api\KeyValueStore;
-use Webmozart\KeyValueStore\CountableDecorator;
+use Webmozart\KeyValueStore\Decorator\CountableDecorator;
 
 /**
  * @since  1.0

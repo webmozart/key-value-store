@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests;
+namespace Webmozart\KeyValueStore\Tests\Decorator;
 
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\ArrayStore;
-use Webmozart\KeyValueStore\SortableDecorator;
+use Webmozart\KeyValueStore\Decorator\SortableDecorator;
 
 /**
  * @since  1.0

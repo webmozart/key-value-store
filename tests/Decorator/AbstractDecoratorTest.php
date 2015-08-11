@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests;
+namespace Webmozart\KeyValueStore\Tests\Decorator;
 
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
-use Webmozart\KeyValueStore\AbstractDecorator;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
-use Webmozart\KeyValueStore\SortableDecorator;
+use Webmozart\KeyValueStore\Decorator\AbstractDecorator;
+use Webmozart\KeyValueStore\Decorator\SortableDecorator;
 
 /**
  * @since  1.0

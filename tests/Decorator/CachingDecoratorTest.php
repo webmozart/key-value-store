@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Webmozart\KeyValueStore\Tests;
+namespace Webmozart\KeyValueStore\Tests\Decorator;
 
 use Doctrine\Common\Cache\Cache;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -18,7 +18,7 @@ use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\SerializationFailedException;
 use Webmozart\KeyValueStore\Api\WriteException;
-use Webmozart\KeyValueStore\CachingDecorator;
+use Webmozart\KeyValueStore\Decorator\CachingDecorator;
 
 /**
  * @since  1.0
@@ -34,7 +34,7 @@ class CachingDecoratorTest extends AbstractDecoratorTest
 
     protected function createDecorator(KeyValueStore $innerStore)
     {
-        $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableCache');
+        $this->cache = $this->getMock('Webmozart\KeyValueStore\Tests\Fixtures\TestClearableCache');
 
         return new CachingDecorator($this->innerStore, $this->cache);
     }
@@ -412,7 +412,7 @@ class CachingDecoratorTest extends AbstractDecoratorTest
 
     public function testClearDeletesAllFromCache()
     {
-        $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableCache');
+        $this->cache = $this->getMock('Webmozart\KeyValueStore\Tests\\Fixtures\TestClearableCache');
         $this->decorator = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
@@ -429,7 +429,7 @@ class CachingDecoratorTest extends AbstractDecoratorTest
      */
     public function testClearDoesNotDeleteAllFromCacheIfClearFails()
     {
-        $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableCache');
+        $this->cache = $this->getMock('Webmozart\KeyValueStore\Tests\\Fixtures\TestClearableCache');
         $this->decorator = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
@@ -444,7 +444,7 @@ class CachingDecoratorTest extends AbstractDecoratorTest
 
     public function testClearFlushesCache()
     {
-        $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestFlushableCache');
+        $this->cache = $this->getMock('Webmozart\KeyValueStore\Tests\\Fixtures\TestFlushableCache');
         $this->decorator = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
@@ -458,7 +458,7 @@ class CachingDecoratorTest extends AbstractDecoratorTest
 
     public function testClearDeletesAllIfFlushableAndClearable()
     {
-        $this->cache = $this->getMock(__NAMESPACE__.'\Fixtures\TestClearableFlushableCache');
+        $this->cache = $this->getMock('Webmozart\KeyValueStore\Tests\\Fixtures\TestClearableFlushableCache');
         $this->decorator = new CachingDecorator($this->innerStore, $this->cache);
 
         $this->innerStore->expects($this->once())
