@@ -38,7 +38,7 @@ class PredisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientNotFoundValue()
     {
@@ -46,7 +46,7 @@ class PredisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientGet($key)
     {
@@ -54,7 +54,7 @@ class PredisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientGetMultiple(array $keys)
     {
@@ -62,7 +62,7 @@ class PredisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientSet($key, $value)
     {
@@ -70,7 +70,7 @@ class PredisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientRemove($key)
     {
@@ -78,7 +78,7 @@ class PredisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientExists($key)
     {
@@ -86,7 +86,7 @@ class PredisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientClear()
     {
@@ -94,7 +94,7 @@ class PredisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientKeys()
     {
