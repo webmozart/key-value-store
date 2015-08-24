@@ -45,7 +45,7 @@ class PhpRedisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientNotFoundValue()
     {
@@ -53,7 +53,7 @@ class PhpRedisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientGet($key)
     {
@@ -61,7 +61,7 @@ class PhpRedisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientGetMultiple(array $keys)
     {
@@ -69,7 +69,7 @@ class PhpRedisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientSet($key, $value)
     {
@@ -77,7 +77,7 @@ class PhpRedisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientRemove($key)
     {
@@ -85,7 +85,7 @@ class PhpRedisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientExists($key)
     {
@@ -93,7 +93,7 @@ class PhpRedisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientClear()
     {
@@ -101,7 +101,7 @@ class PhpRedisStore extends AbstractRedisStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function clientKeys()
     {

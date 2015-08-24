@@ -65,7 +65,7 @@ class CountableDecorator extends AbstractDecorator implements CountableStore
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function count()
     {
