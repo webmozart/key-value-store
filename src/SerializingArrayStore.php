@@ -11,11 +11,6 @@
 
 namespace Webmozart\KeyValueStore;
 
-use Webmozart\KeyValueStore\Api\CountableStore;
-use Webmozart\KeyValueStore\Api\NoSuchKeyException;
-use Webmozart\KeyValueStore\Api\SortableStore;
-use Webmozart\KeyValueStore\Util\KeyUtil;
-
 /**
  * A key-value store backed by a PHP array with serialized entries.
  *
