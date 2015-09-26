@@ -30,7 +30,7 @@ class ArrayStore implements SortableStore, CountableStore
     /**
      * @var array
      */
-    private $array;
+    private $array = array();
 
     /**
      * Creates a new store.
@@ -39,7 +39,9 @@ class ArrayStore implements SortableStore, CountableStore
      */
     public function __construct(array $array = array())
     {
-        $this->array = $array;
+        foreach ($array as $key => $value) {
+            $this->set($key, $value);
+        }
     }
 
     /**

@@ -1,6 +1,10 @@
 Changelog
 =========
 
+* 1.0.0-beta6 (@release_date@)
+
+ * added `SerializingArrayStore`
+
 * 1.0.0-beta5 (2015-08-11)
 
  * added `AbstractDecorator`

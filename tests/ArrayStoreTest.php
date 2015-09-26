@@ -11,6 +11,7 @@
 
 namespace Webmozart\KeyValueStore\Tests;
 
+use stdClass;
 use Webmozart\KeyValueStore\ArrayStore;
 
 /**
@@ -23,6 +24,20 @@ class ArrayStoreTest extends AbstractSortableCountableStoreTest
     protected function createStore()
     {
         return new ArrayStore();
+    }
+
+    protected function createPopulatedStore(array $values)
+    {
+        return new ArrayStore($values);
+    }
+
+    public function testCreateStoreWithElements()
+    {
+        $object = new stdClass();
+        $store = $this->createPopulatedStore(array(0 => 'a', 1 => $object));
+
+        $this->assertSame('a', $store->get(0));
+        $this->assertEquals($object, $store->get(1));
     }
 
     /**
