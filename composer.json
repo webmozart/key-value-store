@@ -17,12 +17,14 @@
         "predis/predis": "~1.0",
         "basho/riak": "~1.4",
         "doctrine/cache": "~1.4",
-        "phpunit/phpunit": "^4.6"
+        "phpunit/phpunit": "^4.6",
+        "doctrine/dbal" : "~2.4"
     },
     "suggest": {
         "predis/predis": "To enable the PredisStore",
         "basho/riak": "To enable the RiakStore",
-        "doctrine/cache": "To enable the CachedStore"
+        "doctrine/cache": "To enable the CachedStore",
+        "doctrine/dbal": "To enable the Dbalstore"
     },
     "autoload": {
         "psr-4": {
