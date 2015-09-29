@@ -24,7 +24,7 @@
         "predis/predis": "To enable the PredisStore",
         "basho/riak": "To enable the RiakStore",
         "doctrine/cache": "To enable the CachedStore",
-        "doctrine/dbal": "To enable the Dbalstore"
+        "doctrine/dbal": "To enable the DbalStore"
     },
     "autoload": {
         "psr-4": {
