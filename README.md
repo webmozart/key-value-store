@@ -18,6 +18,7 @@ All contained key-value stores implement the interface [`KeyValueStore`]. The
 following stores are currently supported:
 
 * [`ArrayStore`]
+* [`DbalStore`]
 * [`JsonFileStore`]
 * [`NullStore`]
 * [`PhpRedisStore`]
