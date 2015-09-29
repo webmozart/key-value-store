@@ -18,7 +18,8 @@
         "basho/riak": "~1.4",
         "doctrine/cache": "~1.4",
         "phpunit/phpunit": "^4.6",
-        "doctrine/dbal" : "~2.4"
+        "doctrine/dbal" : "~2.4",
+        "sebastian/version": "^1.0.1"
     },
     "suggest": {
         "predis/predis": "To enable the PredisStore",
