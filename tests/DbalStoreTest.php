@@ -11,6 +11,7 @@
 
 namespace Webmozart\KeyValueStore\Tests;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\SortableStore;
@@ -25,20 +26,19 @@ use Webmozart\KeyValueStore\Tests\Fixtures\TestException;
  */
 class DbalStoreTest extends AbstractKeyValueStoreTest
 {
-    static protected $dbalStore;
+    protected static $dbalStore;
 
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
 
-        $connection       = DriverManager::getConnection(array('driver' => 'pdo_sqlite', 'memory' => true));
-        $schemaManager    = $connection->getSchemaManager();
-        $schema           = $schemaManager->createSchema();
+        $connection = DriverManager::getConnection(array('driver' => 'pdo_sqlite', 'memory' => true));
+        $schemaManager = $connection->getSchemaManager();
+        $schema = $schemaManager->createSchema();
         self::$dbalStore = new DbalStore($connection, 'store');
-        $table = self::$dbalStore->configureSchema($schema);
 
-        if (null !== $table) {
-            $schemaManager->createTable($table);
+        if (!$schema->hasTable(self::$dbalStore->getTableName())) {
+            $schemaManager->createTable(self::$dbalStore->getTableForCreate());
         }
     }
 
@@ -54,18 +54,41 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
     {
         $this->store->set('a', '123');
         $this->store->set('a', '124');
-
         $this->assertEquals('124', $this->store->get('a'));
     }
 
-    /**
-     * @test
-     */
-    public function testSettingNullWorks()
+    public function provideUnsafeTableNamesSoWeCanBlowUpOurDataBase()
     {
-        $this->store->set('beez', null);
-        $this->assertTrue($this->store->exists('beez'));
-        $this->assertNull($this->store->get('beez', 'hello'));
+        return array(
+            array(null),
+            array(false),
+            array(array()),
+            array(''),
+        );
+    }
+
+    /**
+     * @dataProvider provideUnsafeTableNamesSoWeCanBlowUpOurDataBase
+     * @expectedException \InvalidArgumentException
+     */
+    public function testTheTableNameNeedsToBeANotEmptyString($tableName)
+    {
+        $connection = $this->getConnectionMock();
+        new DbalStore($connection, $tableName);
+    }
+
+    public function testGetTableNameWorks()
+    {
+        $connection = $this->getConnectionMock();
+        $store = new DbalStore($connection, 'foo');
+        $this->assertEquals('foo', $store->getTableName());
+    }
+
+    public function testGetTableNameDefaultsToStore()
+    {
+        $connection = $this->getConnectionMock();
+        $store = new DbalStore($connection);
+        $this->assertEquals('store', $store->getTableName());
     }
 
     /**
@@ -73,11 +96,9 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testSetThrowsWriteExceptionIfWriteFails()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $connection = $this->getConnectionMock();
         $connection->expects($this->once())->method('fetchAssoc')->willThrowException(new TestException('I failed'));
+
         $store = new DbalStore($connection, 'store');
         $store->set('foo', 'bar');
     }
@@ -87,11 +108,9 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testRemoveThrowsWriteExceptionIfWriteFails()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $connection = $this->getConnectionMock();
         $connection->expects($this->once())->method('delete')->willThrowException(new TestException('I failed'));
+
         $store = new DbalStore($connection, 'store');
         $store->remove('foo');
     }
@@ -101,11 +120,9 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testClearThrowsWriteExceptionIfWriteFails()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $connection = $this->getConnectionMock();
         $connection->expects($this->once())->method('query')->willThrowException(new TestException('I failed'));
+
         $store = new DbalStore($connection, 'store');
         $store->clear();
     }
@@ -115,11 +132,9 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testGetThrowsReadExceptionIfReadFails()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $connection = $this->getConnectionMock();
+        $connection->expects($this->once())->method('fetchAssoc')->willThrowException(new TestException('I failed'));
 
-        $connection->expects($this->once())->method('fetchColumn')->willThrowException(new TestException('I failed'));
         $store = new DbalStore($connection, 'store');
         $store->get('foo');
     }
@@ -129,11 +144,10 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testGetThrowsExceptionIfNotUnserializable()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $connection = $this->getConnectionMock();
+        $connection->expects($this->once())->method('fetchAssoc')
+            ->willReturn(array('meta_key' => 'foo', 'meta_value' => 'foo_bar'));
 
-        $connection->expects($this->once())->method('fetchColumn')->willReturn('foo_bar');
         $store = new DbalStore($connection, 'store');
         $store->get('foo');
     }
@@ -143,11 +157,9 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testGetOrFailThrowsReadExceptionIfReadFails()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $connection = $this->getConnectionMock();
+        $connection->expects($this->once())->method('fetchAssoc')->willThrowException(new TestException('I failed'));
 
-        $connection->expects($this->once())->method('fetchColumn')->willThrowException(new TestException('I failed'));
         $store = new DbalStore($connection, 'store');
         $store->getOrFail('foo');
     }
@@ -157,11 +169,10 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testGetOrFailThrowsExceptionIfNotUnserializable()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $connection = $this->getConnectionMock();
+        $connection->expects($this->once())->method('fetchAssoc')
+            ->willReturn(array('meta_key' => 'foo', 'meta_value' => 'foo_bar'));
 
-        $connection->expects($this->once())->method('fetchColumn')->willReturn('foo_bar');
         $store = new DbalStore($connection, 'store');
         $store->getOrFail('foo');
     }
@@ -171,11 +182,9 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testGetMultipleThrowsReadExceptionIfReadFails()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $connection = $this->getConnectionMock();
         $connection->expects($this->once())->method('executeQuery')->willThrowException(new TestException('I failed'));
+
         $store = new DbalStore($connection, 'store');
         $store->getMultiple(array('foo', 'bar'));
     }
@@ -185,19 +194,14 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testGetMultipleThrowsExceptionIfNotUnserializable()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $statement = $this->getMockBuilder('Doctrine\DBAL\Driver\Statement')
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $connection = $this->getConnectionMock();
+        $statement = $this->getStatementMock();
         $connection->expects($this->once())->method('executeQuery')->willReturn($statement);
+        $statement->expects($this->once())->method('fetchAll')
+            ->willReturn(array(array('meta_key' => 'my_key', 'meta_value' => 'foo_bar')));
 
-        $statement->expects($this->once())->method('fetchAll')->willReturn(array(array('key' => 'my_key', 'value' => 'foo_bar')));
         $store = new DbalStore($connection, 'store');
-        $store->getMultiple(['foo', 'bar']);
+        $store->getMultiple(array('foo', 'bar'));
     }
 
     /**
@@ -205,13 +209,11 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testGetMultipleOrFailThrowsReadExceptionIfReadFails()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $connection = $this->getConnectionMock();
         $connection->expects($this->once())->method('executeQuery')->willThrowException(new TestException('I failed'));
+
         $store = new DbalStore($connection, 'store');
-        $store->getMultiple(['foo', 'bar']);
+        $store->getMultiple(array('foo', 'bar'));
     }
 
     /**
@@ -219,20 +221,14 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testGetMultipleOrFailThrowsExceptionIfNotUnserializable()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $statement = $this->getMockBuilder('Doctrine\DBAL\Driver\Statement')
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $connection = $this->getConnectionMock();
+        $statement = $this->getStatementMock();
         $connection->expects($this->once())->method('executeQuery')->willReturn($statement);
-
-        $statement->expects($this->once())->method('fetchAll')->willReturn(array(array('key' => 'my_key', 'value' => 'foo_bar')));
+        $statement->expects($this->once())->method('fetchAll')
+            ->willReturn(array(array('meta_key' => 'my_key', 'meta_value' => 'foo_bar')));
 
         $store = new DbalStore($connection, 'store');
-        $store->getMultipleOrFail(['foo', 'bar']);
+        $store->getMultipleOrFail(array('foo', 'bar'));
     }
 
     /**
@@ -240,10 +236,7 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testExistsThrowsReadExceptionIfReadFails()
     {
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $connection = $this->getConnectionMock();
         $connection->expects($this->once())->method('fetchAssoc')->willThrowException(new TestException('I failed'));
 
         $store = new DbalStore($connection, 'store');
@@ -255,12 +248,34 @@ class DbalStoreTest extends AbstractKeyValueStoreTest
      */
     public function testKeysThrowsReadExceptionIfReadFails()
     {
+        $connection = $this->getConnectionMock();
+        $connection->expects($this->once())->method('query')->willThrowException(new TestException('I failed'));
+
+        $store = new DbalStore($connection, 'store');
+        $store->keys();
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject|Connection
+     */
+    protected function getConnectionMock()
+    {
         $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $connection->expects($this->once())->method('query')->willThrowException(new TestException('I failed'));
-        $store = new DbalStore($connection, 'store');
-        $store->keys();
+        return $connection;
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getStatementMock()
+    {
+        $statement = $this->getMockBuilder('Doctrine\DBAL\Driver\Statement')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        return $statement;
     }
 }

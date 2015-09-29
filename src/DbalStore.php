@@ -13,12 +13,15 @@ namespace Webmozart\KeyValueStore;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\Table;
+use Exception;
+use PDO;
 use Webmozart\Assert\Assert;
-use Webmozart\KeyValueStore\Util\KeyUtil;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\ReadException;
 use Webmozart\KeyValueStore\Api\WriteException;
+use Webmozart\KeyValueStore\Util\KeyUtil;
 use Webmozart\KeyValueStore\Util\Serializer;
 
 /**
@@ -32,19 +35,18 @@ use Webmozart\KeyValueStore\Util\Serializer;
 class DbalStore implements KeyValueStore
 {
     private $connection;
-    private $table;
+    private $tableName;
 
     /**
      * @param Connection $connection A doctrine connection instance
-     * @param string     $table      The name of the database table
+     * @param string     $tableName  The name of the database table
      */
-    public function __construct(Connection $connection, $table = 'store')
+    public function __construct(Connection $connection, $tableName = 'store')
     {
-        Assert::string($table, 'The table must be a string. Got: %s');
-        Assert::notEmpty($table, 'The table must not be empty.');
+        Assert::stringNotEmpty($tableName, 'The table must be a string. Got: %s');
 
         $this->connection = $connection;
-        $this->table = $table;
+        $this->tableName = $tableName;
     }
 
     /**
@@ -56,7 +58,7 @@ class DbalStore implements KeyValueStore
 
         try {
             $existing = $this->exists($key);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw WriteException::forException($e);
         }
 
@@ -74,17 +76,13 @@ class DbalStore implements KeyValueStore
     {
         KeyUtil::validate($key);
 
-        try {
-            $result = $this->connection->fetchColumn('SELECT value FROM ' . $this->table . ' WHERE key = ?', array($key), 0);
-        } catch (\Exception $e) {
-            throw ReadException::forException($e);
-        }
+        $dbResult = $this->getDbRow($key);
 
-        if (false === $result) {
+        if (null === $dbResult) {
             return $default;
         }
 
-        return Serializer::unserialize($result);
+        return Serializer::unserialize($dbResult['meta_value']);
     }
 
     /**
@@ -94,13 +92,13 @@ class DbalStore implements KeyValueStore
     {
         KeyUtil::validate($key);
 
-        $result = $this->get($key, null);
+        $dbResult = $this->getDbRow($key);
 
-        if (null === $result) {
+        if (null === $dbResult) {
             throw NoSuchKeyException::forKey($key);
         }
 
-        return $result;
+        return Serializer::unserialize($dbResult['meta_value']);
     }
 
     /**
@@ -114,19 +112,19 @@ class DbalStore implements KeyValueStore
         $keys = array_values($keys);
         $data = $this->doGetMultiple($keys);
 
-        $values = array();
+        $results = array();
         $resolved = array();
         foreach ($data as $row) {
-            $values[$row['key']] = Serializer::unserialize($row['value']);
-            $resolved[$row['key']] = $row['key'];
+            $results[$row['meta_key']] = Serializer::unserialize($row['meta_value']);
+            $resolved[$row['meta_key']] = $row['meta_key'];
         }
 
         $notResolvedArr = array_diff($keys, $resolved);
         foreach ($notResolvedArr as $notResolved) {
-            $values[$notResolved] = $default;
+            $results[$notResolved] = $default;
         }
 
-        return $values;
+        return $results;
     }
 
     /**
@@ -141,11 +139,11 @@ class DbalStore implements KeyValueStore
 
         $data = $this->doGetMultiple($keys);
 
-        $values = array();
+        $results = array();
         $resolved = array();
         foreach ($data as $row) {
-            $values[$row['key']] = Serializer::unserialize($row['value']);
-            $resolved[] = $row['key'];
+            $results[$row['meta_key']] = Serializer::unserialize($row['meta_value']);
+            $resolved[] = $row['meta_key'];
         }
 
         $notResolvedArr = array_diff($keys, $resolved);
@@ -154,7 +152,7 @@ class DbalStore implements KeyValueStore
             throw NoSuchKeyException::forKeys($notResolvedArr);
         }
 
-        return $values;
+        return $results;
     }
 
     /**
@@ -165,16 +163,12 @@ class DbalStore implements KeyValueStore
         KeyUtil::validate($key);
 
         try {
-            $result = $this->connection->delete($this->table, array('key' => $key));
-        } catch (\Exception $e) {
+            $result = $this->connection->delete($this->tableName, array('meta_key' => $key));
+        } catch (Exception $e) {
             throw WriteException::forException($e);
         }
 
-        if ($result === 1) {
-            return true;
-        }
-
-        return false;
+        return $result === 1;
     }
 
     /**
@@ -185,8 +179,8 @@ class DbalStore implements KeyValueStore
         KeyUtil::validate($key);
 
         try {
-            $result = $this->connection->fetchAssoc('select * from ' . $this->table . ' WHERE key = ?', array($key));
-        } catch (\Exception $e) {
+            $result = $this->connection->fetchAssoc('SELECT * FROM '.$this->tableName.' WHERE meta_key = ?', array($key));
+        } catch (Exception $e) {
             throw ReadException::forException($e);
         }
 
@@ -199,9 +193,9 @@ class DbalStore implements KeyValueStore
     public function clear()
     {
         try {
-            $connection = $this->connection->query('DELETE FROM ' . $this->table);
-            $connection->execute();
-        } catch (\Exception $e) {
+            $stmt = $this->connection->query('DELETE FROM '.$this->tableName);
+            $stmt->execute();
+        } catch (Exception $e) {
             throw WriteException::forException($e);
         }
     }
@@ -212,9 +206,9 @@ class DbalStore implements KeyValueStore
     public function keys()
     {
         try {
-            $stmt = $this->connection->query('SELECT key FROM ' . $this->table);
-            $result = $stmt->fetchAll(\PDO::FETCH_COLUMN);
-        } catch (\Exception $e) {
+            $stmt = $this->connection->query('SELECT meta_key FROM '.$this->tableName);
+            $result = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        } catch (Exception $e) {
             throw ReadException::forException($e);
         }
 
@@ -226,13 +220,43 @@ class DbalStore implements KeyValueStore
         $serialized = Serializer::serialize($value);
 
         try {
-            $this->connection->insert($this->table, array(
-                'key' => $key,
-                'value' => $serialized
+            $this->connection->insert($this->tableName, array(
+                'meta_key' => $key,
+                'meta_value' => $serialized,
             ));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw WriteException::forException($e);
         }
+    }
+
+    /**
+     * The name for our DBAL database table.
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->tableName;
+    }
+
+    /**
+     * Object Representation of the table used in this class.
+     *
+     * @return Table
+     */
+    public function getTableForCreate()
+    {
+        $schema = new Schema();
+
+        $table = $schema->createTable($this->getTableName());
+
+        $table->addColumn('id', 'integer', array('autoincrement' => true));
+        $table->addColumn('meta_key', 'string', array('length' => 255));
+        $table->addColumn('meta_value', 'object');
+        $table->setPrimaryKey(array('id'));
+        $table->addUniqueIndex(array('meta_key'));
+
+        return $table;
     }
 
     private function doUpdate($key, $value)
@@ -240,57 +264,43 @@ class DbalStore implements KeyValueStore
         $serialized = Serializer::serialize($value);
 
         try {
-            $this->connection->update($this->table, array(
-                'value' => $serialized
+            $this->connection->update($this->tableName, array(
+                'meta_value' => $serialized,
             ), array(
-                'key' => $key
+                'meta_key' => $key,
             ));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw WriteException::forException($e);
         }
-    }
-
-    /**
-     * @param Schema $schema
-     *
-     * @return \Doctrine\DBAL\Schema\Table|null
-     */
-    public function configureSchema(Schema $schema)
-    {
-        if ($schema->hasTable($this->table)) {
-            return null;
-        }
-
-        return $this->configureTable();
-    }
-
-    public function configureTable()
-    {
-        $schema = new Schema();
-
-        $table = $schema->createTable($this->table);
-
-        $table->addColumn('id', 'integer', array('autoincrement' => true));
-        $table->addColumn('key', 'string', array('length' => 255));
-        $table->addColumn('value', 'object');
-        $table->setPrimaryKey(array('id'));
-        $table->addUniqueIndex(['key']);
-
-        return $table;
     }
 
     private function doGetMultiple(array $keys)
     {
         try {
-            $stmt = $this->connection->executeQuery('SELECT * FROM ' . $this->table . ' WHERE key IN (?)',
+            $stmt = $this->connection->executeQuery('SELECT * FROM '.$this->tableName.' WHERE meta_key IN (?)',
                 array($keys),
                 array(Connection::PARAM_STR_ARRAY)
             );
             $data = $stmt->fetchAll();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw ReadException::forException($e);
         }
 
-        return $data;
+        return is_array($data) ? $data : array();
+    }
+
+    private function getDbRow($key)
+    {
+        try {
+            $dbResult = $this->connection->fetchAssoc('SELECT meta_value, meta_key FROM '.$this->tableName.' WHERE meta_key = ?', array($key));
+        } catch (Exception $e) {
+            throw ReadException::forException($e);
+        }
+
+        if (empty($dbResult)) {
+            return null;
+        }
+
+        return $dbResult;
     }
 }
