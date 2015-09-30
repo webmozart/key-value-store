@@ -4,6 +4,7 @@ Changelog
 * 1.0.0-beta6 (@release_date@)
 
  * added `SerializingArrayStore`
+ * added `DbalStore`
 
 * 1.0.0-beta5 (2015-08-11)
 
