@@ -117,6 +117,7 @@ All contents of this package are licensed under the [MIT license].
 [`CountableStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.CountableStore.html
 [`SortableStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.SortableStore.html
 [`ArrayStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.ArrayStore.html
+[`DbalStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.DbalStore.html
 [`JsonFileStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.JsonFileStore.html
 [`NullStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.NullStore.html
 [`PhpRedisStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.PhpRedisStore.html
