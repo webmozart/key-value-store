@@ -10,15 +10,15 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "webmozart/assert": "~1.0"
+        "webmozart/assert": "^1.0"
     },
     "require-dev": {
-        "symfony/filesystem": "~2.5",
-        "predis/predis": "~1.0",
-        "basho/riak": "~1.4",
-        "doctrine/cache": "~1.4",
+        "symfony/filesystem": "^2.5",
+        "predis/predis": "^1.0",
+        "basho/riak": "^1.4",
+        "doctrine/cache": "^1.4",
         "phpunit/phpunit": "^4.6",
-        "doctrine/dbal" : "~2.4",
+        "doctrine/dbal" : "^2.4",
         "sebastian/version": "^1.0.1"
     },
     "suggest": {
