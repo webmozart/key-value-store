@@ -36,6 +36,9 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
         parent::tearDown();
 
         $filesystem = new Filesystem();
+
+        // Ensure all files in the directory are writable before removing
+        $filesystem->chmod($this->tempDir, 0755, 0000, true);
         $filesystem->remove($this->tempDir);
     }
 
@@ -129,6 +132,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testGetThrowsReadExceptionIfReadFails()
     {
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            $this->markTestSkipped('Cannot deny read access on Windows.');
+        }
+
         touch($notReadable = $this->tempDir.'/not-readable.json');
         $store = new JsonFileStore($notReadable);
 
@@ -163,6 +170,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testGetOrFailThrowsReadExceptionIfReadFails()
     {
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            $this->markTestSkipped('Cannot deny read access on Windows.');
+        }
+
         touch($notReadable = $this->tempDir.'/not-readable.json');
         $store = new JsonFileStore($notReadable);
 
@@ -197,6 +208,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testGetMultipleThrowsReadExceptionIfReadFails()
     {
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            $this->markTestSkipped('Cannot deny read access on Windows.');
+        }
+
         touch($notReadable = $this->tempDir.'/not-readable.json');
         $store = new JsonFileStore($notReadable);
 
@@ -231,6 +246,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testGetMultipleOrFailThrowsReadExceptionIfReadFails()
     {
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            $this->markTestSkipped('Cannot deny read access on Windows.');
+        }
+
         touch($notReadable = $this->tempDir.'/not-readable.json');
         $store = new JsonFileStore($notReadable);
 
@@ -265,6 +284,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testExistsThrowsReadExceptionIfReadFails()
     {
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            $this->markTestSkipped('Cannot deny read access on Windows.');
+        }
+
         touch($notReadable = $this->tempDir.'/not-readable.json');
         $store = new JsonFileStore($notReadable);
 
@@ -278,6 +301,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testKeysThrowsReadExceptionIfReadFails()
     {
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            $this->markTestSkipped('Cannot deny read access on Windows.');
+        }
+
         touch($notReadable = $this->tempDir.'/not-readable.json');
         $store = new JsonFileStore($notReadable);
 
@@ -290,6 +317,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testSortThrowsReadExceptionIfReadFails()
     {
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            $this->markTestSkipped('Cannot deny read access on Windows.');
+        }
+
         touch($notReadable = $this->tempDir.'/not-readable.json');
         $store = new JsonFileStore($notReadable);
 
@@ -314,6 +345,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testCountThrowsReadExceptionIfReadFails()
     {
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            $this->markTestSkipped('Cannot deny read access on Windows.');
+        }
+
         touch($notReadable = $this->tempDir.'/not-readable.json');
         $store = new JsonFileStore($notReadable);
 
