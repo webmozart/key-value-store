@@ -18,6 +18,7 @@ All contained key-value stores implement the interface [`KeyValueStore`]. The
 following stores are currently supported:
 
 * [`ArrayStore`]
+* [`SerializingArrayStore`]
 * [`DbalStore`]
 * [`JsonFileStore`]
 * [`NullStore`]
@@ -28,6 +29,7 @@ following stores are currently supported:
 The interface [`CountableStore`] is supported by the following classes:
 
 * [`ArrayStore`]
+* [`SerializingArrayStore`]
 * [`JsonFileStore`]
 * [`NullStore`]
 * [`CountableDecorator`]
@@ -35,6 +37,7 @@ The interface [`CountableStore`] is supported by the following classes:
 The interface [`SortableStore`] is supported by the following classes:
 
 * [`ArrayStore`]
+* [`SerializingArrayStore`]
 * [`JsonFileStore`]
 * [`NullStore`]
 * [`SortableDecorator`]
@@ -117,6 +120,7 @@ All contents of this package are licensed under the [MIT license].
 [`CountableStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.CountableStore.html
 [`SortableStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Api.SortableStore.html
 [`ArrayStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.ArrayStore.html
+[`SerializingArrayStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.SerializingArrayStore.html
 [`DbalStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.DbalStore.html
 [`JsonFileStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.JsonFileStore.html
 [`NullStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.NullStore.html
