@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Webmozart\KeyValueStore\SerializingArrayStore | Webmozart Key-Value Store API</title>
+
+	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Webmozart.html">
+						Webmozart<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Webmozart.KeyValueStore.html">
+						KeyValueStore<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Webmozart.KeyValueStore.Api.html">
+						Api					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Webmozart.KeyValueStore.Decorator.html">
+						Decorator					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Webmozart.KeyValueStore.Util.html">
+						Util					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Webmozart.KeyValueStore.AbstractRedisStore.html">AbstractRedisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.ArrayStore.html">ArrayStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.DbalStore.html">DbalStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.JsonFileStore.html">JsonFileStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.NullStore.html">NullStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">PhpRedisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.PredisStore.html">PredisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.RiakStore.html">RiakStore</a></li>
+				<li class="active"><a href="class-Webmozart.KeyValueStore.SerializingArrayStore.html">SerializingArrayStore</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Webmozart.KeyValueStore.html" title="Summary of Webmozart\KeyValueStore"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class SerializingArrayStore</h1>
+
+
+	<div class="description">
+	<p>A key-value store backed by a PHP array with serialized entries.</p>
+
+<p>The contents of the store are lost when the store is released from memory.</p>
+
+<p>This store behaves more like persistent key-value stores than
+<code><a href="class-Webmozart.KeyValueStore.ArrayStore.html">Webmozart\KeyValueStore\ArrayStore</a></code>. It is useful for testing.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html"><span>Webmozart\KeyValueStore\ArrayStore</span></a>
+			
+			 implements 
+				<a href="class-Webmozart.KeyValueStore.Api.SortableStore.html"><span>Webmozart\KeyValueStore\Api\SortableStore</span></a>, 
+			
+				<a href="class-Webmozart.KeyValueStore.Api.CountableStore.html"><span>Webmozart\KeyValueStore\Api\CountableStore</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Webmozart\KeyValueStore\SerializingArrayStore</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a><br>
+		
+
+				<b>Author:</b>
+				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
+				<b>Since:</b>
+				1.0<br>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.SerializingArrayStore.html#14-85" title="Go to source code">SerializingArrayStore.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="set" id="_set">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_set">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.SerializingArrayStore.html#28-34" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the value for a key in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the value for a key in the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The key to set.</dd>
+					<dt><var>$value</var></dt>
+					<dd>The value to set for the key.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					WriteException<br>If the store cannot be written.<br>
+					InvalidKeyException<br>If the key is not a string or integer.<br>
+					SerializationFailedException<br>If the value cannot be serialized.<br>
+					UnsupportedValueException<br><p>If the value is not supported by the
+                                     implementation.</p>
+				</div>
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.ArrayStore.html#_set">Webmozart\KeyValueStore\ArrayStore::set()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.SerializingArrayStore.html#36-46" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Returns the value of a key in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the value of a key in the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The key to get.</dd>
+					<dt><var>$default</var></dt>
+					<dd><p>The default value to return if the key does
+                           not exist.</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br><p>The value of the key or the default value if the key does
+              not exist.</p>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					ReadException<br>If the store cannot be read.<br>
+					InvalidKeyException<br>If the key is not a string or integer.<br>
+					UnserializationFailedException<br><p>If the stored value cannot be
+                                       unserialized.</p>
+				</div>
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.ArrayStore.html#_get">Webmozart\KeyValueStore\ArrayStore::get()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getOrFail" id="_getOrFail">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getOrFail">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.SerializingArrayStore.html#48-54" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns the value of a key in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the value of a key in the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>The key to get.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>The value of the key.
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					ReadException<br>If the store cannot be read.<br>
+					NoSuchKeyException<br>If the key was not found.<br>
+					InvalidKeyException<br>If the key is not a string or integer.<br>
+					UnserializationFailedException<br><p>If the stored value cannot be
+                                       unserialized.</p>
+				</div>
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.ArrayStore.html#_getOrFail">Webmozart\KeyValueStore\ArrayStore::getOrFail()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getMultiple" id="_getMultiple">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getMultiple">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.SerializingArrayStore.html#56-70" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Returns the values of multiple keys in the store.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the values of multiple keys in the store.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$keys</var></dt>
+					<dd>The keys to get. The keys must be strings or integers.</dd>
+					<dt><var>$default</var></dt>
+					<dd><p>The default value to return for keys that are not
+                      found.</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>The values of the passed keys, indexed by the keys.
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					ReadException<br>If the store cannot be read.<br>
+					InvalidKeyException<br>If a key is not a string or integer.<br>
+					UnserializationFailedException<br><p>If a stored value cannot be
+                                       unserialized.</p>
+				</div>
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.ArrayStore.html#_getMultiple">Webmozart\KeyValueStore\ArrayStore::getMultiple()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toArray" id="_toArray">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toArray">#</a>
+		<code><a href="source-class-Webmozart.KeyValueStore.SerializingArrayStore.html#72-84" title="Go to source code">toArray</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the contents of the store as array.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the contents of the store as array.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>The keys and values in the store.
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Webmozart.KeyValueStore.ArrayStore.html#_toArray">Webmozart\KeyValueStore\ArrayStore::toArray()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Webmozart.KeyValueStore.ArrayStore.html#methods">Webmozart\KeyValueStore\ArrayStore</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html#___construct">__construct()</a>, 
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html#_clear">clear()</a>, 
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html#_count">count()</a>, 
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html#_exists">exists()</a>, 
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html#_getMultipleOrFail">getMultipleOrFail()</a>, 
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html#_keys">keys()</a>, 
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html#_remove">remove()</a>, 
+			<a href="class-Webmozart.KeyValueStore.ArrayStore.html#_sort">sort()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Webmozart Key-Value Store API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

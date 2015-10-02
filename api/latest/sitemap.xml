@@ -27,6 +27,9 @@
 	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.ArrayStore.html</loc>
 </url>
 <url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.DbalStore.html</loc>
+</url>
+<url>
 	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html</loc>
 </url>
 <url>
@@ -52,6 +55,9 @@
 </url>
 <url>
 	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.RiakStore.html</loc>
+</url>
+<url>
+	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.SerializingArrayStore.html</loc>
 </url>
 <url>
 	<loc>https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.Util.KeyUtil.html</loc>

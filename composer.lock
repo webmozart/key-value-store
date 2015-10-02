@@ -1177,16 +1177,16 @@
         },
         {
             "name": "nette/php-generator",
-            "version": "v2.3.2",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/php-generator.git",
-                "reference": "77b39dc7a7707898ac3db8c1bcdfff25a0ab5a23"
+                "reference": "eef9df86ca6fa9ad5366b4c9862062ba272942bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/php-generator/zipball/77b39dc7a7707898ac3db8c1bcdfff25a0ab5a23",
-                "reference": "77b39dc7a7707898ac3db8c1bcdfff25a0ab5a23",
+                "url": "https://api.github.com/repos/nette/php-generator/zipball/eef9df86ca6fa9ad5366b4c9862062ba272942bb",
+                "reference": "eef9df86ca6fa9ad5366b4c9862062ba272942bb",
                 "shasum": ""
             },
             "require": {
@@ -1223,7 +1223,7 @@
             ],
             "description": "Nette PHP Generator",
             "homepage": "http://nette.org",
-            "time": "2015-08-22 15:26:12"
+            "time": "2015-09-07 10:58:35"
         },
         {
             "name": "nette/reflection",
@@ -1538,16 +1538,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.4",
+            "version": "v2.7.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Console.git",
-                "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8"
+                "url": "https://github.com/symfony/console.git",
+                "reference": "06cb17c013a82f94a3d840682b49425cd00a2161"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/9ff9032151186bd66ecee727d728f1319f52d1d8",
-                "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8",
+                "url": "https://api.github.com/repos/symfony/console/zipball/06cb17c013a82f94a3d840682b49425cd00a2161",
+                "reference": "06cb17c013a82f94a3d840682b49425cd00a2161",
                 "shasum": ""
             },
             "require": {
@@ -1591,7 +1591,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-03 11:40:38"
+            "time": "2015-09-25 08:32:23"
         },
         {
             "name": "symfony/options-resolver",
@@ -1599,12 +1599,12 @@
             "target-dir": "Symfony/Component/OptionsResolver",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/OptionsResolver.git",
+                "url": "https://github.com/symfony/options-resolver.git",
                 "reference": "31e56594cee489e9a235b852228b0598b52101c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/OptionsResolver/zipball/31e56594cee489e9a235b852228b0598b52101c1",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/31e56594cee489e9a235b852228b0598b52101c1",
                 "reference": "31e56594cee489e9a235b852228b0598b52101c1",
                 "shasum": ""
             },
@@ -1650,16 +1650,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.4",
+            "version": "v2.7.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Yaml.git",
-                "reference": "2dc7b06c065df96cc686c66da2705e5e18aef661"
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "31cb2ad0155c95b88ee55fe12bc7ff92232c1770"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/2dc7b06c065df96cc686c66da2705e5e18aef661",
-                "reference": "2dc7b06c065df96cc686c66da2705e5e18aef661",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/31cb2ad0155c95b88ee55fe12bc7ff92232c1770",
+                "reference": "31cb2ad0155c95b88ee55fe12bc7ff92232c1770",
                 "shasum": ""
             },
             "require": {
@@ -1695,7 +1695,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-24 07:13:45"
+            "time": "2015-09-14 14:14:09"
         },
         {
             "name": "tracy/tracy",
@@ -1807,28 +1807,31 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/key-value-store.git",
-                "reference": "b8fd585b19a4beb6d29fc9c73613a8474c557f42"
+                "reference": "d669ef532122b9e28c214b07fb9e9f43490300fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/key-value-store/zipball/b8fd585b19a4beb6d29fc9c73613a8474c557f42",
-                "reference": "b8fd585b19a4beb6d29fc9c73613a8474c557f42",
+                "url": "https://api.github.com/repos/webmozart/key-value-store/zipball/d669ef532122b9e28c214b07fb9e9f43490300fc",
+                "reference": "d669ef532122b9e28c214b07fb9e9f43490300fc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "webmozart/assert": "~1.0"
+                "webmozart/assert": "^1.0"
             },
             "require-dev": {
-                "basho/riak": "~1.4",
-                "doctrine/cache": "~1.4",
+                "basho/riak": "^1.4",
+                "doctrine/cache": "^1.4",
+                "doctrine/dbal": "^2.4",
                 "phpunit/phpunit": "^4.6",
-                "predis/predis": "~1.0",
-                "symfony/filesystem": "~2.5"
+                "predis/predis": "^1.0",
+                "sebastian/version": "^1.0.1",
+                "symfony/filesystem": "^2.5"
             },
             "suggest": {
                 "basho/riak": "To enable the RiakStore",
                 "doctrine/cache": "To enable the CachedStore",
+                "doctrine/dbal": "To enable the DbalStore",
                 "predis/predis": "To enable the PredisStore"
             },
             "type": "library",
@@ -1853,7 +1856,7 @@
                 }
             ],
             "description": "A key-value store API with implementations for different backends.",
-            "time": "2015-08-24 10:58:28"
+            "time": "2015-10-02 13:31:56"
         }
     ],
     "packages-dev": [],
