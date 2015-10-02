@@ -168,8 +168,8 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
             array(false),
             array(null),
             array(PHP_INT_MAX),
-            // large float
-            array((float) PHP_INT_MAX),
+            // large float > PHP_INT_MAX
+            array(((float) PHP_INT_MAX) + 1),
         );
     }
 
