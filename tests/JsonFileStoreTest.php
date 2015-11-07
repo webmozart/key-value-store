@@ -138,6 +138,16 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
         $this->assertEquals(array('foo' => 'bar', 'bam' => $object), $store->getMultipleOrFail(array('foo', 'bam')));
     }
 
+    public function testSetDoesNotSerializeNull()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_SERIALIZE_ARRAYS);
+
+        $store->set('foo', null);
+
+        $this->assertSame('{"foo":null}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertNull($store->get('foo'));
+    }
+
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\WriteException
      * @expectedExceptionMessage Permission denied

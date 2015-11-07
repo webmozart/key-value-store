@@ -379,8 +379,8 @@ class JsonFileStore implements SortableStore, CountableStore
         $serializeValue = (is_string($value) && !($this->flags & self::NO_SERIALIZE_STRINGS))
             // or we have an array and array serialization is enabled...
             || (is_array($value) && !($this->flags & self::NO_SERIALIZE_ARRAYS))
-            // or we have any other non-scalar value
-            || (!is_scalar($value) && !is_array($value));
+            // or we have any other non-scalar, non-null value
+            || (null !== $value && !is_scalar($value) && !is_array($value));
 
         if ($serializeValue) {
             return Serializer::serialize($value);
