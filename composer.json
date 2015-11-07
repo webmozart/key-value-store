@@ -13,7 +13,7 @@
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
-        "webmozart/json": "^1.1",
+        "webmozart/json": "^1.1@dev",
         "symfony/filesystem": "^2.5",
         "predis/predis": "^1.0",
         "basho/riak": "^1.4",
