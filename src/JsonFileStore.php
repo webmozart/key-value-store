@@ -32,18 +32,38 @@ use Webmozart\KeyValueStore\Util\Serializer;
 class JsonFileStore implements SortableStore, CountableStore
 {
     /**
+     * Flag: Disable serialization of strings
+     */
+    const NO_SERIALIZE_STRINGS = 1;
+
+    /**
+     * Flag: Disable serialization of arrays
+     */
+    const NO_SERIALIZE_ARRAYS = 2;
+
+    /**
      * This seems to be the biggest float supported by json_encode()/json_decode().
      */
     const MAX_FLOAT = 1.0E+14;
 
+    /**
+     * @var string
+     */
     private $path;
 
-    public function __construct($path)
+    /**
+     * @var int
+     */
+    private $flags;
+
+    public function __construct($path, $flags = 0)
     {
         Assert::string($path, 'The path must be a string. Got: %s');
         Assert::notEmpty($path, 'The path must not be empty.');
+        Assert::integer($flags, 'The flags must be an integer. Got: %s');
 
         $this->path = $path;
+        $this->flags = $flags;
     }
 
     /**
@@ -57,12 +77,8 @@ class JsonFileStore implements SortableStore, CountableStore
             throw new UnsupportedValueException('The JSON file store cannot handle floats larger than 1.0E+14.');
         }
 
-        if (!is_scalar($value) || is_string($value)) {
-            $value = Serializer::serialize($value);
-        }
-
         $data = $this->load();
-        $data[$key] = $value;
+        $data[$key] = $this->serializeValue($value);
 
         $this->save($data);
     }
@@ -80,13 +96,7 @@ class JsonFileStore implements SortableStore, CountableStore
             return $default;
         }
 
-        $value = $data[$key];
-
-        if (is_string($value)) {
-            $value = Serializer::unserialize($value);
-        }
-
-        return $value;
+        return $this->unserializeValue($data[$key]);
     }
 
     /**
@@ -102,13 +112,7 @@ class JsonFileStore implements SortableStore, CountableStore
             throw NoSuchKeyException::forKey($key);
         }
 
-        $value = $data[$key];
-
-        if (is_string($value)) {
-            $value = Serializer::unserialize($value);
-        }
-
-        return $value;
+        return $this->unserializeValue($data[$key]);
     }
 
     /**
@@ -123,11 +127,7 @@ class JsonFileStore implements SortableStore, CountableStore
             KeyUtil::validate($key);
 
             if (array_key_exists($key, $data)) {
-                $value = $data[$key];
-
-                if (is_string($value)) {
-                    $value = Serializer::unserialize($value);
-                }
+                $value = $this->unserializeValue($data[$key]);
             } else {
                 $value = $default;
             }
@@ -153,13 +153,7 @@ class JsonFileStore implements SortableStore, CountableStore
                 throw NoSuchKeyException::forKey($key);
             }
 
-            $value = $data[$key];
-
-            if (is_string($value)) {
-                $value = Serializer::unserialize($value);
-            }
-
-            $values[$key] = $value;
+            $values[$key] = $this->unserializeValue($data[$key]);
         }
 
         return $values;
@@ -377,5 +371,51 @@ class JsonFileStore implements SortableStore, CountableStore
         }
 
         return $data;
+    }
+
+    private function serializeValue($value)
+    {
+        // Serialize if we have a string and string serialization is enabled...
+        $serializeValue = (is_string($value) && !($this->flags & self::NO_SERIALIZE_STRINGS))
+            // or we have an array and array serialization is enabled...
+            || (is_array($value) && !($this->flags & self::NO_SERIALIZE_ARRAYS))
+            // or we have any other non-scalar value
+            || (!is_scalar($value) && !is_array($value));
+
+        if ($serializeValue) {
+            return Serializer::serialize($value);
+        }
+
+        // If we have an array and array serialization is disabled, serialize
+        // its entries if necessary
+        if (is_array($value)) {
+            return array_map(array($this, 'serializeValue'), $value);
+        }
+
+        return $value;
+    }
+
+    private function unserializeValue($value)
+    {
+        // Unserialize value if it is a string...
+        $unserializeValue = is_string($value) && (
+            // and string serialization is enabled
+            !($this->flags & self::NO_SERIALIZE_STRINGS)
+            // or the string contains a serialized object
+            || 'O:' === ($prefix = substr($value, 0, 2))
+            // or the string contains a serialized array when array
+            // serialization is enabled
+            || ('a:' === $prefix && !($this->flags & self::NO_SERIALIZE_ARRAYS))
+        );
+
+        if ($unserializeValue) {
+            return Serializer::unserialize($value);
+        }
+
+        if (is_array($value)) {
+            return array_map(array($this, 'unserializeValue'), $value);
+        }
+
+        return $value;
     }
 }

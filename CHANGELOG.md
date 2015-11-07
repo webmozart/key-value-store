@@ -1,6 +1,10 @@
 Changelog
 =========
 
+* 1.0.0-beta7 (@release_date@)
+
+ * added `JsonFileStore::NO_SERIALIZE_STRINGS` and `JsonFileStore::NO_SERIALIZE_ARRAYS`
+
 * 1.0.0-beta6 (2015-10-02)
 
  * added `SerializingArrayStore`

@@ -11,6 +11,7 @@
 
 namespace Webmozart\KeyValueStore\Tests;
 
+use stdClass;
 use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\KeyValueStore\JsonFileStore;
 
@@ -97,6 +98,44 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
 
         chmod($readOnlyFile, 0400);
         $store->set('foo', 'bar');
+    }
+
+    public function testSetDoesNotSerializeStringsIfDisabled()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo', 'bar');
+        $store->set('baz', $array = array(1, 2, new stdClass()));
+        $store->set('bam', $object = (object) array('hi' => 'ho'));
+
+        $this->assertSame('{"foo":"bar","baz":"a:3:{i:0;i:1;i:1;i:2;i:2;O:8:\"stdClass\":0:{}}","bam":"O:8:\"stdClass\":1:{s:2:\"hi\";s:2:\"ho\";}"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar', $store->get('foo'));
+        $this->assertSame('bar', $store->getOrFail('foo'));
+        $this->assertEquals($array, $store->get('baz'));
+        $this->assertEquals($array, $store->getOrFail('baz'));
+        $this->assertEquals($object, $store->get('bam'));
+        $this->assertEquals($object, $store->getOrFail('bam'));
+        $this->assertEquals(array('foo' => 'bar', 'bam' => $object), $store->getMultiple(array('foo', 'bam')));
+        $this->assertEquals(array('foo' => 'bar', 'bam' => $object), $store->getMultipleOrFail(array('foo', 'bam')));
+    }
+
+    public function testSetDoesNotSerializeArrayssIfDisabled()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_SERIALIZE_ARRAYS);
+
+        $store->set('foo', 'bar');
+        $store->set('baz', $array = array(1, 2, array(3, new stdClass())));
+        $store->set('bam', $object = (object) array('hi' => 'ho'));
+
+        $this->assertSame('{"foo":"s:3:\"bar\";","baz":[1,2,[3,"O:8:\"stdClass\":0:{}"]],"bam":"O:8:\"stdClass\":1:{s:2:\"hi\";s:2:\"ho\";}"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar', $store->get('foo'));
+        $this->assertSame('bar', $store->getOrFail('foo'));
+        $this->assertEquals($array, $store->get('baz'));
+        $this->assertEquals($array, $store->getOrFail('baz'));
+        $this->assertEquals($object, $store->get('bam'));
+        $this->assertEquals($object, $store->getOrFail('bam'));
+        $this->assertEquals(array('foo' => 'bar', 'bam' => $object), $store->getMultiple(array('foo', 'bam')));
+        $this->assertEquals(array('foo' => 'bar', 'bam' => $object), $store->getMultipleOrFail(array('foo', 'bam')));
     }
 
     /**
