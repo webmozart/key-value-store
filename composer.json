@@ -13,6 +13,7 @@
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
+        "webmozart/json": "^1.1",
         "symfony/filesystem": "^2.5",
         "predis/predis": "^1.0",
         "basho/riak": "^1.4",
@@ -22,6 +23,7 @@
         "sebastian/version": "^1.0.1"
     },
     "suggest": {
+        "webmozart/json": "To enable the JsonFileStore",
         "predis/predis": "To enable the PredisStore",
         "basho/riak": "To enable the RiakStore",
         "doctrine/cache": "To enable the CachedStore",

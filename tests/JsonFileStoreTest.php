@@ -93,7 +93,7 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testSetThrowsWriteExceptionIfWriteFails()
     {
-        touch($readOnlyFile = $this->tempDir.'/read-only.json');
+        file_put_contents($readOnlyFile = $this->tempDir.'/read-only.json', '{}');
         $store = new JsonFileStore($readOnlyFile);
 
         chmod($readOnlyFile, 0400);
@@ -154,7 +154,7 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testRemoveThrowsWriteExceptionIfWriteFails()
     {
-        touch($readOnlyFile = $this->tempDir.'/read-only.json');
+        file_put_contents($readOnlyFile = $this->tempDir.'/read-only.json', '{}');
         $store = new JsonFileStore($readOnlyFile);
         $store->set('foo', 'bar');
 
@@ -168,7 +168,7 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testClearThrowsWriteExceptionIfWriteFails()
     {
-        touch($readOnlyFile = $this->tempDir.'/read-only.json');
+        file_put_contents($readOnlyFile = $this->tempDir.'/read-only.json', '{}');
         $store = new JsonFileStore($readOnlyFile);
 
         chmod($readOnlyFile, 0400);
@@ -194,7 +194,7 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
-     * @expectedExceptionMessage JSON_ERROR_SYNTAX
+     * @expectedExceptionMessage Expected one of:
      */
     public function testGetThrowsReadExceptionIfInvalidJsonSyntax()
     {
@@ -232,7 +232,7 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
-     * @expectedExceptionMessage JSON_ERROR_SYNTAX
+     * @expectedExceptionMessage Expected one of:
      */
     public function testGetOrFailThrowsReadExceptionIfInvalidJsonSyntax()
     {
@@ -270,7 +270,7 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
-     * @expectedExceptionMessage JSON_ERROR_SYNTAX
+     * @expectedExceptionMessage Expected one of:
      */
     public function testGetMultipleThrowsReadExceptionIfInvalidJsonSyntax()
     {
@@ -308,7 +308,7 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
 
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\ReadException
-     * @expectedExceptionMessage JSON_ERROR_SYNTAX
+     * @expectedExceptionMessage Expected one of:
      */
     public function testGetMultipleOrFailThrowsReadExceptionIfInvalidJsonSyntax()
     {
@@ -382,7 +382,7 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
      */
     public function testSortThrowsWriteExceptionIfWriteFails()
     {
-        touch($readOnlyFile = $this->tempDir.'/read-only.json');
+        file_put_contents($readOnlyFile = $this->tempDir.'/read-only.json', '{}');
         $store = new JsonFileStore($readOnlyFile);
 
         chmod($readOnlyFile, 0400);

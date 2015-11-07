@@ -13,6 +13,12 @@ namespace Webmozart\KeyValueStore;
 
 use stdClass;
 use Webmozart\Assert\Assert;
+use Webmozart\Json\DecodingFailedException;
+use Webmozart\Json\EncodingFailedException;
+use Webmozart\Json\FileNotFoundException;
+use Webmozart\Json\IOException;
+use Webmozart\Json\JsonDecoder;
+use Webmozart\Json\JsonEncoder;
 use Webmozart\KeyValueStore\Api\CountableStore;
 use Webmozart\KeyValueStore\Api\NoSuchKeyException;
 use Webmozart\KeyValueStore\Api\ReadException;
@@ -56,6 +62,16 @@ class JsonFileStore implements SortableStore, CountableStore
      */
     private $flags;
 
+    /**
+     * @var JsonEncoder
+     */
+    private $encoder;
+
+    /**
+     * @var JsonDecoder
+     */
+    private $decoder;
+
     public function __construct($path, $flags = 0)
     {
         Assert::string($path, 'The path must be a string. Got: %s');
@@ -64,6 +80,11 @@ class JsonFileStore implements SortableStore, CountableStore
 
         $this->path = $path;
         $this->flags = $flags;
+
+        $this->encoder = new JsonEncoder();
+
+        $this->decoder = new JsonDecoder();
+        $this->decoder->setObjectDecoding(JsonDecoder::ASSOC_ARRAY);
     }
 
     /**
@@ -231,146 +252,30 @@ class JsonFileStore implements SortableStore, CountableStore
 
     private function load()
     {
-        $contents = file_exists($this->path)
-            ? trim($this->readFile($this->path))
-            : null;
-
-        if (false === (bool) $contents) {
+        try {
+            return $this->decoder->decodeFile($this->path);
+        } catch (FileNotFoundException $e) {
             return array();
+        } catch (DecodingFailedException $e) {
+            throw new ReadException($e->getMessage(), 0, $e);
+        } catch (IOException $e) {
+            throw new ReadException($e->getMessage(), 0, $e);
         }
-
-        $decoded = json_decode($contents, true);
-
-        if (JSON_ERROR_NONE !== ($error = json_last_error())) {
-            throw new ReadException(sprintf(
-                'Could not decode JSON data: %s',
-                self::getErrorMessage($error)
-            ));
-        }
-
-        return $decoded;
     }
 
     private function save($data)
     {
-        if (!file_exists($dir = dirname($this->path))) {
-            mkdir($dir, 0777, true);
-        }
-
-        $encoded = json_encode($data);
-
-        if (JSON_ERROR_NONE !== ($error = json_last_error())) {
-            if (JSON_ERROR_UTF8 === $error) {
+        try {
+            $this->encoder->encodeFile($data, $this->path);
+        } catch (EncodingFailedException $e) {
+            if (JSON_ERROR_UTF8 === $e->getCode()) {
                 throw UnsupportedValueException::forType('binary', $this);
             }
 
-            throw new WriteException(sprintf(
-                'Could not encode data as JSON: %s',
-                self::getErrorMessage($error)
-            ));
+            throw new WriteException($e->getMessage(), 0, $e);
+        } catch (IOException $e) {
+            throw new WriteException($e->getMessage(), 0, $e);
         }
-
-        $this->writeFile($this->path, $encoded);
-    }
-
-    /**
-     * Returns the error message of a JSON error code.
-     *
-     * Needed for PHP < 5.5, where `json_last_error_msg()` is not available.
-     *
-     * @param int $error The error code.
-     *
-     * @return string The error message.
-     */
-    private function getErrorMessage($error)
-    {
-        switch ($error) {
-            case JSON_ERROR_NONE:
-                return 'JSON_ERROR_NONE';
-            case JSON_ERROR_DEPTH:
-                return 'JSON_ERROR_DEPTH';
-            case JSON_ERROR_STATE_MISMATCH:
-                return 'JSON_ERROR_STATE_MISMATCH';
-            case JSON_ERROR_CTRL_CHAR:
-                return 'JSON_ERROR_CTRL_CHAR';
-            case JSON_ERROR_SYNTAX:
-                return 'JSON_ERROR_SYNTAX';
-            case JSON_ERROR_UTF8:
-                return 'JSON_ERROR_UTF8';
-        }
-
-        if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
-            switch ($error) {
-                case JSON_ERROR_RECURSION:
-                    return 'JSON_ERROR_RECURSION';
-                case JSON_ERROR_INF_OR_NAN:
-                    return 'JSON_ERROR_INF_OR_NAN';
-                case JSON_ERROR_UNSUPPORTED_TYPE:
-                    return 'JSON_ERROR_UNSUPPORTED_TYPE';
-            }
-        }
-
-        return 'JSON_ERROR_UNKNOWN';
-    }
-
-    private function writeFile($path, $data)
-    {
-        $errorMessage = null;
-        $errorCode = 0;
-
-        set_error_handler(function ($errno, $errstr) use (&$errorMessage, &$errorCode) {
-            $errorMessage = $errstr;
-            $errorCode = $errno;
-        });
-
-        file_put_contents($path, $data);
-
-        restore_error_handler();
-
-        if (null !== $errorMessage) {
-            if (false !== $pos = strpos($errorMessage, '): ')) {
-                // cut "file_put_contents(%path%):" to make message more readable
-                $errorMessage = substr($errorMessage, $pos + 3);
-            }
-
-            throw new WriteException(sprintf(
-                'Could not write %s: %s (%s)',
-                $path,
-                $errorMessage,
-                $errorCode
-            ), $errorCode);
-        }
-    }
-
-    private function readFile($path)
-    {
-        $errorMessage = null;
-        $errorCode = 0;
-
-        set_error_handler(function ($errno, $errstr) use (&$errorMessage, &$errorCode) {
-            $errorMessage = $errstr;
-            $errorCode = $errno;
-        });
-
-        $data = file_get_contents($path);
-
-        restore_error_handler();
-
-        if (null !== $errorMessage) {
-            if (false !== $pos = strpos($errorMessage, '): ')) {
-                // cut "file_get_contents(%path%):" to make message more readable
-                $errorMessage = substr($errorMessage, $pos + 3);
-            }
-
-            throw new ReadException(sprintf(
-                'Could not read %s: %s (%s)',
-                $path,
-                $errorMessage,
-                $errorCode
-            ), $errorCode);
-        }
-
-        return $data;
     }
 
     private function serializeValue($value)
