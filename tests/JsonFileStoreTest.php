@@ -240,6 +240,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
 
     public function testNoEscapeSlash()
     {
+        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+            $this->markTestSkipped('PHP >= 5.4.0 only');
+        }
+
         $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_ESCAPE_SLASH | JsonFileStore::NO_SERIALIZE_STRINGS);
 
         $store->set('foo/', 'bar/');
@@ -260,6 +264,10 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
 
     public function testNoEscapeUnicode()
     {
+        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+            $this->markTestSkipped('PHP >= 5.4.0 only');
+        }
+
         $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_ESCAPE_UNICODE | JsonFileStore::NO_SERIALIZE_STRINGS);
 
         $store->set('fooäöü', 'baräöü');
