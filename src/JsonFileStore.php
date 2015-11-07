@@ -38,14 +38,54 @@ use Webmozart\KeyValueStore\Util\Serializer;
 class JsonFileStore implements SortableStore, CountableStore
 {
     /**
-     * Flag: Disable serialization of strings
+     * Flag: Disable serialization of strings.
      */
     const NO_SERIALIZE_STRINGS = 1;
 
     /**
-     * Flag: Disable serialization of arrays
+     * Flag: Disable serialization of arrays.
      */
     const NO_SERIALIZE_ARRAYS = 2;
+
+    /**
+     * Flag: Escape ">" and "<".
+     */
+    const ESCAPE_GT_LT = 4;
+
+    /**
+     * Flag: Escape "&".
+     */
+    const ESCAPE_AMPERSAND = 8;
+
+    /**
+     * Flag: Escape single quotes.
+     */
+    const ESCAPE_SINGLE_QUOTE = 16;
+
+    /**
+     * Flag: Escape double quotes.
+     */
+    const ESCAPE_DOUBLE_QUOTE = 32;
+
+    /**
+     * Flag: Don't escape forward slashes.
+     */
+    const NO_ESCAPE_SLASH = 64;
+
+    /**
+     * Flag: Don't escape Unicode characters.
+     */
+    const NO_ESCAPE_UNICODE = 128;
+
+    /**
+     * Flag: Format the JSON nicely.
+     */
+    const PRETTY_PRINT = 256;
+
+    /**
+     * Flag: Terminate the JSON with a line feed.
+     */
+    const TERMINATE_WITH_LINE_FEED = 512;
 
     /**
      * This seems to be the biggest float supported by json_encode()/json_decode().
@@ -82,6 +122,14 @@ class JsonFileStore implements SortableStore, CountableStore
         $this->flags = $flags;
 
         $this->encoder = new JsonEncoder();
+        $this->encoder->setEscapeGtLt($this->flags & self::ESCAPE_GT_LT);
+        $this->encoder->setEscapeAmpersand($this->flags & self::ESCAPE_AMPERSAND);
+        $this->encoder->setEscapeSingleQuote($this->flags & self::ESCAPE_SINGLE_QUOTE);
+        $this->encoder->setEscapeDoubleQuote($this->flags & self::ESCAPE_DOUBLE_QUOTE);
+        $this->encoder->setEscapeSlash(!($this->flags & self::NO_ESCAPE_SLASH));
+        $this->encoder->setEscapeUnicode(!($this->flags & self::NO_ESCAPE_UNICODE));
+        $this->encoder->setPrettyPrinting($this->flags & self::PRETTY_PRINT);
+        $this->encoder->setTerminateWithLineFeed($this->flags & self::TERMINATE_WITH_LINE_FEED);
 
         $this->decoder = new JsonDecoder();
         $this->decoder->setObjectDecoding(JsonDecoder::ASSOC_ARRAY);

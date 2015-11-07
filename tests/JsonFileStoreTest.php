@@ -148,6 +148,150 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
         $this->assertNull($store->get('foo'));
     }
 
+    public function testEscapeGtLt()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::ESCAPE_GT_LT | JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo<>', 'bar<>');
+
+        $this->assertSame('{"foo\u003C\u003E":"bar\u003C\u003E"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar<>', $store->get('foo<>'));
+    }
+
+    public function testNoEscapeGtLt()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo<>', 'bar<>');
+
+        $this->assertSame('{"foo<>":"bar<>"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar<>', $store->get('foo<>'));
+    }
+
+    public function testEscapeAmpersand()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::ESCAPE_AMPERSAND | JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo&', 'bar&');
+
+        $this->assertSame('{"foo\u0026":"bar\u0026"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar&', $store->get('foo&'));
+    }
+
+    public function testNoEscapeAmpersand()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo&', 'bar&');
+
+        $this->assertSame('{"foo&":"bar&"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar&', $store->get('foo&'));
+    }
+
+    public function testEscapeSingleQuote()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::ESCAPE_SINGLE_QUOTE | JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo\'', 'bar\'');
+
+        $this->assertSame('{"foo\u0027":"bar\u0027"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar\'', $store->get('foo\''));
+    }
+
+    public function testNoEscapeSingleQuote()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo\'', 'bar\'');
+
+        $this->assertSame('{"foo\'":"bar\'"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar\'', $store->get('foo\''));
+    }
+
+    public function testEscapeDoubleQuote()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::ESCAPE_DOUBLE_QUOTE | JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo"', 'bar"');
+
+        $this->assertSame('{"foo\u0022":"bar\u0022"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar"', $store->get('foo"'));
+    }
+
+    public function testNoEscapeDoubleQuote()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo"', 'bar"');
+
+        $this->assertSame('{"foo\\"":"bar\\""}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar"', $store->get('foo"'));
+    }
+
+    public function testEscapeSlash()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo/', 'bar/');
+
+        $this->assertSame('{"foo\\/":"bar\\/"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar/', $store->get('foo/'));
+    }
+
+    public function testNoEscapeSlash()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_ESCAPE_SLASH | JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo/', 'bar/');
+
+        $this->assertSame('{"foo/":"bar/"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar/', $store->get('foo/'));
+    }
+
+    public function testEscapeUnicode()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('fooäöü', 'baräöü');
+
+        $this->assertSame('{"foo\u00e4\u00f6\u00fc":"bar\u00e4\u00f6\u00fc"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('baräöü', $store->get('fooäöü'));
+    }
+
+    public function testNoEscapeUnicode()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::NO_ESCAPE_UNICODE | JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('fooäöü', 'baräöü');
+
+        $this->assertSame('{"fooäöü":"baräöü"}', file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('baräöü', $store->get('fooäöü'));
+    }
+
+    public function testPrettyPrint()
+    {
+        if (PHP_VERSION_ID < 50400) {
+            $this->markTestSkipped('Pretty printing is not supported before PHP 5.4.');
+        }
+
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::PRETTY_PRINT | JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo', 'bar');
+
+        $this->assertSame("{\n    \"foo\": \"bar\"\n}", file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar', $store->get('foo'));
+    }
+
+    public function testTerminateWithLineFeed()
+    {
+        $store = new JsonFileStore($this->tempDir.'/data.json', JsonFileStore::TERMINATE_WITH_LINE_FEED | JsonFileStore::NO_SERIALIZE_STRINGS);
+
+        $store->set('foo', 'bar');
+
+        $this->assertSame("{\"foo\":\"bar\"}\n", file_get_contents($this->tempDir.'/data.json'));
+        $this->assertSame('bar', $store->get('foo'));
+    }
+
     /**
      * @expectedException \Webmozart\KeyValueStore\Api\WriteException
      * @expectedExceptionMessage Permission denied

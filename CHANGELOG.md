@@ -6,6 +6,14 @@ Changelog
  * added `JsonFileStore::NO_SERIALIZE_STRINGS` and `JsonFileStore::NO_SERIALIZE_ARRAYS`
  * disabled serialization of `null` values in `JsonFileStore`
  * removed code from `JsonFileStore` and relied on webmozart/json instead
+ * added `JsonFileStore::ESCAPE_GT_LT`
+ * added `JsonFileStore::ESCAPE_AMPERSAND`
+ * added `JsonFileStore::ESCAPE_SINGLE_QUOTE`
+ * added `JsonFileStore::ESCAPE_DOUBLE_QUOTE`
+ * added `JsonFileStore::NO_ESCAPE_SLASH`
+ * added `JsonFileStore::NO_ESCAPE_UNICODE`
+ * added `JsonFileStore::PRETTY_PRINT`
+ * added `JsonFileStore::TERMINATE_WITH_LINE_FEED`
 
 * 1.0.0-beta6 (2015-10-02)
 
