@@ -1,7 +1,7 @@
 Changelog
 =========
 
-* 1.0.0-beta7 (@release_date@)
+* 1.0.0-beta7 (2016-01-14)
 
  * added `JsonFileStore::NO_SERIALIZE_STRINGS` and `JsonFileStore::NO_SERIALIZE_ARRAYS`
  * disabled serialization of `null` values in `JsonFileStore`
