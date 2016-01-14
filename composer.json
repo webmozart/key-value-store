@@ -23,11 +23,11 @@
         "sebastian/version": "^1.0.1"
     },
     "suggest": {
-        "webmozart/json": "To enable the JsonFileStore",
-        "predis/predis": "To enable the PredisStore",
-        "basho/riak": "To enable the RiakStore",
-        "doctrine/cache": "To enable the CachedStore",
-        "doctrine/dbal": "To enable the DbalStore"
+        "webmozart/json": "to enable the JsonFileStore",
+        "predis/predis": "to enable the PredisStore",
+        "basho/riak": "to enable the RiakStore",
+        "doctrine/cache": "to enable the CachedStore",
+        "doctrine/dbal": "to enable the DbalStore"
     },
     "autoload": {
         "psr-4": {
