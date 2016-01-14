@@ -1,6 +1,6 @@
 build: false
 platform: x86
-clone_folder: c:\projects\webmozart\expression
+clone_folder: c:\projects\webmozart\key-value-store
 
 cache:
   - c:\php -> appveyor.yml
@@ -27,11 +27,11 @@ install:
   - IF %PHP%==1 echo extension=php_mbstring.dll >> php.ini
   - IF %PHP%==1 echo extension=php_fileinfo.dll >> php.ini
   - appveyor DownloadFile https://getcomposer.org/composer.phar
-  - cd c:\projects\webmozart\expression
+  - cd c:\projects\webmozart\key-value-store
   - mkdir %APPDATA%\Composer
-  - IF %APPVEYOR_REPO_NAME%==webmozart/expression copy /Y .composer-auth.json %APPDATA%\Composer\auth.json
+  - IF %APPVEYOR_REPO_NAME%==webmozart/key-value-store copy /Y .composer-auth.json %APPDATA%\Composer\auth.json
   - composer update --prefer-dist --no-progress --ansi
 
 test_script:
-  - cd c:\projects\webmozart\expression
+  - cd c:\projects\webmozart\key-value-store
   - vendor\bin\phpunit.bat --verbose
