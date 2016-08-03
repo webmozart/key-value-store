@@ -20,14 +20,16 @@
         "doctrine/cache": "^1.4",
         "phpunit/phpunit": "^4.6",
         "doctrine/dbal" : "^2.4",
-        "sebastian/version": "^1.0.1"
+        "sebastian/version": "^1.0.1",
+        "mongodb/mongodb": "^1.0"
     },
     "suggest": {
         "webmozart/json": "to enable the JsonFileStore",
         "predis/predis": "to enable the PredisStore",
         "basho/riak": "to enable the RiakStore",
         "doctrine/cache": "to enable the CachedStore",
-        "doctrine/dbal": "to enable the DbalStore"
+        "doctrine/dbal": "to enable the DbalStore",
+        "mongodb/mongodb": "to enable the MongoDbStore"
     },
     "autoload": {
         "psr-4": {

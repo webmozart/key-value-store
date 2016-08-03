@@ -131,10 +131,10 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
      */
     public function testSetSupportsIntAndStringKeys($key)
     {
-        $this->store->set($key, 1234);
+        $this->store->set($key, '1234');
 
-        $this->assertSame(1234, $this->store->getOrFail($key));
-        $this->assertSame(array($key => 1234), $this->store->getMultipleOrFail(array($key)));
+        $this->assertSame('1234', $this->store->getOrFail($key));
+        $this->assertSame(array($key => '1234'), $this->store->getMultipleOrFail(array($key)));
     }
 
     public function provideInvalidKeys()
@@ -154,15 +154,21 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
         $this->store->set($key, 1234);
     }
 
+    public function provideStringValues()
+    {
+        return array(
+            array('a'),
+            array('b'),
+            array('a/b'),
+        );
+    }
+
     public function provideScalarValues()
     {
         return array(
             array(0),
             array(1),
             array(1234),
-            array('a'),
-            array('b'),
-            array('a/b'),
             array(12.34),
             array(true),
             array(false),
@@ -195,9 +201,33 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array(self::BINARY_INPUT),
+        );
+    }
+
+    public function provideBinaryArrayValues()
+    {
+        return array(
             array(array('foo' => self::BINARY_INPUT)),
+        );
+    }
+
+    public function provideBinaryObjectValues()
+    {
+        return array(
             array(new PrivateProperties(self::BINARY_INPUT)),
         );
+    }
+
+    /**
+     * @dataProvider provideStringValues
+     */
+    public function testSetSupportsStringValues($value)
+    {
+        $this->store->set('key', $value);
+
+        $this->assertSame($value, $this->store->getOrFail('key'));
+        $this->assertSame(array('key' => $value), $this->store->getMultipleOrFail(array('key')));
+        $this->assertTrue($this->store->exists('key'));
     }
 
     /**
@@ -240,6 +270,30 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
      * @dataProvider provideBinaryValues
      */
     public function testSetSupportsBinaryValues($value)
+    {
+        $this->store->set('key', $value);
+
+        $this->assertEquals($value, $this->store->getOrFail('key'));
+        $this->assertEquals(array('key' => $value), $this->store->getMultipleOrFail(array('key')));
+        $this->assertTrue($this->store->exists('key'));
+    }
+
+    /**
+     * @dataProvider provideBinaryArrayValues
+     */
+    public function testSetSupportsBinaryArrayValues($value)
+    {
+        $this->store->set('key', $value);
+
+        $this->assertEquals($value, $this->store->getOrFail('key'));
+        $this->assertEquals(array('key' => $value), $this->store->getMultipleOrFail(array('key')));
+        $this->assertTrue($this->store->exists('key'));
+    }
+
+    /**
+     * @dataProvider provideBinaryObjectValues
+     */
+    public function testSetSupportsBinaryObjectValues($value)
     {
         $this->store->set('key', $value);
 
@@ -314,13 +368,13 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     public function testGetMultipleIgnoresArrayIndices()
     {
-        $this->store->set('a', 1234);
-        $this->store->set('b', 5678);
-        $this->store->set('c', 9012);
+        $this->store->set('a', '1234');
+        $this->store->set('b', '5678');
+        $this->store->set('c', '9012');
 
         $this->assertSame(array(
-            'a' => 1234,
-            'c' => 9012,
+            'a' => '1234',
+            'c' => '9012',
         ), $this->store->getMultiple(array(5 => 'a', 7 => 'c')));
     }
 
@@ -330,30 +384,30 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
      */
     public function testGetMultipleFailsIfInvalidKey($key)
     {
-        $this->store->set('a', 1234);
+        $this->store->set('a', '1234');
 
         $this->store->getMultiple(array('a', $key));
     }
 
     public function testGetMultipleReturnsDefaultForNotFoundKeys()
     {
-        $this->store->set('a', 1234);
+        $this->store->set('a', '1234');
 
         $this->assertSame(array(
-            'a' => 1234,
+            'a' => '1234',
             'foo' => 'default',
         ), $this->store->getMultiple(array('a', 'foo'), 'default'));
     }
 
     public function testGetMultipleOrFailIgnoresArrayIndices()
     {
-        $this->store->set('a', 1234);
-        $this->store->set('b', 5678);
-        $this->store->set('c', 9012);
+        $this->store->set('a', '1234');
+        $this->store->set('b', '5678');
+        $this->store->set('c', '9012');
 
         $this->assertSame(array(
-            'a' => 1234,
-            'c' => 9012,
+            'a' => '1234',
+            'c' => '9012',
         ), $this->store->getMultipleOrFail(array(5 => 'a', 7 => 'c')));
     }
 
@@ -363,7 +417,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
      */
     public function testGetMultipleOrFailFailsIfInvalidKey($key)
     {
-        $this->store->set('a', 1234);
+        $this->store->set('a', '1234');
 
         $this->store->getMultipleOrFail(array('a', $key));
     }
@@ -373,7 +427,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
      */
     public function testGetMultipleOrFailThrowsExceptionIfKeyNotFound()
     {
-        $this->store->set('a', 1234);
+        $this->store->set('a', '1234');
 
         $this->store->getMultipleOrFail(array('a', 'foo'));
     }
@@ -384,7 +438,7 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     public function testExists($key)
     {
         $this->assertFalse($this->store->exists($key));
-        $this->store->set($key, 1234);
+        $this->store->set($key, '1234');
         $this->assertTrue($this->store->exists($key));
     }
 
@@ -404,8 +458,8 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
     {
         $otherKey = $key === 'foo' ? 'bar' : 'foo';
 
-        $this->store->set($key, 1234);
-        $this->store->set($otherKey, 5678);
+        $this->store->set($key, '1234');
+        $this->store->set($otherKey, '5678');
 
         $this->assertTrue($this->store->remove($key));
         $this->assertFalse($this->store->remove($key));
@@ -422,9 +476,9 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     public function testClear()
     {
-        $this->store->set('a', 1234);
-        $this->store->set('b', 5678);
-        $this->store->set('c', 9123);
+        $this->store->set('a', '1234');
+        $this->store->set('b', '5678');
+        $this->store->set('c', '9123');
 
         $this->store->clear();
 
@@ -441,23 +495,23 @@ abstract class AbstractKeyValueStoreTest extends PHPUnit_Framework_TestCase
 
     public function testClearAndSet()
     {
-        $this->store->set('a', 1234);
+        $this->store->set('a', '1234');
 
         $this->store->clear();
 
         $this->assertFalse($this->store->exists('a'));
 
-        $this->store->set('a', 1234);
+        $this->store->set('a', '1234');
 
         $this->assertTrue($this->store->exists('a'));
-        $this->assertSame(1234, $this->store->getOrFail('a'));
+        $this->assertSame('1234', $this->store->getOrFail('a'));
     }
 
     public function testKeys()
     {
-        $this->store->set('a', 1234);
-        $this->store->set('b', 5678);
-        $this->store->set('c', 9123);
+        $this->store->set('a', '1234');
+        $this->store->set('b', '5678');
+        $this->store->set('c', '9012');
 
         $keys = $this->store->keys();
 

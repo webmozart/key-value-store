@@ -1,6 +1,10 @@
 Changelog
 =========
 
+* 1.0.0-beta8 (@release_date@)
+
+ * added `MongoDbStore`
+
 * 1.0.0-beta7 (2016-01-14)
 
  * added `JsonFileStore::NO_SERIALIZE_STRINGS` and `JsonFileStore::NO_SERIALIZE_ARRAYS`

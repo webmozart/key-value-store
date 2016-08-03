@@ -41,4 +41,23 @@ class UnsupportedValueException extends RuntimeException
             get_class($store)
         ), $code, $cause);
     }
+
+    /**
+     * Creates a new exception for the given value.
+     *
+     * @param string         $value The unsupported value.
+     * @param KeyValueStore  $store The store that does not support the type.
+     * @param int            $code  The exception code.
+     * @param Exception|null $cause The exception that caused this exception.
+     *
+     * @return static The new exception.
+     */
+    public static function forValue($value, KeyValueStore $store, $code = 0, Exception $cause = null)
+    {
+        return new static(sprintf(
+            'Values of type %s are not supported by %s.',
+            gettype($value),
+            get_class($store)
+        ), $code, $cause);
+    }
 }

@@ -21,6 +21,7 @@ following stores are currently supported:
 * [`SerializingArrayStore`]
 * [`DbalStore`]
 * [`JsonFileStore`]
+* [`MongoDbStore`]
 * [`NullStore`]
 * [`PhpRedisStore`]
 * [`PredisStore`]
@@ -123,6 +124,7 @@ All contents of this package are licensed under the [MIT license].
 [`SerializingArrayStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.SerializingArrayStore.html
 [`DbalStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.DbalStore.html
 [`JsonFileStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.JsonFileStore.html
+[`MongoDbStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.MongoDbStore.html
 [`NullStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.NullStore.html
 [`PhpRedisStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.PhpRedisStore.html
 [`PredisStore`]: https://webmozart.github.io/key-value-store/api/latest/class-Webmozart.KeyValueStore.PredisStore.html

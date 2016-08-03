@@ -88,6 +88,28 @@ class JsonFileStoreTest extends AbstractSortableCountableStoreTest
     }
 
     /**
+     * @dataProvider provideBinaryArrayValues
+     */
+    public function testSetSupportsBinaryArrayValues($value)
+    {
+        // JSON cannot handle binary data
+        $this->setExpectedException('\Webmozart\KeyValueStore\Api\UnsupportedValueException');
+
+        parent::testSetSupportsBinaryArrayValues($value);
+    }
+
+    /**
+     * @dataProvider provideBinaryObjectValues
+     */
+    public function testSetSupportsBinaryObjectValues($value)
+    {
+        // JSON cannot handle binary data
+        $this->setExpectedException('\Webmozart\KeyValueStore\Api\UnsupportedValueException');
+
+        parent::testSetSupportsBinaryObjectValues($value);
+    }
+
+    /**
      * @expectedException \Webmozart\KeyValueStore\Api\WriteException
      * @expectedExceptionMessage Permission denied
      */
