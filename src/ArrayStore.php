@@ -28,17 +28,46 @@ use Webmozart\KeyValueStore\Util\KeyUtil;
 class ArrayStore implements SortableStore, CountableStore
 {
     /**
+     * Flag: Enable serialization.
+     */
+    const SERIALIZE = 1;
+
+    /**
      * @var array
      */
     private $array = array();
+
+    /**
+     * @var callable
+     */
+    private $serialize;
+
+    /**
+     * @var callable
+     */
+    private $unserialize;
 
     /**
      * Creates a new store.
      *
      * @param array $array The values to set initially in the store.
      */
-    public function __construct(array $array = array())
+    public function __construct(array $array = array(), $flags = 0)
     {
+        if ($flags & self::SERIALIZE) {
+            $this->serialize = array(
+                'Webmozart\KeyValueStore\Util\Serializer',
+                'serialize'
+            );
+            $this->unserialize = array(
+                'Webmozart\KeyValueStore\Util\Serializer',
+                'unserialize'
+            );
+        } else {
+            $this->serialize = function ($value) { return $value; };
+            $this->unserialize = function ($value) { return $value; };
+        }
+
         foreach ($array as $key => $value) {
             $this->set($key, $value);
         }
@@ -51,7 +80,7 @@ class ArrayStore implements SortableStore, CountableStore
     {
         KeyUtil::validate($key);
 
-        $this->array[$key] = $value;
+        $this->array[$key] = call_user_func($this->serialize, $value);
     }
 
     /**
@@ -65,7 +94,7 @@ class ArrayStore implements SortableStore, CountableStore
             return $default;
         }
 
-        return $this->array[$key];
+        return call_user_func($this->unserialize, $this->array[$key]);
     }
 
     /**
@@ -79,7 +108,7 @@ class ArrayStore implements SortableStore, CountableStore
             throw NoSuchKeyException::forKey($key);
         }
 
-        return $this->array[$key];
+        return call_user_func($this->unserialize, $this->array[$key]);
     }
 
     /**
@@ -93,7 +122,7 @@ class ArrayStore implements SortableStore, CountableStore
 
         foreach ($keys as $key) {
             $values[$key] = array_key_exists($key, $this->array)
-                ? $this->array[$key]
+                ? call_user_func($this->unserialize, $this->array[$key])
                 : $default;
         }
 
@@ -107,13 +136,13 @@ class ArrayStore implements SortableStore, CountableStore
     {
         KeyUtil::validateMultiple($keys);
 
-        $values = array();
+        $notFoundKeys = array_diff($keys, array_keys($this->array));
 
-        foreach ($keys as $key) {
-            $values[$key] = $this->getOrFail($key);
+        if (count($notFoundKeys) > 0) {
+            throw NoSuchKeyException::forKeys($notFoundKeys);
         }
 
-        return $values;
+        return $this->getMultiple($keys);
     }
 
     /**
@@ -163,7 +192,7 @@ class ArrayStore implements SortableStore, CountableStore
      */
     public function toArray()
     {
-        return $this->array;
+        return array_map($this->unserialize, $this->array);
     }
 
     /**

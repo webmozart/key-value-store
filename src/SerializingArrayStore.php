@@ -22,64 +22,15 @@ namespace Webmozart\KeyValueStore;
  * @since  1.0
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
+ *
+ * @deprecated Deprecated as of version 1.0, will be removed in version
+ *             2.0. Use the `ArrayStore` with the `SERIALIZE` flag
+ *             instead.
  */
 class SerializingArrayStore extends ArrayStore
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function set($key, $value)
+    public function __construct(array $array = array())
     {
-        parent::set($key, serialize($value));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function get($key, $default = null)
-    {
-        if (!$this->exists($key)) {
-            return $default;
-        }
-
-        return unserialize(parent::get($key));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrFail($key)
-    {
-        return unserialize(parent::getOrFail($key));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMultiple(array $keys, $default = null)
-    {
-        $values = parent::getMultiple($keys, $default);
-
-        foreach ($values as $key => $value) {
-            if ($this->exists($key)) {
-                $values[$key] = unserialize($value);
-            }
-        }
-
-        return $values;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
-    {
-        $values = parent::toArray();
-
-        foreach ($values as $key => $value) {
-            $values[$key] = unserialize($value);
-        }
-
-        return $values;
+        parent::__construct($array, parent::SERIALIZE);
     }
 }

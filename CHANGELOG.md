@@ -4,6 +4,8 @@ Changelog
 * 1.0.0-beta8 (@release_date@)
 
  * added `MongoDbStore`
+ * added flag `ArrayStore::SERIALIZE`
+ * deprecated `SerializingArrayStore`
 
 * 1.0.0-beta7 (2016-01-14)
 
