@@ -2,6 +2,13 @@ build: false
 platform: x86
 clone_folder: c:\projects\webmozart\key-value-store
 
+services:
+  - mongodb
+
+branches:
+  only:
+    - master
+
 cache:
   - c:\php -> appveyor.yml
 
@@ -16,6 +23,11 @@ install:
   - IF %PHP%==1 appveyor DownloadFile http://windows.php.net/downloads/releases/archives/php-7.0.0-nts-Win32-VC14-x86.zip
   - IF %PHP%==1 7z x php-7.0.0-nts-Win32-VC14-x86.zip -y >nul
   - IF %PHP%==1 del /Q *.zip
+  - IF %PHP%==1 cd ext
+  - IF %PHP%==1 appveyor DownloadFile http://windows.php.net/downloads/pecl/releases/mongodb/1.1.8/php_mongodb-1.1.8-7.0-nts-vc14-x86.zip
+  - IF %PHP%==1 7z x php_mongodb-1.1.8-7.0-nts-vc14-x86.zip php_mongodb.dll -y >nul
+  - IF %PHP%==1 del /Q *.zip
+  - IF %PHP%==1 cd ..
   - IF %PHP%==1 echo @php %%~dp0composer.phar %%* > composer.bat
   - IF %PHP%==1 copy /Y php.ini-development php.ini
   - IF %PHP%==1 echo max_execution_time=1200 >> php.ini
@@ -26,6 +38,7 @@ install:
   - IF %PHP%==1 echo extension=php_openssl.dll >> php.ini
   - IF %PHP%==1 echo extension=php_mbstring.dll >> php.ini
   - IF %PHP%==1 echo extension=php_fileinfo.dll >> php.ini
+  - IF %PHP%==1 echo extension=php_mongodb.dll >> php.ini
   - appveyor DownloadFile https://getcomposer.org/composer.phar
   - cd c:\projects\webmozart\key-value-store
   - mkdir %APPDATA%\Composer

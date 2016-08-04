@@ -39,6 +39,11 @@ abstract class AbstractMongoDbStoreTest extends AbstractKeyValueStoreTest
     {
         parent::setUpBeforeClass();
 
+        if (!class_exists('MongoDB\Client')) {
+            self::$supported = false;
+
+            return;
+        }
 
         try {
             $client = new Client();
@@ -53,7 +58,7 @@ abstract class AbstractMongoDbStoreTest extends AbstractKeyValueStoreTest
     protected function setUp()
     {
         if (!self::$supported) {
-            $this->markTestSkipped('MongoDB is not running.');
+            $this->markTestSkipped('MongoDB is not running or the mongodb/mongodb package ist not installed.');
         }
 
         $this->client = new Client();
