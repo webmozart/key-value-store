@@ -5,7 +5,7 @@
 
 	<title>Class Webmozart\KeyValueStore\ArrayStore | Webmozart Key-Value Store API</title>
 
-	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
 
 </head>
 
@@ -59,11 +59,12 @@
 				<li class="active"><a href="class-Webmozart.KeyValueStore.ArrayStore.html">ArrayStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.DbalStore.html">DbalStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.JsonFileStore.html">JsonFileStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.MongoDbStore.html">MongoDbStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.NullStore.html">NullStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">PhpRedisStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.PredisStore.html">PredisStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.RiakStore.html">RiakStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.SerializingArrayStore.html">SerializingArrayStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.SerializingArrayStore.html" class="deprecated">SerializingArrayStore</a></li>
 			</ul>
 
 
@@ -126,7 +127,7 @@
 
 	<div>
 		<h4>Direct known subclasses</h4>
-			<a href="class-Webmozart.KeyValueStore.SerializingArrayStore.html">Webmozart\KeyValueStore\SerializingArrayStore</a>
+			<a href="class-Webmozart.KeyValueStore.SerializingArrayStore.html"><span class="deprecated">Webmozart\KeyValueStore\SerializingArrayStore</span></a>
 	</div>
 
 
@@ -140,11 +141,11 @@
 		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a><br>
 		
 
-				<b>Author:</b>
-				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
 				<b>Since:</b>
 				1.0<br>
-			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#19-184" title="Go to source code">ArrayStore.php</a>
+				<b>Author:</b>
+				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#19-213" title="Go to source code">ArrayStore.php</a>
 		<br>
 	</div>
 
@@ -164,7 +165,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#35-45" title="Go to source code">__construct</a>( <span>array <var>$array</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#50-74" title="Go to source code">__construct</a>( <span>array <var>$array</var> = <span class="php-keyword1">array</span>()</span>, <span> <var>$flags</var> = <span class="php-num">0</span></span> )</code>
 
 		<div class="description short">
 			<p>Creates a new store.</p>
@@ -178,6 +179,8 @@
 				<div class="list"><dl>
 					<dt><var>$array</var></dt>
 					<dd>The values to set initially in the store.</dd>
+					<dt><var>$flags</var></dt>
+					<dd></dd>
 				</dl></div>
 
 
@@ -199,7 +202,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#47-55" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#76-84" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Sets the value for a key in the store.</p>
@@ -246,7 +249,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#57-69" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#86-98" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -298,7 +301,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#71-83" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#100-112" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -347,7 +350,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultiple">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#85-101" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#114-130" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -398,7 +401,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultipleOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#103-117" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#132-146" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -447,7 +450,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_remove">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#119-131" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#148-160" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Removes a key from the store.</p>
@@ -493,7 +496,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#133-141" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#162-170" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns whether a key exists.</p>
@@ -539,7 +542,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clear">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#143-149" title="Go to source code">clear</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#172-178" title="Go to source code">clear</a>( )</code>
 
 		<div class="description short">
 			<p>Removes all keys from the store.</p>
@@ -575,7 +578,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_keys">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#151-157" title="Go to source code">keys</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#180-186" title="Go to source code">keys</a>( )</code>
 
 		<div class="description short">
 			<p>Returns all keys currently stored in the store.</p>
@@ -616,7 +619,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_toArray">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#159-167" title="Go to source code">toArray</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#188-196" title="Go to source code">toArray</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the contents of the store as array.</p>
@@ -650,7 +653,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_sort">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#169-175" title="Go to source code">sort</a>( <span>integer <var>$flags</var> = SORT_REGULAR</span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#198-204" title="Go to source code">sort</a>( <span>integer <var>$flags</var> = SORT_REGULAR</span> )</code>
 
 		<div class="description short">
 			<p>Sort the store by its keys.</p>
@@ -692,7 +695,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_count">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#177-183" title="Go to source code">count</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.ArrayStore.html#206-212" title="Go to source code">count</a>( )</code>
 
 		<div class="description short">
 			<p>Count the number of keys in the store.</p>
@@ -725,6 +728,34 @@
 
 
 
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="SERIALIZE" id="SERIALIZE">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-SERIALIZE.html#30-33" title="Go to source code"><b>SERIALIZE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Enable serialization.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Enable serialization.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#SERIALIZE" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Webmozart\KeyValueStore\Decorator\AbstractDecorator | Webmozart Key-Value Store API</title>
+	<title>Class Webmozart\KeyValueStore\MongoDbStore | Webmozart Key-Value Store API</title>
 
 	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
 
@@ -35,7 +35,7 @@
 						Api					</a>
 
 						</li>
-				<li class="active">
+				<li>
 					<a href="namespace-Webmozart.KeyValueStore.Decorator.html">
 						Decorator					</a>
 
@@ -55,10 +55,16 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html">AbstractDecorator</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html">CachingDecorator</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.Decorator.CountableDecorator.html">CountableDecorator</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.Decorator.SortableDecorator.html">SortableDecorator</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.AbstractRedisStore.html">AbstractRedisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.ArrayStore.html">ArrayStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.DbalStore.html">DbalStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.JsonFileStore.html">JsonFileStore</a></li>
+				<li class="active"><a href="class-Webmozart.KeyValueStore.MongoDbStore.html">MongoDbStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.NullStore.html">NullStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">PhpRedisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.PredisStore.html">PredisStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.RiakStore.html">RiakStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.SerializingArrayStore.html" class="deprecated">SerializingArrayStore</a></li>
 			</ul>
 
 
@@ -85,7 +91,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-Webmozart.KeyValueStore.Decorator.html" title="Summary of Webmozart\KeyValueStore\Decorator"><span>Namespace</span></a>
+				<a href="namespace-Webmozart.KeyValueStore.html" title="Summary of Webmozart\KeyValueStore"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -97,20 +103,16 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class AbstractDecorator</h1>
+	<h1>Class MongoDbStore</h1>
 
 
 	<div class="description">
-	<p>A delegating decorator delegate each call of a KeyValueStore method
-to the internal store.</p>
-
-<p>It is used by decorators that need to override only a few specific
-methods (such as SortableDecorator or CountableDecorator).</p>
+	<p>A key-value-store backed by MongoDB.</p>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-<b><span>Webmozart\KeyValueStore\Decorator\AbstractDecorator</span></b>			
+<b><span>Webmozart\KeyValueStore\MongoDbStore</span></b>			
 			 implements 
 				<a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html"><span>Webmozart\KeyValueStore\Api\KeyValueStore</span></a>
 			
@@ -119,12 +121,6 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 	</dl>
 
 
-	<div>
-		<h4>Direct known subclasses</h4>
-			<a href="class-Webmozart.KeyValueStore.Decorator.CachingDecorator.html">Webmozart\KeyValueStore\Decorator\CachingDecorator</a>, 
-			<a href="class-Webmozart.KeyValueStore.Decorator.CountableDecorator.html">Webmozart\KeyValueStore\Decorator\CountableDecorator</a>, 
-			<a href="class-Webmozart.KeyValueStore.Decorator.SortableDecorator.html">Webmozart\KeyValueStore\Decorator\SortableDecorator</a>
-	</div>
 
 
 
@@ -134,16 +130,14 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a>\<a href="namespace-Webmozart.KeyValueStore.Decorator.html">Decorator</a><br>
+		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a><br>
 		
 
 				<b>Since:</b>
 				1.0<br>
 				<b>Author:</b>
-				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
-				<b>Author:</b>
-				Titouan Galopin <a href="mailto:ga&#108;&#111;&#112;&#105;&#110;&#116;&#105;&#116;&#111;&#117;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">ga&#108;&#111;&#112;&#105;&#110;&#116;&#105;&#116;&#111;&#117;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#16-116" title="Go to source code">Decorator/AbstractDecorator.php</a>
+				Bernhard Schussek <a href="mai&#108;&#116;&#111;&#58;&#104;&#101;&#108;&#108;&#111;&#64;&#119;&#101;&#98;&#109;&#111;&#x7a;&#x61;&#x72;&#x74;&#x2e;&#x69;&#x6f;">&#104;&#101;&#108;&#108;&#111;&#64;&#119;&#101;&#98;&#109;&#111;&#x7a;&#x61;&#x72;&#x74;&#x2e;&#x69;&#x6f;</a><br>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#28-313" title="Go to source code">MongoDbStore.php</a>
 		<br>
 	</div>
 
@@ -163,21 +157,16 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#35-43" title="Go to source code">__construct</a>( <span><code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html">Webmozart\KeyValueStore\Api\KeyValueStore</a></code> <var>$store</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#68-116" title="Go to source code">__construct</a>( <span>MongoDB\Collection <var>$collection</var></span>, <span> <var>$flags</var> = <span class="php-num">0</span></span> )</code>
 
 		<div class="description short">
-			<p>Creates the store.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Creates the store.</p>
+			
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$store</var></dt>
-					<dd>The store to sort.</dd>
-				</dl></div>
 
 
 
@@ -198,7 +187,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#45-51" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#118-138" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Sets the value for a key in the store.</p>
@@ -219,10 +208,10 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					WriteException<br>If the store cannot be written.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.<br>
 					InvalidKeyException<br>If the key is not a string or integer.<br>
 					SerializationFailedException<br>If the value cannot be serialized.<br>
-					UnsupportedValueException<br><p>If the value is not supported by the
+					<code><a href="class-Webmozart.KeyValueStore.Api.UnsupportedValueException.html">Webmozart\KeyValueStore\Api\UnsupportedValueException</a></code><br><p>If the value is not supported by the
                                      implementation.</p>
 				</div>
 
@@ -245,7 +234,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#53-59" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#140-161" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -272,9 +261,9 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					ReadException<br>If the store cannot be read.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
 					InvalidKeyException<br>If the key is not a string or integer.<br>
-					UnserializationFailedException<br><p>If the stored value cannot be
+					<code><a href="class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html">Webmozart\KeyValueStore\Api\UnserializationFailedException</a></code><br><p>If the stored value cannot be
                                        unserialized.</p>
 				</div>
 
@@ -297,7 +286,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#61-67" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#163-184" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -320,10 +309,10 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					ReadException<br>If the store cannot be read.<br>
-					NoSuchKeyException<br>If the key was not found.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">Webmozart\KeyValueStore\Api\NoSuchKeyException</a></code><br>If the key was not found.<br>
 					InvalidKeyException<br>If the key is not a string or integer.<br>
-					UnserializationFailedException<br><p>If the stored value cannot be
+					<code><a href="class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html">Webmozart\KeyValueStore\Api\UnserializationFailedException</a></code><br><p>If the stored value cannot be
                                        unserialized.</p>
 				</div>
 
@@ -346,7 +335,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultiple">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#69-75" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#186-211" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -372,9 +361,9 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					ReadException<br>If the store cannot be read.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
 					InvalidKeyException<br>If a key is not a string or integer.<br>
-					UnserializationFailedException<br><p>If a stored value cannot be
+					<code><a href="class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html">Webmozart\KeyValueStore\Api\UnserializationFailedException</a></code><br><p>If a stored value cannot be
                                        unserialized.</p>
 				</div>
 
@@ -397,7 +386,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultipleOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#77-83" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#213-244" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -420,10 +409,10 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					ReadException<br>If the store cannot be read.<br>
-					NoSuchKeyException<br>If a key was not found.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.NoSuchKeyException.html">Webmozart\KeyValueStore\Api\NoSuchKeyException</a></code><br>If a key was not found.<br>
 					InvalidKeyException<br>If a key is not a string or integer.<br>
-					UnserializationFailedException<br><p>If a stored value cannot be
+					<code><a href="class-Webmozart.KeyValueStore.Api.UnserializationFailedException.html">Webmozart\KeyValueStore\Api\UnserializationFailedException</a></code><br><p>If a stored value cannot be
                                        unserialized.</p>
 				</div>
 
@@ -446,7 +435,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_remove">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#85-91" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#246-261" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Removes a key from the store.</p>
@@ -469,7 +458,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					WriteException<br>If the store cannot be written.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.<br>
 					InvalidKeyException<br>If the key is not a string or integer.
 				</div>
 
@@ -492,7 +481,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#93-99" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#263-278" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns whether a key exists.</p>
@@ -515,7 +504,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					ReadException<br>If the store cannot be read.<br>
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.<br>
 					InvalidKeyException<br>If the key is not a string or integer.
 				</div>
 
@@ -538,7 +527,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clear">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#101-107" title="Go to source code">clear</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#280-290" title="Go to source code">clear</a>( )</code>
 
 		<div class="description short">
 			<p>Removes all keys from the store.</p>
@@ -552,7 +541,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					WriteException<br>If the store cannot be written.
+					<code><a href="class-Webmozart.KeyValueStore.Api.WriteException.html">Webmozart\KeyValueStore\Api\WriteException</a></code><br>If the store cannot be written.
 				</div>
 
 
@@ -574,7 +563,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_keys">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#109-115" title="Go to source code">keys</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.MongoDbStore.html#292-312" title="Go to source code">keys</a>( )</code>
 
 		<div class="description short">
 			<p>Returns all keys currently stored in the store.</p>
@@ -593,7 +582,7 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					ReadException<br>If the store cannot be read.
+					<code><a href="class-Webmozart.KeyValueStore.Api.ReadException.html">Webmozart\KeyValueStore\Api\ReadException</a></code><br>If the store cannot be read.
 				</div>
 
 
@@ -612,38 +601,63 @@ methods (such as SortableDecorator or CountableDecorator).</p>
 
 
 
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="NO_SERIALIZE" id="NO_SERIALIZE">
+		
 
-
-
-
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="store" id="$store">
-		<td class="attributes"><code>
-			protected  
-			<code><a href="class-Webmozart.KeyValueStore.Api.KeyValueStore.html">Webmozart\KeyValueStore\Api\KeyValueStore</a></code>
-		</code></td>
-
+		<td class="attributes"><code>integer</code></td>
 		<td class="name">
-				<a href="source-class-Webmozart.KeyValueStore.Decorator.AbstractDecorator.html#30-33" title="Go to source code"><var>$store</var></a>
+			<code>
+				<a href="source-constant-NO_SERIALIZE.html#37-40" title="Go to source code"><b>NO_SERIALIZE</b></a>
+			</code>
 
 			<div class="description short">
-				
+				<p>Flag: Disable serialization.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Flag: Disable serialization.</p>
 
 			</div>
 		</td>
 		<td class="value">
 			<div>
-				<a href="#$store" class="anchor">#</a>
-				<code></code>
+				<a href="#NO_SERIALIZE" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="SUPPORT_BINARY" id="SUPPORT_BINARY">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-SUPPORT_BINARY.html#42-45" title="Go to source code"><b>SUPPORT_BINARY</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Support storage of binary data.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Support storage of binary data.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#SUPPORT_BINARY" class="anchor">#</a>
+				<code><span class="php-num">2</span></code>
 			</div>
 		</td>
 	</tr>
 	</table>
+
+
+
+
 
 
 

@@ -5,7 +5,7 @@
 
 	<title>Class Webmozart\KeyValueStore\JsonFileStore | Webmozart Key-Value Store API</title>
 
-	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
 
 </head>
 
@@ -59,11 +59,12 @@
 				<li><a href="class-Webmozart.KeyValueStore.ArrayStore.html">ArrayStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.DbalStore.html">DbalStore</a></li>
 				<li class="active"><a href="class-Webmozart.KeyValueStore.JsonFileStore.html">JsonFileStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.MongoDbStore.html">MongoDbStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.NullStore.html">NullStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.PhpRedisStore.html">PhpRedisStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.PredisStore.html">PredisStore</a></li>
 				<li><a href="class-Webmozart.KeyValueStore.RiakStore.html">RiakStore</a></li>
-				<li><a href="class-Webmozart.KeyValueStore.SerializingArrayStore.html">SerializingArrayStore</a></li>
+				<li><a href="class-Webmozart.KeyValueStore.SerializingArrayStore.html" class="deprecated">SerializingArrayStore</a></li>
 			</ul>
 
 
@@ -134,11 +135,11 @@
 		<b>Namespace:</b> <a href="namespace-Webmozart.html">Webmozart</a>\<a href="namespace-Webmozart.KeyValueStore.html">KeyValueStore</a><br>
 		
 
-				<b>Author:</b>
-				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
 				<b>Since:</b>
 				1.0<br>
-			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#25-381" title="Go to source code">JsonFileStore.php</a>
+				<b>Author:</b>
+				Bernhard Schussek <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x62;&#115;&#99;h&#x75;&#x73;&#115;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#31-374" title="Go to source code">JsonFileStore.php</a>
 		<br>
 	</div>
 
@@ -158,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#41-47" title="Go to source code">__construct</a>( <span> <var>$path</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#115-136" title="Go to source code">__construct</a>( <span> <var>$path</var></span>, <span> <var>$flags</var> = <span class="php-num">0</span></span> )</code>
 
 		<div class="description short">
 			
@@ -188,7 +189,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#49-68" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#138-153" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Sets the value for a key in the store.</p>
@@ -235,7 +236,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#70-90" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#155-169" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -287,7 +288,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#92-112" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#171-185" title="Go to source code">getOrFail</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the value of a key in the store.</p>
@@ -336,7 +337,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultiple">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#114-139" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#187-208" title="Go to source code">getMultiple</a>( <span>array <var>$keys</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -387,7 +388,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMultipleOrFail">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#141-166" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#210-229" title="Go to source code">getMultipleOrFail</a>( <span>array <var>$keys</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns the values of multiple keys in the store.</p>
@@ -436,7 +437,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_remove">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#168-186" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#231-249" title="Go to source code">remove</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Removes a key from the store.</p>
@@ -482,7 +483,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#188-198" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#251-261" title="Go to source code">exists</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns whether a key exists.</p>
@@ -528,7 +529,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clear">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#200-206" title="Go to source code">clear</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#263-269" title="Go to source code">clear</a>( )</code>
 
 		<div class="description short">
 			<p>Removes all keys from the store.</p>
@@ -564,7 +565,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_keys">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#208-214" title="Go to source code">keys</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#271-277" title="Go to source code">keys</a>( )</code>
 
 		<div class="description short">
 			<p>Returns all keys currently stored in the store.</p>
@@ -605,7 +606,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_sort">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#216-226" title="Go to source code">sort</a>( <span>integer <var>$flags</var> = SORT_REGULAR</span> )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#279-289" title="Go to source code">sort</a>( <span>integer <var>$flags</var> = SORT_REGULAR</span> )</code>
 
 		<div class="description short">
 			<p>Sort the store by its keys.</p>
@@ -647,7 +648,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_count">#</a>
-		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#228-236" title="Go to source code">count</a>( )</code>
+		<code><a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#291-299" title="Go to source code">count</a>( )</code>
 
 		<div class="description short">
 			<p>Count the number of keys in the store.</p>
@@ -682,12 +683,263 @@
 
 	<table class="summary constants" id="constants">
 	<caption>Constants summary</caption>
+	<tr data-order="NO_SERIALIZE_STRINGS" id="NO_SERIALIZE_STRINGS">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-NO_SERIALIZE_STRINGS.html#40-43" title="Go to source code"><b>NO_SERIALIZE_STRINGS</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Disable serialization of strings.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Disable serialization of strings.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#NO_SERIALIZE_STRINGS" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="NO_SERIALIZE_ARRAYS" id="NO_SERIALIZE_ARRAYS">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-NO_SERIALIZE_ARRAYS.html#45-48" title="Go to source code"><b>NO_SERIALIZE_ARRAYS</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Disable serialization of arrays.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Disable serialization of arrays.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#NO_SERIALIZE_ARRAYS" class="anchor">#</a>
+				<code><span class="php-num">2</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="ESCAPE_GT_LT" id="ESCAPE_GT_LT">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-ESCAPE_GT_LT.html#50-53" title="Go to source code"><b>ESCAPE_GT_LT</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Escape ">" and "&lt;".</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Escape ">" and "&lt;".</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#ESCAPE_GT_LT" class="anchor">#</a>
+				<code><span class="php-num">4</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="ESCAPE_AMPERSAND" id="ESCAPE_AMPERSAND">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-ESCAPE_AMPERSAND.html#55-58" title="Go to source code"><b>ESCAPE_AMPERSAND</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Escape "&amp;".</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Escape "&amp;".</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#ESCAPE_AMPERSAND" class="anchor">#</a>
+				<code><span class="php-num">8</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="ESCAPE_SINGLE_QUOTE" id="ESCAPE_SINGLE_QUOTE">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-ESCAPE_SINGLE_QUOTE.html#60-63" title="Go to source code"><b>ESCAPE_SINGLE_QUOTE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Escape single quotes.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Escape single quotes.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#ESCAPE_SINGLE_QUOTE" class="anchor">#</a>
+				<code><span class="php-num">16</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="ESCAPE_DOUBLE_QUOTE" id="ESCAPE_DOUBLE_QUOTE">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-ESCAPE_DOUBLE_QUOTE.html#65-68" title="Go to source code"><b>ESCAPE_DOUBLE_QUOTE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Escape double quotes.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Escape double quotes.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#ESCAPE_DOUBLE_QUOTE" class="anchor">#</a>
+				<code><span class="php-num">32</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="NO_ESCAPE_SLASH" id="NO_ESCAPE_SLASH">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-NO_ESCAPE_SLASH.html#70-73" title="Go to source code"><b>NO_ESCAPE_SLASH</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Don't escape forward slashes.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Don't escape forward slashes.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#NO_ESCAPE_SLASH" class="anchor">#</a>
+				<code><span class="php-num">64</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="NO_ESCAPE_UNICODE" id="NO_ESCAPE_UNICODE">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-NO_ESCAPE_UNICODE.html#75-78" title="Go to source code"><b>NO_ESCAPE_UNICODE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Don't escape Unicode characters.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Don't escape Unicode characters.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#NO_ESCAPE_UNICODE" class="anchor">#</a>
+				<code><span class="php-num">128</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PRETTY_PRINT" id="PRETTY_PRINT">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-PRETTY_PRINT.html#80-83" title="Go to source code"><b>PRETTY_PRINT</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Format the JSON nicely.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Format the JSON nicely.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PRETTY_PRINT" class="anchor">#</a>
+				<code><span class="php-num">256</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TERMINATE_WITH_LINE_FEED" id="TERMINATE_WITH_LINE_FEED">
+		
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-TERMINATE_WITH_LINE_FEED.html#85-88" title="Go to source code"><b>TERMINATE_WITH_LINE_FEED</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Flag: Terminate the JSON with a line feed.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag: Terminate the JSON with a line feed.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TERMINATE_WITH_LINE_FEED" class="anchor">#</a>
+				<code><span class="php-num">512</span></code>
+			</div>
+		</td>
+	</tr>
 	<tr data-order="MAX_FLOAT" id="MAX_FLOAT">
+		
 
 		<td class="attributes"><code>float</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Webmozart.KeyValueStore.JsonFileStore.html#34-37" title="Go to source code"><b>MAX_FLOAT</b></a>
+				<a href="source-constant-MAX_FLOAT.html#90-93" title="Go to source code"><b>MAX_FLOAT</b></a>
 			</code>
 
 			<div class="description short">
