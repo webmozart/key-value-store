@@ -8,7 +8,7 @@ Webmozart Key-Value-Store
 [![Total Downloads](https://poser.pugx.org/webmozart/key-value-store/downloads.svg)](https://packagist.org/packages/webmozart/key-value-store)
 [![Dependency Status](https://www.versioneye.com/php/webmozart:key-value-store/1.0.0/badge.svg)](https://www.versioneye.com/php/webmozart:key-value-store/1.0.0)
 
-Latest release: [1.0.0-beta7](https://packagist.org/packages/webmozart/key-value-store#1.0.0-beta7)
+Latest release: [1.0.0](https://packagist.org/packages/webmozart/key-value-store#1.0.0)
 
 A key-value store API with implementations for different backends.
 
@@ -83,7 +83,7 @@ Installation
 Use [Composer] to install the package:
 
 ```
-$ composer require webmozart/key-value-store@beta
+$ composer require webmozart/key-value-store
 ```
 
 Contribute
