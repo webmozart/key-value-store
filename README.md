@@ -1,9 +1,9 @@
 Webmozart Key-Value-Store
 =========================
 
-[![Build Status](https://travis-ci.org/webmozart/key-value-store.svg?branch=master)](https://travis-ci.org/webmozart/key-value-store)
+[![Build Status](https://travis-ci.org/webmozart/key-value-store.svg?branch=1.0.0)](https://travis-ci.org/webmozart/key-value-store)
 [![Build status](https://ci.appveyor.com/api/projects/status/own4xo856g5asgc8/branch/master?svg=true)](https://ci.appveyor.com/project/webmozart/key-value-store/branch/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/webmozart/key-value-store/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/webmozart/key-value-store/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/webmozart/key-value-store/badges/quality-score.png?b=1.0.0)](https://scrutinizer-ci.com/g/webmozart/key-value-store/?branch=1.0.0)
 [![Latest Stable Version](https://poser.pugx.org/webmozart/key-value-store/v/stable.svg)](https://packagist.org/packages/webmozart/key-value-store)
 [![Total Downloads](https://poser.pugx.org/webmozart/key-value-store/downloads.svg)](https://packagist.org/packages/webmozart/key-value-store)
 [![Dependency Status](https://www.versioneye.com/php/webmozart:key-value-store/1.0.0/badge.svg)](https://www.versioneye.com/php/webmozart:key-value-store/1.0.0)
