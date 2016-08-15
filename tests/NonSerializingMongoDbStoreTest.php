@@ -84,5 +84,4 @@ class NonSerializingMongoDbStoreTest extends AbstractMongoDbStoreTest
 
         parent::testSetThrowsExceptionIfValueNotSerializable($value);
     }
-
 }
