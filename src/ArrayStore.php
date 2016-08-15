@@ -57,15 +57,19 @@ class ArrayStore implements SortableStore, CountableStore
         if ($flags & self::SERIALIZE) {
             $this->serialize = array(
                 'Webmozart\KeyValueStore\Util\Serializer',
-                'serialize'
+                'serialize',
             );
             $this->unserialize = array(
                 'Webmozart\KeyValueStore\Util\Serializer',
-                'unserialize'
+                'unserialize',
             );
         } else {
-            $this->serialize = function ($value) { return $value; };
-            $this->unserialize = function ($value) { return $value; };
+            $this->serialize = function ($value) {
+                return $value;
+            };
+            $this->unserialize = function ($value) {
+                return $value;
+            };
         }
 
         foreach ($array as $key => $value) {

@@ -274,7 +274,6 @@ class MongoDbStore implements KeyValueStore
         }
 
         return $count > 0;
-
     }
 
     /**
@@ -296,7 +295,7 @@ class MongoDbStore implements KeyValueStore
     {
         try {
             $cursor = $this->collection->find(array(), array(
-                'projection' => array('_id' => 1)
+                'projection' => array('_id' => 1),
             ));
 
             $keys = array();
