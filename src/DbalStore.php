@@ -179,7 +179,7 @@ class DbalStore implements KeyValueStore
         KeyUtil::validate($key);
 
         try {
-            $result = $this->connection->fetchAssoc('SELECT * FROM '.$this->tableName.' WHERE meta_key = ?', array($key));
+            $result = $this->connection->fetchAssociative('SELECT * FROM '.$this->tableName.' WHERE meta_key = ?', array($key));
         } catch (Exception $e) {
             throw ReadException::forException($e);
         }
@@ -292,7 +292,7 @@ class DbalStore implements KeyValueStore
     private function getDbRow($key)
     {
         try {
-            $dbResult = $this->connection->fetchAssoc('SELECT meta_value, meta_key FROM '.$this->tableName.' WHERE meta_key = ?', array($key));
+            $dbResult = $this->connection->fetchAssociative('SELECT meta_value, meta_key FROM '.$this->tableName.' WHERE meta_key = ?', array($key));
         } catch (Exception $e) {
             throw ReadException::forException($e);
         }
